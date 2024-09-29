@@ -1,7 +1,6 @@
 defmodule NoctilucentWeb.Release do
   @moduledoc """
-  Used for executing DB release tasks when run in production without Mix
-  installed.
+  用于在没有安装 Mix 的情况下在生产环境中执行数据库释放任务。
   """
   @app :noctilucent_web
 

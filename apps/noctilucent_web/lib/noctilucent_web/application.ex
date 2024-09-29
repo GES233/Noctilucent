@@ -1,6 +1,4 @@
 defmodule NoctilucentWeb.Application do
-  # See https://hexdocs.pm/elixir/Application.html
-  # for more information on OTP Applications
   @moduledoc false
 
   use Application
@@ -9,20 +7,17 @@ defmodule NoctilucentWeb.Application do
   def start(_type, _args) do
     children = [
       NoctilucentWeb.Telemetry,
-      # Start a worker by calling: NoctilucentWeb.Worker.start_link(arg)
-      # {NoctilucentWeb.Worker, arg},
-      # Start to serve requests, typically the last entry
+      # 通常把开始处理请求的进程放在最后一个条目
       NoctilucentWeb.Endpoint
     ]
 
-    # See https://hexdocs.pm/elixir/Supervisor.html
-    # for other strategies and supported options
+    # 访问 https://hexdocs.pm/elixir/Supervisor.html
+    # 去查阅其他的策略以及所支持的选项
     opts = [strategy: :one_for_one, name: NoctilucentWeb.Supervisor]
     Supervisor.start_link(children, opts)
   end
 
-  # Tell Phoenix to update the endpoint configuration
-  # whenever the application is updated.
+  # 当应用更新时告诉 Phoenix 更新端点的配置。
   @impl true
   def config_change(changed, _new, removed) do
     NoctilucentWeb.Endpoint.config_change(changed, removed)

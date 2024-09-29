@@ -4,6 +4,8 @@
 
 代码架构参考了[Bytepack](https://github.com/dashbitco/bytepack_archive)。
 
+## 想法
+
 ## 路线图
 
 ### 页面
@@ -36,3 +38,7 @@
 - [ ] 实时服务的可行性
   - 现实例子：Discord 等
 - [ ] 相关算法（例如人声基频的判断）
+
+## 我是萌新，我能做什么
+
+TODO: Add guide
