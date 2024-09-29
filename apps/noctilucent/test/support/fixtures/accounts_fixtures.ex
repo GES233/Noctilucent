@@ -5,7 +5,7 @@ defmodule Noctilucent.AccountsFixtures do
   """
 
   @doc """
-  Generate a user.
+  创建一个用户。
   """
   def user_fixture(attrs \\ %{}) do
     {:ok, user} =

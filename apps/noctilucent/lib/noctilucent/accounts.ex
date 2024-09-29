@@ -1,6 +1,6 @@
 defmodule Noctilucent.Accounts do
   @moduledoc """
-  The Accounts context.
+  关于账户的上下文。
   """
 
   import Ecto.Query, warn: false
@@ -9,7 +9,7 @@ defmodule Noctilucent.Accounts do
   alias Noctilucent.Accounts.User
 
   @doc """
-  Returns the list of users.
+  返回所有的用户。
 
   ## Examples
 
@@ -22,9 +22,9 @@ defmodule Noctilucent.Accounts do
   end
 
   @doc """
-  Gets a single user.
+  依照 id 返回单一的某个用户。
 
-  Raises `Ecto.NoResultsError` if the User does not exist.
+  如果用户不存在会抛出 `Ecto.NoResultsError` 。
 
   ## Examples
 
@@ -44,7 +44,7 @@ defmodule Noctilucent.Accounts do
   # register/?
 
   @doc """
-  Creates a user.
+  创建一个用户。
 
   ## Examples
 
@@ -62,7 +62,7 @@ defmodule Noctilucent.Accounts do
   end
 
   @doc """
-  Updates a user.
+  更新用户（这是 `phx.gen.context` 自动生成的函数，依照业务需求要被改掉）。
 
   ## Examples
 
@@ -80,7 +80,7 @@ defmodule Noctilucent.Accounts do
   end
 
   @doc """
-  Deletes a user.
+  删除用户（依照业务需要也会被改掉）。
 
   ## Examples
 
@@ -97,7 +97,9 @@ defmodule Noctilucent.Accounts do
   end
 
   @doc """
-  Returns an `%Ecto.Changeset{}` for tracking user changes.
+  为跟踪用户变化返回一个 `%Ecto.Changeset{}` 结构。
+
+  和上面 `update_user/2` 的区别在于其不向数据库发送更改。
 
   ## Examples
 

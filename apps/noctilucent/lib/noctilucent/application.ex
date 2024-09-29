@@ -1,6 +1,5 @@
 defmodule Noctilucent.Application do
-  # See https://hexdocs.pm/elixir/Application.html
-  # for more information on OTP Applications
+  # 想要查看更多可参阅 https://hexdocs.pm/elixir/Application.html
   @moduledoc false
 
   use Application
@@ -14,8 +13,8 @@ defmodule Noctilucent.Application do
         skip: skip_migrations?()},
       {DNSCluster, query: Application.get_env(:noctilucent, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Noctilucent.PubSub}
-      # Start a worker by calling: Noctilucent.Worker.start_link(arg)
-      # {Noctilucent.Worker, arg}
+      # 输入 {Noctilucent.Worker, arg}，
+      # 等同于调用 Noctilucent.Worker.start_link(arg)
     ]
 
     Supervisor.start_link(children, strategy: :one_for_one, name: Noctilucent.Supervisor)
