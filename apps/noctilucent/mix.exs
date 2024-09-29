@@ -17,9 +17,9 @@ defmodule Noctilucent.MixProject do
     ]
   end
 
-  # Configuration for the OTP application.
+  # 对 OTP 应用的配置
   #
-  # Type `mix help compile.app` for more information.
+  # 想要获得更多信息可输入 `mix help compile.app` 。
   def application do
     [
       mod: {Noctilucent.Application, []},
@@ -27,13 +27,13 @@ defmodule Noctilucent.MixProject do
     ]
   end
 
-  # Specifies which paths to compile per environment.
+  # 指定不同环境要编译的路径。
   defp elixirc_paths(:test), do: ["lib", "test/support"]
   defp elixirc_paths(_), do: ["lib"]
 
-  # Specifies your project dependencies.
+  # 项目依赖。
   #
-  # Type `mix help deps` for examples and options.
+  # 输入 `mix help deps` 可查看范例与选项。
   defp deps do
     [
       {:bcrypt_elixir, "~> 3.0"},
@@ -46,9 +46,9 @@ defmodule Noctilucent.MixProject do
     ]
   end
 
-  # Aliases are shortcuts or tasks specific to the current project.
+  # 别名（Alias）是专门用于当前项目的快捷方式或任务。
   #
-  # See the documentation for `Mix` for more info on aliases.
+  # 有关别名的更多信息，请参阅 `Mix` 的文档。
   defp aliases do
     [
       setup: ["deps.get", "ecto.setup"],

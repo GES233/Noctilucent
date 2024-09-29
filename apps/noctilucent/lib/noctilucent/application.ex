@@ -21,7 +21,7 @@ defmodule Noctilucent.Application do
   end
 
   defp skip_migrations?() do
-    # By default, sqlite migrations are run when using a release
+    # 默认情况下，sqlite 迁移会在使用发布版时运行。
     System.get_env("RELEASE_NAME") != nil
   end
 end

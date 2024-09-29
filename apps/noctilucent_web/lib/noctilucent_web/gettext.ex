@@ -1,4 +1,5 @@
 defmodule NoctilucentWeb.Gettext do
+  # 不翻译了
   @moduledoc """
   A module providing Internationalization with a gettext-based API.
 

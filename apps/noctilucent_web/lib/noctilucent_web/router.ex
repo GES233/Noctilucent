@@ -20,18 +20,16 @@ defmodule NoctilucentWeb.Router do
     get "/", PageController, :home
   end
 
-  # Other scopes may use custom stacks.
+  # 其他的范围也可以使用自定义的 plug 栈。
   # scope "/api", NoctilucentWeb do
   #   pipe_through :api
   # end
 
-  # Enable LiveDashboard in development
+  # 在开发时启用 LiveDashboard
   if Application.compile_env(:noctilucent_web, :dev_routes) do
-    # If you want to use the LiveDashboard in production, you should put
-    # it behind authentication and allow only admins to access it.
-    # If your application does not have an admins-only section yet,
-    # you can use Plug.BasicAuth to set up some basic authentication
-    # as long as you are also using SSL (which you should anyway).
+    # 如果要在生产中使用 LiveDashboard，则应将其置于身份验证之后，
+    # 只允许管理员访问。如果你的应用程序还没有管理员专用部分，只要使用
+    # SSL（无论如何都应该使用），就可以使用 Plug.BasicAuth 设置一些基本身份验证。
     import Phoenix.LiveDashboard.Router
 
     scope "/dev" do
