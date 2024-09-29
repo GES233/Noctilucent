@@ -11,18 +11,22 @@ defmodule Noctilucent.AccountsFixtures do
     {:ok, user} =
       attrs
       |> Enum.into(%{
-        avater: "some avater",
-        current: "some current",
+        avater: "",
+        current: "🐔",
         gender: :male,
         gender_visible: true,
-        hashed_password: "some hashed_password",
-        info: "some info",
-        nickname: "some nickname",
+        hashed_password: Bcrypt.hash_pwd_salt("cxkjntm"),
+        info: "这是简介",
+        nickname: "全民制作人🐔",
         status: :normal,
-        username: "some username"
+        username: "iKUNforever"
       })
       |> Noctilucent.Accounts.create_user()
 
     user
   end
+
+  # TODO:
+  # Add user_token_fixture
+  # session/token
 end
