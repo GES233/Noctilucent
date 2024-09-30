@@ -4,7 +4,7 @@ defmodule Noctilucent.Umbrella.MixProject do
   def project do
     [
       apps_path: "apps",
-      
+
       version: "0.1.0",
 
       start_permanent: Mix.env() == :prod,
@@ -58,7 +58,8 @@ defmodule Noctilucent.Umbrella.MixProject do
   defp aliases do
     [
       # 在所有的子应用中运行 `mix setup`
-      setup: ["cmd mix setup"]
+      setup: ["cmd mix setup"],
+      docs: ["cmd mix docs"]
     ]
   end
 end

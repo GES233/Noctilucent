@@ -13,7 +13,11 @@ defmodule NoctilucentWeb.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+
+      # 文档
+      name: "NoctilucentWeb",
+      docs: docs()
     ]
   end
 
@@ -60,6 +64,35 @@ defmodule NoctilucentWeb.MixProject do
       {:jason, "~> 1.2"},
       {:bandit, "~> 1.5"},
       {:ex_doc, "~> 0.19", only: :dev}
+    ]
+  end
+
+  defp docs() do
+    [
+      extras: docs_extras(),
+      groups_for_extras: groups_for_extras(),
+    ]
+  end
+
+  defp docs_extras() do
+    [
+      "guides/lead_in.md",
+      "guides/take_a_glance/overview.md",
+      "guides/take_a_glance/basic_view_of_elixir.md",
+      "guides/take_a_glance/phoenix_dictionary_structure.md",
+      "guides/take_a_glance/plug_life_cycle.md",
+      "guides/take_a_glance/next_step.md",
+    ]
+  end
+
+  defp groups_for_extras() do
+    [
+      "一瞥": ~r/guides\/take_a_glance\/.?/,
+      # "用户": ~r//,
+      # Web 端主要讨论鉴权、消息推送以及密码加密之类的 infra
+      # "内容": ~r//,
+      # "实时": ~r//,
+      # Phoenix.Channel 与 Phoenix.LiveView
     ]
   end
 
