@@ -1,18 +1,16 @@
 defmodule NoctilucentWeb.CoreComponents do
   @moduledoc """
-  Provides core UI components.
+  提供核心 UI 部件。
 
-  At first glance, this module may seem daunting, but its goal is to provide
-  core building blocks for your application, such as modals, tables, and
-  forms. The components consist mostly of markup and are well-documented
-  with doc strings and declarative assigns. You may customize and style
-  them in any way you want, based on your application growth and needs.
+  第一眼看上去，这个模块看上去有些令人发怵，但是它的目标是为你的应用提供核心的「积木」，
+  像是模态框、表格以及表单。这些组件主要由标记组成，并通过文档字符串和声明式赋值进行了
+  完善的文档记录。你可以基于你的应用的增长以及需求来通过你喜欢的方式定制化或美化它们。
 
-  The default components use Tailwind CSS, a utility-first CSS framework.
-  See the [Tailwind CSS documentation](https://tailwindcss.com) to learn
-  how to customize them or feel free to swap in another framework altogether.
+  预设的组件使用 TailwindCSS ，一个工具类为一等公民的 CSS 框架。请查看
+  [Tailwind CSS 文档](https://tailwindcss.com) 去学习如何定制化这些
+  组件或换干脆一个其他的框架。
 
-  Icons are provided by [heroicons](https://heroicons.com). See `icon/1` for usage.
+  图标由 [heroicons](https://heroicons.com)提供。请通过 `icon/1` 查看用法。
   """
   use Phoenix.Component
 
@@ -20,7 +18,10 @@ defmodule NoctilucentWeb.CoreComponents do
   use Gettext, backend: NoctilucentWeb.Gettext
 
   @doc """
-  Renders a modal.
+  显示一个模态框。
+
+  关于模态框的意思以及含义，可以查阅
+  https://segmentfault.com/q/1010000004315227 。
 
   ## Examples
 
@@ -28,8 +29,7 @@ defmodule NoctilucentWeb.CoreComponents do
         This is a modal.
       </.modal>
 
-  JS commands may be passed to the `:on_cancel` to configure
-  the closing/cancel event, for example:
+  JS 命令可通过 `:on_cancel` 传送以配置关闭/取消事件，比方说：
 
       <.modal id="confirm" on_cancel={JS.navigate(~p"/posts")}>
         This is another modal.
@@ -89,6 +89,7 @@ defmodule NoctilucentWeb.CoreComponents do
     """
   end
 
+  # flash 怎么翻译？
   @doc """
   Renders flash notices.
 
@@ -177,7 +178,7 @@ defmodule NoctilucentWeb.CoreComponents do
   end
 
   @doc """
-  Renders a simple form.
+  显示简单的表单。
 
   ## Examples
 
@@ -213,7 +214,7 @@ defmodule NoctilucentWeb.CoreComponents do
   end
 
   @doc """
-  Renders a button.
+  显示按钮。
 
   ## Examples
 
@@ -243,25 +244,24 @@ defmodule NoctilucentWeb.CoreComponents do
   end
 
   @doc """
-  Renders an input with label and error messages.
+  显示带有标签以及错误信息展示的输入。
 
-  A `Phoenix.HTML.FormField` may be passed as argument,
-  which is used to retrieve the input name, id, and values.
-  Otherwise all attributes may be passed explicitly.
+  一个 `Phoenix.HTML.FormField` 结构作为参数被传递到这里，其被用于
+  获得输入的名称、 ID 以及值。其他情况下所有的参数会被明文传递。
 
   ## Types
 
-  This function accepts all HTML input types, considering that:
+  这个函数接受所有的 HTML 输入类型，考虑到：
 
-    * You may also set `type="select"` to render a `<select>` tag
+    * 你可能会通过设置 `type="select"` 去渲染 `<select>` 标签
 
-    * `type="checkbox"` is used exclusively to render boolean values
+    * `type="checkbox"` 一般仅被用作展示布尔值
 
-    * For live file uploads, see `Phoenix.Component.live_file_input/1`
+    * 有关实时文件上传，请参阅 `Phoenix.Component.live_file_input/1`
 
-  See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input
-  for more information. Unsupported types, such as hidden and radio,
-  are best written directly in your templates.
+  请查看 https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/input
+  以获得更多信息。对于不支持的类型，像是 hidden 以及 audio ，
+  最好直接写进你的模板里。
 
   ## Examples
 
@@ -366,7 +366,7 @@ defmodule NoctilucentWeb.CoreComponents do
     """
   end
 
-  # All other inputs text, datetime-local, url, password, etc. are handled here...
+  # 所有其他格式的输入，像是文字、日期（datetime-local）、链接、密码等，都由这里处理。
   def input(assigns) do
     ~H"""
     <div>
@@ -389,7 +389,7 @@ defmodule NoctilucentWeb.CoreComponents do
   end
 
   @doc """
-  Renders a label.
+  显示列表。
   """
   attr :for, :string, default: nil
   slot :inner_block, required: true
@@ -403,7 +403,7 @@ defmodule NoctilucentWeb.CoreComponents do
   end
 
   @doc """
-  Generates a generic error message.
+  生成通用错误信息。
   """
   slot :inner_block, required: true
 
@@ -417,7 +417,7 @@ defmodule NoctilucentWeb.CoreComponents do
   end
 
   @doc """
-  Renders a header with title.
+  展示具有标题的标头。
   """
   attr :class, :string, default: nil
 
@@ -442,7 +442,7 @@ defmodule NoctilucentWeb.CoreComponents do
   end
 
   @doc ~S"""
-  Renders a table with generic styling.
+  显示一般外观的表格。
 
   ## Examples
 
@@ -520,7 +520,9 @@ defmodule NoctilucentWeb.CoreComponents do
   end
 
   @doc """
-  Renders a data list.
+  以列表形式显示某数据。
+
+  参见 https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/dl 。
 
   ## Examples
 
@@ -547,7 +549,7 @@ defmodule NoctilucentWeb.CoreComponents do
   end
 
   @doc """
-  Renders a back navigation link.
+  显示返回导航链接。
 
   ## Examples
 
@@ -571,17 +573,16 @@ defmodule NoctilucentWeb.CoreComponents do
   end
 
   @doc """
-  Renders a [Heroicon](https://heroicons.com).
+  渲染一个 [Heroicon](https://heroicons.com) 图标。
 
-  Heroicons come in three styles – outline, solid, and mini.
-  By default, the outline style is used, but solid and mini may
-  be applied by using the `-solid` and `-mini` suffix.
+  Heroicon 的图标一般存在三种风格——轮廓（outline）、实心（solid）
+  以及迷你（mini）。默认的风格是轮廓，对于实心以及小号的，可能需要
+  `-solid` 以及 `-mini` 后缀。
 
-  You can customize the size and colors of the icons by setting
-  width, height, and background color classes.
+  你可以通过设置宽高以及背景颜色来定制化图标的大小和颜色。
 
-  Icons are extracted from the `deps/heroicons` directory and bundled within
-  your compiled app.css by the plugin in your `assets/tailwind.config.js`.
+  图标提取自 "deps/herocoins" 目录并且通过你的 "assets/tailwind.config.js"
+  的插件捆绑到你编译后的 app.css 中。
 
   ## Examples
 
@@ -597,7 +598,9 @@ defmodule NoctilucentWeb.CoreComponents do
     """
   end
 
-  ## JS Commands
+  ## JS 命令
+
+  # TODO 解释一些这个东西的基本用法以及机制
 
   def show(js \\ %JS{}, selector) do
     JS.show(js,
@@ -647,19 +650,17 @@ defmodule NoctilucentWeb.CoreComponents do
   end
 
   @doc """
-  Translates an error message using gettext.
+  通过 gettext 翻译某条错误。
   """
   def translate_error({msg, opts}) do
-    # When using gettext, we typically pass the strings we want
-    # to translate as a static argument:
+    # 当使用 gettext 时，我们一般吧那些我们想要翻译的字符串当成静态参数传递过去：
     #
-    #     # Translate the number of files with plural rules
+    #     # 翻译复数（是 plural 而非 conplex num.）形式的文件
     #     dngettext("errors", "1 file", "%{count} files", count)
     #
-    # However the error messages in our forms and APIs are generated
-    # dynamically, so we need to translate them by calling Gettext
-    # with our gettext backend as first argument. Translations are
-    # available in the errors.po file (as we use the "errors" domain).
+    # 然而来自于我们的表单以及 API 的错误信息是动态生成的，因此我们需要
+    # 通过调用有着我们的 gettext 后端作为 Gettext 的第一个参数来翻译它们。
+    # 在 errors.po 文件翻译依旧可行（我们再次使用 "errors" 领域）。
     if count = opts[:count] do
       Gettext.dngettext(NoctilucentWeb.Gettext, "errors", msg, msg, count, opts)
     else
@@ -668,7 +669,7 @@ defmodule NoctilucentWeb.CoreComponents do
   end
 
   @doc """
-  Translates the errors for a field from a keyword list of errors.
+  从一堆错误里翻译某个字段的错误。
   """
   def translate_errors(errors, field) when is_list(errors) do
     for {^field, {msg, opts}} <- errors, do: translate_error({msg, opts})
