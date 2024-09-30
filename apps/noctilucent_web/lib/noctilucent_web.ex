@@ -72,6 +72,13 @@ defmodule NoctilucentWeb do
       import Phoenix.Controller,
         only: [get_csrf_token: 0, view_module: 1, view_template: 1]
 
+      # 导入默认语言
+      # 如果想要做多语言界面的话，可能会再多设置什么，
+      # 比方说从用户的 Cookie 中读取 `locales` 再
+      # 决定用什么语言。
+      import NoctilucentWeb.Gettext,
+        only: [default_lang: 0]
+
       # 导入渲染 HTML 时常用的帮助模块/函数
       unquote(html_helpers())
     end

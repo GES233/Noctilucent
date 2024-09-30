@@ -22,4 +22,7 @@ defmodule NoctilucentWeb.Gettext do
   See the [Gettext Docs](https://hexdocs.pm/gettext) for detailed usage.
   """
   use Gettext.Backend, otp_app: :noctilucent_web
+
+  # 默认语言
+  def default_lang(), do: Gettext.get_locale(NoctilucentWeb.Gettext)
 end

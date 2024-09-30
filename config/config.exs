@@ -55,6 +55,12 @@ config :logger, :console,
 # 在 Phoenix 中使用 Jason 来解析 JSON
 config :phoenix, :json_library, Jason
 
+# 将简体中文设置为缺省语言
+# 当时就该 --no-gettext
+config :gettext,
+  default_locale: "zh_CN",
+  locales: ~w(en zh_CN)
+
 # 依据环境导入不同的配置。这一行必须在文件的最后
 # 因此其可以覆写上面的配置。
 import_config "#{config_env()}.exs"
