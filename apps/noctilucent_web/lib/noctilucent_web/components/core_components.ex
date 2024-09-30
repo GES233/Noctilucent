@@ -89,9 +89,8 @@ defmodule NoctilucentWeb.CoreComponents do
     """
   end
 
-  # flash 怎么翻译？
   @doc """
-  Renders flash notices.
+  显示 flash 的提醒（闪现一下）。
 
   ## Examples
 
@@ -136,7 +135,7 @@ defmodule NoctilucentWeb.CoreComponents do
   end
 
   @doc """
-  Shows the flash group with standard titles and content.
+  显示带有标准标题和内容的 flash 组（一堆「闪现」的容器）。
 
   ## Examples
 
