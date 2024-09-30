@@ -1,11 +1,9 @@
 import Config
 
-# config/runtime.exs is executed for all environments, including
-# during releases. It is executed after compilation and before the
-# system starts, so it is typically used to load production configuration
-# and secrets from environment variables or elsewhere. Do not define
-# any compile-time configuration in here, as it won't be applied.
-# The block below contains prod specific runtime configuration.
+# config/runtime.exs 在所有环境下都会被执行，包括在发布过程中。
+# 它在编译后、系统启动前执行，因此通常用于从环境变量或其他地方加载
+# 生产配置和秘密。不要在这里定义任何编译时配置，因为它们不会被应用。
+# 下面的代码块包含生产环境的运行时配置。
 if config_env() == :prod do
   database_path =
     System.get_env("DATABASE_PATH") ||
@@ -20,11 +18,10 @@ if config_env() == :prod do
 
   import Config
 
-  # The secret key base is used to sign/encrypt cookies and other secrets.
-  # A default value is used in config/dev.exs and config/test.exs but you
-  # want to use a different value for prod and you most likely don't want
-  # to check this value into version control, so we use an environment
-  # variable instead.
+
+  # 密钥库用于签署/加密 cookie 和其他秘密。 config/dev.exs 和 config/test.exs
+  # 中使用的是默认值，但你想在生产环境中使用不同的值，而且你很可能不想在版本控制中出现
+  # 该值，因此我们使用环境变量来代替。
   secret_key_base =
     System.get_env("SECRET_KEY_BASE") ||
       raise """
@@ -34,24 +31,24 @@ if config_env() == :prod do
 
   config :noctilucent_web, NoctilucentWeb.Endpoint,
     http: [
-      # Enable IPv6 and bind on all interfaces.
-      # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.
+      # 启用 IPv6 且绑定所有接口。
+      # 如果只想要本地访问请改成 {0, 0, 0, 0, 0, 0, 0, 1} 。
       ip: {0, 0, 0, 0, 0, 0, 0, 0},
       port: String.to_integer(System.get_env("PORT") || "4000")
     ],
     secret_key_base: secret_key_base
 
-  # ## Using releases
+  # ## 使用版本
   #
-  # If you are doing OTP releases, you need to instruct Phoenix
-  # to start each relevant endpoint:
+  # 如果要进行 OTP 发布，则需要指示 Phoenix 启动每个相关端点：
   #
   config :noctilucent_web, NoctilucentWeb.Endpoint, server: true
   #
-  # Then you can assemble a release by calling `mix release`.
-  # See `mix help release` for more information.
+  # 然后，你就可以调用 `mix release` 来组装发布。请参阅
+  # `mix help release` 获取更多信息。
 
-  # ## SSL Support
+  # 纯内网部署，SSL 就不翻译了。
+  # ## SSL 支持
   #
   # To get SSL working, you will need to add the `https` key
   # to your endpoint configuration:

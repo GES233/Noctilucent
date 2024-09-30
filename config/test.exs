@@ -1,28 +1,28 @@
 import Config
 
-# Configure your database
+# 配置你的数据库
 #
-# The MIX_TEST_PARTITION environment variable can be used
-# to provide built-in test partitioning in CI environment.
-# Run `mix help test` for more information.
+# 为了提供 CI 环境下内建测试分区，
+# MIX_TEST_PARTITION 环境变量会被使用。
+# 运行 `mix help test` 可获得更多信息。
 config :noctilucent, Noctilucent.Repo,
   database: Path.expand("../noctilucent_test.db", __DIR__),
   pool_size: 5,
   pool: Ecto.Adapters.SQL.Sandbox
 
-# We don't run a server during test. If one is required,
-# you can enable the server option below.
+# 我们不需要在测试时运行服务器。
+# 如果需要的话，可以启用下面的 `server` 选项。
 config :noctilucent_web, NoctilucentWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
   secret_key_base: "Bh5QDP9rZrG76m7RJM4s4IYrlnyvEMkM+D7n46frSSD4YlAKLT/4tBNISvBd0ksj",
   server: false
 
-# Print only warnings and errors during test
+# 在测试时只需要输出警告和错误信息
 config :logger, level: :warning
 
-# Initialize plugs at runtime for faster test compilation
+# 在运行时初始化 plug ，以加快测试编译速度
 config :phoenix, :plug_init_mode, :runtime
 
-# Enable helpful, but potentially expensive runtime checks
+# 启用有用但可能昂贵的运行时检查
 config :phoenix_live_view,
   enable_expensive_runtime_checks: true
