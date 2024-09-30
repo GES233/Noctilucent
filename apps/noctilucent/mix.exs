@@ -47,6 +47,33 @@ defmodule Noctilucent.MixProject do
     ]
   end
 
+
+  defp docs() do
+    [
+      extras: docs_extras(),
+      groups_for_extras: groups_for_extras(),
+    ]
+  end
+
+  defp docs_extras() do
+    [
+      "guides/user/overview.md",
+      "guides/user/register.md",
+      "guides/feed/format.md",
+      "guides/feed/orgnise.md",
+      "guides/room/overview.md",
+      "guides/room/host_and_guest.md"
+    ]
+  end
+
+  defp groups_for_extras() do
+    [
+      "用户": ~r/guides\/user\/.?/,
+      "动态": ~r/guides\/feed\/.?/,
+      "房间": ~r/guides\/room\/.?/,
+    ]
+  end
+
   # 别名（Alias）是专门用于当前项目的快捷方式或任务。
   #
   # 有关别名的更多信息，请参阅 `Mix` 的文档。
