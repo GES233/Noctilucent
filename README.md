@@ -8,8 +8,8 @@
 
 ## 路线图
 
-参见 [路线图](/ROADMAP.md) 。
+参见 [路线图](ROADMAP.md) 。
 
 ## 我是萌新，我能做什么
 
-公主/王子：请看👉 [这里](/CONTRIB.md) 👈
+公主/王子：请看👉 [这里](CONTRIBUTING.md) 👈
