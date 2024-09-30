@@ -4,10 +4,16 @@ defmodule Noctilucent.Umbrella.MixProject do
   def project do
     [
       apps_path: "apps",
+      
       version: "0.1.0",
+
       start_permanent: Mix.env() == :prod,
+
       deps: deps(),
+
       aliases: aliases(),
+
+      # 关于发布的配置
       releases: [
         noctilucent_umbrella: [
           applications: [
@@ -36,7 +42,8 @@ defmodule Noctilucent.Umbrella.MixProject do
     [
       # 需要运行 "mix format" 来针对位于伞项目根目录其他的 ~H 或 .heex 文件进行格式化
       # TODO 升级到 {:phoenix_live_view, "~> 1.0.0"}, （前提是更新到了）
-      {:phoenix_live_view, "~> 1.0.0-rc.1", override: true}
+      {:phoenix_live_view, "~> 1.0.0-rc.1", override: true},
+      {:ex_doc, "~> 0.31", only: :dev, runtime: false}
     ]
   end
 

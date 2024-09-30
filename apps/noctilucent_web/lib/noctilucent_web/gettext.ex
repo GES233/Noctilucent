@@ -23,6 +23,10 @@ defmodule NoctilucentWeb.Gettext do
   """
   use Gettext.Backend, otp_app: :noctilucent_web
 
-  # 默认语言
+  @doc """
+  返回默认语言。
+
+  当前是简体中文（`zh_CN`）。
+  """
   def default_lang(), do: Gettext.get_locale(NoctilucentWeb.Gettext)
 end

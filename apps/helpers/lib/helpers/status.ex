@@ -1,6 +1,6 @@
 defmodule Helpers.Status do
   @moduledoc """
-      提供通用的状态。
+  提供通用的状态。
 
   除了拥有默认值为 `c` 的 Map ，`Status` 还拥有：
   * `operate_when_not_match/1`

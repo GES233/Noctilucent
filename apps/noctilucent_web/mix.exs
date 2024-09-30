@@ -58,7 +58,8 @@ defmodule NoctilucentWeb.MixProject do
       {:gettext, "~> 0.20"},
       {:noctilucent, in_umbrella: true},
       {:jason, "~> 1.2"},
-      {:bandit, "~> 1.5"}
+      {:bandit, "~> 1.5"},
+      {:ex_doc, "~> 0.19", only: :dev}
     ]
   end
 

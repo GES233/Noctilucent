@@ -10,7 +10,7 @@ defmodule NoctilucentWeb.CoreComponents do
   [Tailwind CSS 文档](https://tailwindcss.com) 去学习如何定制化这些
   组件或换干脆一个其他的框架。
 
-  图标由 [heroicons](https://heroicons.com)提供。请通过 `icon/1` 查看用法。
+  图标由 [heroicons](https://heroicons.com) 提供。请通过 `icon/1` 查看用法。
   """
   use Phoenix.Component
 
@@ -135,7 +135,7 @@ defmodule NoctilucentWeb.CoreComponents do
   end
 
   @doc """
-  显示带有标准标题和内容的 flash 组（一堆「闪现」的容器）。
+  显示带有标准标题和内容的 flash 组（包含一堆「闪现」的容器）。
 
   ## Examples
 

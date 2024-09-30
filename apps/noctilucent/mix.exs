@@ -42,7 +42,8 @@ defmodule Noctilucent.MixProject do
       {:ecto_sql, "~> 3.10"},
       {:ecto_sqlite3, ">= 0.0.0"},
       {:jason, "~> 1.2"},
-      {:helpers, in_umbrella: true}
+      {:helpers, in_umbrella: true},
+      {:ex_doc, "~> 0.31", only: :dev, runtime: false}
     ]
   end
 
