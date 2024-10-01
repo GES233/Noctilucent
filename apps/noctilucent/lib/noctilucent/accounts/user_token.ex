@@ -1,17 +1,33 @@
 defmodule Noctilucent.Accounts.UserToken do
-  # 现用 phx.gen.auth 生成个代码出来，然后用自己的需求慢慢取代
+  @moduledoc """
+  用户令牌相关的领域模型与业务。本质上是阉割了的 `phx.gen.auth`
+  的代码。
+
+  令牌的部分令牌本体、令牌的拥有者以及使用场景。一个使用者在一个使用场景下
+  只允许一个令牌（如果需要多设备同时登录的话，可能需要更多考虑，懒得管了）。
+
+  不同的场景有不同的处理策略以及过期时间。
+
+  主要有以下的使用场景：
+
+  * `:storage_user`
+  * `:temporally`
+  """
   use Ecto.Schema
   # import Ecto.Changeset
   import Ecto.Query
   alias Noctilucent.Accounts.UserToken
 
-  @hash_algorithm :sha256
+  @hash_algorithm :sha3_256
   @rand_size 32
 
   # 一些令牌的有效期
   @session_validity_in_days 45
   @token_validity_in_days 7
 
+  @doc """
+  返回不同场景下的有效期。
+  """
   def validity_in_days(scene)
 
   def validity_in_days(:storage_user), do: @session_validity_in_days

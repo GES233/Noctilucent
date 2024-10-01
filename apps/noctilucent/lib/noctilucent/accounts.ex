@@ -124,7 +124,7 @@ defmodule Noctilucent.Accounts do
 
   # change_user_gender_visibility/2
   def change_user_gender_visibility(_user, _visible) do
-    raise Helpers.NotImplenent
+    raise Helpers.NotImplement
   end
 
   # 这个需要 attrs 吗？

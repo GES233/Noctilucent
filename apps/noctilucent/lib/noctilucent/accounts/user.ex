@@ -1,4 +1,7 @@
 defmodule Noctilucent.Accounts.User do
+  @moduledoc """
+  用户模型。
+  """
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -6,7 +9,7 @@ defmodule Noctilucent.Accounts.User do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "users" do
-    field :info, :string
+    field :info, :string, default: ""
     field :status, Ecto.Enum, values: [:normal, :frozen, :blocked, :deleted], default: :normal
     field :nickname, :string
     field :username, :string
@@ -14,7 +17,8 @@ defmodule Noctilucent.Accounts.User do
     field :hashed_password, :string
     field :gender, Ecto.Enum, values: [:male, :female, :non_bisexual, :blank], default: :blank
     field :gender_visible, :boolean, default: false
-    field :avater, :string
+    field :avater, :string, default: ""
+    # TODO: add default avater
     field :current, :string
 
     has_many :user_token, Noctilucent.Accounts.UserToken
@@ -46,8 +50,8 @@ defmodule Noctilucent.Accounts.User do
       :gender_visible,
       :avater,
       :status,
-      :current,
-      :info
+      # :current,
+      # :info
     ])
   end
 
