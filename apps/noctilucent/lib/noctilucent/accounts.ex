@@ -112,8 +112,10 @@ defmodule Noctilucent.Accounts do
   end
 
   # change_current/2
-  def change_user_current(_user, _current) do
-    raise Helpers.NotImplement
+  def change_user_current(user, current) do
+    User.current_changeset(user, %{current: current})
+    |> Repo.update()
+    # TODO 上 AuditLog
   end
 
   # change_nickname/2
@@ -192,7 +194,7 @@ defmodule Noctilucent.Accounts do
 
   ## 用户状态的修改
   # 和 current 不一样的是，
-  # status 的变化比较大
+  # status 的变化比较大（因为涉及到了更严重的操作 e.g. 封禁；注销）
   # TODO 上 AuditLog
 
   ## Misc
