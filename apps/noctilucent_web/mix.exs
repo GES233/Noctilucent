@@ -5,6 +5,7 @@ defmodule NoctilucentWeb.MixProject do
     [
       app: :noctilucent_web,
       version: "0.1.0",
+      description: "Web interface of Noctilucent",
       build_path: "../../_build",
       config_path: "../../config/config.exs",
       deps_path: "../../deps",
