@@ -54,12 +54,14 @@ defmodule Noctilucent.Accounts.User do
   def registration_changeset(user, attrs) do
     user
     |> cast(attrs, [:username, :password])
+    |> validate_password()
   end
 
   def validate_password(changeset) do
     changeset
     |> validate_required([:password])
     |> validate_length(:password, min: 6, max: 40)
+    |> validate_format(:password, ~r/[a-zA-Z]/, message: "at least one letter")
     |> prepare_changes(&hash_password/1)
   end
 
@@ -81,7 +83,10 @@ defmodule Noctilucent.Accounts.User do
   def username_changeset(user, attrs) do
     user
     |> cast(attrs, [:username])
-    # Purely ASCII without space
+    |> unsafe_validate_unique(:user, Noctilucent.Repo)
+    |> unique_constraint(:user)
+    # 纯粹的 ASCII 不能包含空格
+    # |> validate_format(:username, ~r//, message: "only ascii characters without space allowed")
   end
 
   def nickname_changeset(user, attrs) do
@@ -105,5 +110,15 @@ defmodule Noctilucent.Accounts.User do
   def valid_password?(_, _) do
     Bcrypt.no_user_verify()
     false
+  end
+
+  def validate_password(changeset, password) do
+    changeset = cast(changeset, %{password: password}, [:password])
+
+    if valid_password?(changeset.data, password) do
+      changeset
+    else
+      add_error(changeset, :password, "is not valid")
+    end
   end
 end

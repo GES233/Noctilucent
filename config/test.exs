@@ -1,5 +1,8 @@
 import Config
 
+# 尽在测试时移除 hash 算法的工作量
+config :bcrypt_elixir, :rounds, 1
+
 # 配置你的数据库
 #
 # 为了提供 CI 环境下内建测试分区，

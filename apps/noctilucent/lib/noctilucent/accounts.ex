@@ -6,7 +6,9 @@ defmodule Noctilucent.Accounts do
   import Ecto.Query, warn: false
   alias Noctilucent.Repo
 
-  alias Noctilucent.Accounts.User
+  alias Noctilucent.Accounts.{User, UserToken} # UserNotifire
+
+  ## 从数据库中获得信息
 
   @doc """
   返回所有的用户。
@@ -37,11 +39,118 @@ defmodule Noctilucent.Accounts do
   """
   def get_user!(id), do: Repo.get!(User, id)
 
-  # get_user_by_username/1
+  @doc """
+  通过用户名（不是昵称）获得用户。
 
-  # get_user_by_username_and_password/2
+  ### Examples
+      iex> get_user_by_username("User")
+      %User{}
+      iex> get_user_by_username("invalid-username-that-not-exist")
+      nil
+  """
+  def get_user_by_username(username) when is_binary(username) do
+    Repo.get_by(User, username: username)
+  end
 
-  # register/?
+  @doc """
+  通过用户名以及密码获取用户。
+
+  ## Examples
+
+      iex> get_user_by_username_and_password("iKUNforever", "cxkjntm")
+      %Member{}
+
+      iex> get_user_by_username_and_password("iKUNforever", "cxknmjj")
+      nil
+
+  """
+  def get_user_by_username_and_password(username, password)
+      when is_binary(username) and is_binary(password) do
+    user = Repo.get_by(User, username: username)
+    if User.valid_password?(user, password), do: user
+  end
+
+  ## 用户注册
+
+  @doc """
+  注册用户。
+
+  ## Examples
+
+      iex> register_user(%{field: value})
+      {:ok, %User{}}
+
+      iex> register_user(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def register_user(attrs) do
+    %User{}
+    |> User.registration_changeset(attrs)
+    |> Repo.insert()
+  end
+
+  ## 用户设置
+
+  @doc """
+  更新用户名。
+  """
+  def change_username(user, attrs \\ %{}) do
+    User.username_changeset(user, attrs)
+  end
+
+  # change_current/2
+
+  # change_nickname/2
+
+  # change_info/2
+
+  # change_gender/2
+
+  def update_user_password(user, password, attrs) do
+    changeset =
+      user
+      |> User.password_changeset(attrs)
+      |> User.validate_password(password)
+
+    Ecto.Multi.new()
+    |> Ecto.Multi.update(:user, changeset)
+    |> Ecto.Multi.delete_all(:tokens, UserToken.by_user_and_scene_query(user, :all))
+    |> Repo.transaction()
+    |> case do
+      {:ok, %{user: user}} -> {:ok, user}
+      {:error, :user, changeset, _} -> {:error, changeset}
+    end
+  end
+
+  ## 会话
+
+  @doc """
+  生成用于保存用户的 Token 。
+  """
+  def generate_user_session_token(user) do
+    {token, user_token} = UserToken.build_session_token(user, "user_storage")
+    Repo.insert!(user_token)
+    token
+  end
+
+  @doc """
+  通过 Token 返回用户。
+  """
+  def get_user_by_session_token(token) do
+    {:ok, query} = UserToken.verify_session_token_query(token, "user_storage")
+    Repo.one(query)
+  end
+
+  @doc """
+  删除用户的 Token 。
+  """
+  def delete_user_session_token(token) do
+    Repo.delete_all(UserToken.by_user_and_scene_query(token, ["user_storage"]))
+    :ok
+  end
+
+  ## 重置密码
 
   @doc """
   创建一个用户。
@@ -110,4 +219,5 @@ defmodule Noctilucent.Accounts do
   def change_user(%User{} = user, attrs \\ %{}) do
     User.changeset(user, attrs)
   end
+
 end

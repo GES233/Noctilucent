@@ -18,7 +18,7 @@ defmodule Noctilucent.AuditLog do
     field :ip_addr, :string
     field :user_agent, :string
     # field :user, :id
-    belgons_to :user, Noctilucent.Accounts.User
+    belongs_to :user, Noctilucent.Accounts.User
 
     timestamps(updated_at: false)
   end

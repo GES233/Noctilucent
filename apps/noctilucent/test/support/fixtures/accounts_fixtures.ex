@@ -4,24 +4,24 @@ defmodule Noctilucent.AccountsFixtures do
   entities via the `Noctilucent.Accounts` context.
   """
 
+  def unique_username, do: "User#{System.unique_integer()}iKUNforwever"
+  def password, do: "cxkjntm"
+
+  def valid_user_attribute(attrs \\ %{}) do
+    Enum.into(attrs, %{
+      username: unique_username(),
+      password: password()
+    })
+  end
+
   @doc """
   创建一个用户。
   """
   def user_fixture(attrs \\ %{}) do
     {:ok, user} =
       attrs
-      |> Enum.into(%{
-        avater: "",
-        current: "🐔",
-        gender: :male,
-        gender_visible: true,
-        hashed_password: Bcrypt.hash_pwd_salt("cxkjntm"),
-        info: "这是简介",
-        nickname: "全民制作人🐔",
-        status: :normal,
-        username: "iKUNforever"
-      })
-      |> Noctilucent.Accounts.create_user()
+      |> valid_user_attribute()
+      |> Noctilucent.Accounts.register_user()
 
     user
   end

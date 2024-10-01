@@ -25,15 +25,15 @@ defmodule Noctilucent.Accounts.UserNotifier do
   """
 
   @doc """
-  具体的寄送操作。
+  执行具体的寄送操作。
 
-  - `to` 发送消息的账号
+  - `recipient` 发送消息的账号
   - `subject` 消息标题
   - `content` 内容本身
   - `opts` 一堆参数
     - `:via` 发送的方式
   """
-  def deliver(_to, _subject, content, _opts \\ []) do
+  def deliver(_recipient, _subject, content, _opts \\ []) do
     content |> IO.puts()
   end
 end

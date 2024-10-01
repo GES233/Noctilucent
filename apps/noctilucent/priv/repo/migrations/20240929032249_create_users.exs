@@ -22,14 +22,15 @@ defmodule Noctilucent.Repo.Migrations.CreateUsers do
 
     create table(:user_tokens) do
       add :token, :binary, null: false
-      add :context, :string, null: false
-      add :type, :string, null: false
+      add :scene, :string, null: false
+      # add :type, :string, null: false
       add :user_id, references(:users, on_delete: :delete_all), null: false
 
       timestamps()
     end
 
     create index(:user_tokens, [:user_id])
-    create unique_index(:user_tokens, [:context, :type, :token])
+    create unique_index(:user_tokens, [:scene, :token])
+    # create unique_index(:user_tokens, [:scene, :type, :token])
   end
 end
