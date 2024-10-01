@@ -22,6 +22,8 @@ defmodule Noctilucent.Accounts.User do
     timestamps()
   end
 
+  ## Changeset
+
   @doc false
   def changeset(user, attrs) do
     user
