@@ -25,8 +25,4 @@ defmodule Noctilucent.AccountsFixtures do
 
     user
   end
-
-  # TODO:
-  # Add user_token_fixture
-  # session/token
 end

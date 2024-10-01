@@ -2,8 +2,6 @@
 
 > Elixir is a dynamic, functional language for building scalable and maintainable applications.
 
-(TODO 简单的介绍语言)
-
 ## 介绍
 
 ### 语言的亮点与应用
@@ -16,15 +14,18 @@
 
 #### 运行时
 
-```elixir
-platform = %{
-  "Windows" => [via: "Scoop"],
-  "Linux" => [via: ["asdf", :etc]]
-}
-dependencies = [
-  "erlang" |> add_elixir()
-]
+如果你使用 Windows 且你的电脑拥有访问国际互联网的能力，强烈推荐 [scoop](https://scoop.sh) 这个面向 Windows 的包管理器。
+
+在其安装完成后，你只需要简单的：
+
+```powershell
+scoop install erlang
+scoop install elixir
 ```
+
+就可以了。
+
+根据 Elixir 官网给出的推荐，Linux 用户（包括 WSL2）可以使用 [asdf](https://github.com/asdf-vm/asdf) ，它也可以管理 erlang 以及 elixir 的版本。
 
 #### 编辑器
 

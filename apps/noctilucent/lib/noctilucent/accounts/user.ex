@@ -18,7 +18,6 @@ defmodule Noctilucent.Accounts.User do
     field :gender, Ecto.Enum, values: [:male, :female, :non_bisexual, :blank], default: :blank
     field :gender_visible, :boolean, default: false
     field :avater, :string, default: ""
-    # TODO: add default avater
     field :current, :string
 
     has_many :user_token, Noctilucent.Accounts.UserToken

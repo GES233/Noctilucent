@@ -55,7 +55,6 @@ defmodule Noctilucent.Accounts.UserToken do
     {token, %UserToken{token: token, scene: scene, user_id: user.id}}
   end
 
-  # TODO: make the query editable.
   def verify_session_token_query(token, scene) do
     days = validity_in_days(scene)
 

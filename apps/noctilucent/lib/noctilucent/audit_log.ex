@@ -10,6 +10,7 @@ defmodule Noctilucent.AuditLog do
   import Ecto.Changeset
 
   # 说实话，这块我没抄明白
+  # TODO: IP <-> Ecto custome Type
   schema "audit_logs" do
     field :scope, :string
     field :context, :map, default: %{}
@@ -18,7 +19,7 @@ defmodule Noctilucent.AuditLog do
     field :ip_addr, :string
     field :user_agent, :string
     # field :user, :id
-    belongs_to :user, Noctilucent.Accounts.User
+    belongs_to :user, Noctilucent.Accounts.User, type: :binary_id
 
     timestamps(updated_at: false)
   end
@@ -40,4 +41,14 @@ defmodule Noctilucent.AuditLog do
     |> cast(attrs, [:verb, :scope, :ip_addr, :user_agent, :context, :params])
     |> validate_required([:verb, :scope, :ip_addr, :user_agent])
   end
+
+  @doc """
+  列出用户的所有记录。
+  """
+  def list_by_user(%Noctilucent.Accounts.User{} = user, clauses \\ []) do
+    Noctilucent.Repo.all(from(__MODULE__, where: [user_id: ^user.id], where: ^clauses, order_by: [asc: :id]))
+  end
+
+  ## TODO
+  # 把 Bytepack.AuditLog.multi/4 抄过来
 end

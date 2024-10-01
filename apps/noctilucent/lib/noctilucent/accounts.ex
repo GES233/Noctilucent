@@ -85,9 +85,16 @@ defmodule Noctilucent.Accounts do
 
   """
   def register_user(attrs) do
-    %User{}
-    |> User.registration_changeset(attrs)
-    |> Repo.insert!()
+    user_changeset = User.registration_changeset(%User{}, attrs)
+
+    Ecto.Multi.new()
+    |> Ecto.Multi.insert(:user, user_changeset)
+    # Add AuditLog here.
+    |> Repo.transaction()
+    |> case do
+      {:ok, %{user: user}} -> {:ok, user}
+      {:error, :user, changeset, _} -> {:error, changeset}
+    end
   end
 
   ## 用户设置
@@ -100,6 +107,8 @@ defmodule Noctilucent.Accounts do
   """
   def do_change_username(user, username) do
     User.username_changeset(user, %{username: username})
+    |> Repo.update()
+    # TODO 上 AuditLog
   end
 
   # change_current/2
@@ -110,21 +119,25 @@ defmodule Noctilucent.Accounts do
   # change_nickname/2
   def change_user_nickname(_user, _nickname) do
     raise Helpers.NotImplement
+    # TODO 上 AuditLog
   end
 
   # change_info/2
   def change_user_info(_user, _info_content) do
     raise Helpers.NotImplement
+    # TODO 上 AuditLog
   end
 
   # change_gender/2
   def change_user_gender(_user, _gender) do
     raise Helpers.NotImplement
+    # TODO 上 AuditLog
   end
 
   # change_user_gender_visibility/2
   def change_user_gender_visibility(_user, _visible) do
     raise Helpers.NotImplement
+    # TODO 上 AuditLog
   end
 
   # 这个需要 attrs 吗？
@@ -142,6 +155,7 @@ defmodule Noctilucent.Accounts do
       {:ok, %{user: user}} -> {:ok, user}
       {:error, :user, changeset, _} -> {:error, changeset}
     end
+    # TODO 上 AuditLog
   end
 
   ## 会话
@@ -174,10 +188,12 @@ defmodule Noctilucent.Accounts do
   end
 
   ## 重置密码
-  # 略
+  # TODO 上 AuditLog
 
   ## 用户状态的修改
-  # TODO
+  # 和 current 不一样的是，
+  # status 的变化比较大
+  # TODO 上 AuditLog
 
   ## Misc
 

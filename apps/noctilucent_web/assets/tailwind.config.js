@@ -14,7 +14,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // TODO: 都改成业务相关的
+        // 等到时候都改成业务相关的
         brand: "#FD4F00",
       }
     },

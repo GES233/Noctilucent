@@ -12,4 +12,4 @@
 
 ## 我是萌新，我能做什么
 
-公主/王子：请看👉 [这里](CONTRIBUTING.md) 👈
+公主/王子请看[这里](CONTRIBUTING.md)
