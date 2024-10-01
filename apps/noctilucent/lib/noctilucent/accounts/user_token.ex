@@ -14,8 +14,8 @@ defmodule Noctilucent.Accounts.UserToken do
 
   def validity_in_days(scene)
 
-  def validity_in_days("storage_user"), do: @session_validity_in_days
-  def validity_in_days("temporally"), do: @token_validity_in_days
+  def validity_in_days(:storage_user), do: @session_validity_in_days
+  def validity_in_days(:temporally), do: @token_validity_in_days
 
   # scene 令牌的使用场景：
   # - 存储当前用户
@@ -24,10 +24,15 @@ defmodule Noctilucent.Accounts.UserToken do
   schema "user_tokens" do
     field :scene, Ecto.Enum, values: [:storage_user, :temporally]
     field :token, :binary
-    belongs_to :user, Noctilucent.Accounts.User
+
+    belongs_to :user, Noctilucent.Accounts.User, type: :binary_id
 
     timestamps()
   end
+
+  ## TODO
+  # 加一个 changeset 以便检查约束 bla bla
+  # 也可能不需要
 
   def build_session_token(user, scene) do
     token = :crypto.strong_rand_bytes(@rand_size)

@@ -7,12 +7,12 @@ defmodule Noctilucent.Accounts.User do
   @foreign_key_type :binary_id
   schema "users" do
     field :info, :string
-    field :status, Ecto.Enum, values: [:normal, :frozen, :blocked, :deleted]
+    field :status, Ecto.Enum, values: [:normal, :frozen, :blocked, :deleted], default: :normal
     field :nickname, :string
     field :username, :string
     field :password, :string, virtual: true
     field :hashed_password, :string
-    field :gender, Ecto.Enum, values: [:male, :female, :non_bisexual, :blank]
+    field :gender, Ecto.Enum, values: [:male, :female, :non_bisexual, :blank], default: :blank
     field :gender_visible, :boolean, default: false
     field :avater, :string
     field :current, :string
@@ -83,8 +83,8 @@ defmodule Noctilucent.Accounts.User do
   def username_changeset(user, attrs) do
     user
     |> cast(attrs, [:username])
-    |> unsafe_validate_unique(:user, Noctilucent.Repo)
-    |> unique_constraint(:user)
+    |> unsafe_validate_unique(:username, Noctilucent.Repo)
+    |> unique_constraint(:username)
     # 纯粹的 ASCII 不能包含空格
     # |> validate_format(:username, ~r//, message: "only ascii characters without space allowed")
   end

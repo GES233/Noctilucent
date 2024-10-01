@@ -87,26 +87,47 @@ defmodule Noctilucent.Accounts do
   def register_user(attrs) do
     %User{}
     |> User.registration_changeset(attrs)
-    |> Repo.insert()
+    |> Repo.insert!()
   end
 
   ## 用户设置
 
   @doc """
-  更新用户名。
+  执行更新用户名的操作。
+
+  这个可能需要改，我的期望是用户名的更改需要重新
+  确认用户身份（也就是重新输入密码）以及时间限制。
   """
-  def change_username(user, attrs \\ %{}) do
-    User.username_changeset(user, attrs)
+  def do_change_username(user, username) do
+    User.username_changeset(user, %{username: username})
   end
 
   # change_current/2
+  def change_user_current(_user, _current) do
+    raise Helpers.NotImplenent
+  end
 
   # change_nickname/2
+  def change_user_nickname(_user, _nickname) do
+    raise Helpers.NotImplenent
+  end
 
   # change_info/2
+  def change_user_info(_user, _info_content) do
+    raise Helpers.NotImplenent
+  end
 
   # change_gender/2
+  def change_user_gender(_user, _gender) do
+    raise Helpers.NotImplenent
+  end
 
+  # change_user_gender_visibility/2
+  def change_user_gender_visibility(_user, _visible) do
+    raise Helpers.NotImplenent
+  end
+
+  # 这个需要 attrs 吗？
   def update_user_password(user, password, attrs) do
     changeset =
       user
@@ -129,8 +150,10 @@ defmodule Noctilucent.Accounts do
   生成用于保存用户的 Token 。
   """
   def generate_user_session_token(user) do
-    {token, user_token} = UserToken.build_session_token(user, "user_storage")
-    Repo.insert!(user_token)
+    {token, user_token} = UserToken.build_session_token(user, :storage_user)
+    user_token
+    |> Repo.insert()
+
     token
   end
 
@@ -138,7 +161,7 @@ defmodule Noctilucent.Accounts do
   通过 Token 返回用户。
   """
   def get_user_by_session_token(token) do
-    {:ok, query} = UserToken.verify_session_token_query(token, "user_storage")
+    {:ok, query} = UserToken.verify_session_token_query(token, :storage_user)
     Repo.one(query)
   end
 
@@ -146,65 +169,19 @@ defmodule Noctilucent.Accounts do
   删除用户的 Token 。
   """
   def delete_user_session_token(token) do
-    Repo.delete_all(UserToken.by_user_and_scene_query(token, ["user_storage"]))
+    Repo.delete_all(UserToken.by_token_and_scene_query(token, :storage_user))
     :ok
   end
 
   ## 重置密码
+  # 略
 
-  @doc """
-  创建一个用户。
+  ## 用户状态的修改
+  # TODO
 
-  ## Examples
+  ## Misc
 
-      iex> create_user(%{field: value})
-      {:ok, %User{}}
-
-      iex> create_user(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def create_user(attrs \\ %{}) do
-    %User{}
-    |> User.changeset(attrs)
-    |> Repo.insert()
-  end
-
-  @doc """
-  更新用户（这是 `phx.gen.context` 自动生成的函数，依照业务需求要被改掉）。
-
-  ## Examples
-
-      iex> update_user(user, %{field: new_value})
-      {:ok, %User{}}
-
-      iex> update_user(user, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def update_user(%User{} = user, attrs) do
-    user
-    |> User.changeset(attrs)
-    |> Repo.update()
-  end
-
-  @doc """
-  删除用户（依照业务需要也会被改掉）。
-
-  ## Examples
-
-      iex> delete_user(user)
-      {:ok, %User{}}
-
-      iex> delete_user(user)
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def delete_user(%User{} = user) do
-    # TODO: logical delete
-    Repo.delete(user)
-  end
-
+  # 我也不知道留这玩意有什么用
   @doc """
   为跟踪用户变化返回一个 `%Ecto.Changeset{}` 结构。
 

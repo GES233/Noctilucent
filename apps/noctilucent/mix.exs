@@ -48,7 +48,6 @@ defmodule Noctilucent.MixProject do
     ]
   end
 
-
   defp docs() do
     [
       extras: docs_extras(),
@@ -60,6 +59,7 @@ defmodule Noctilucent.MixProject do
     [
       "guides/user/overview.md",
       "guides/user/register.md",
+      "guides/user/authentication.md",
       "guides/feed/format.md",
       "guides/feed/orgnise.md",
       "guides/room/overview.md",
