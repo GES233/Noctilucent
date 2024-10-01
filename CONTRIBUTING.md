@@ -16,8 +16,7 @@
 
 也就是说最好不要在深夜来提 issue 或提交代码，因为根本连不上。
 
-等到你们能够看见项目的时候，大概率服务已经稳定了。所以如果想要干点什么的话（除了单纯 clone 外
-）最好注册个账号先。
+等到你们能够看见项目的时候，大概率服务已经稳定了。所以如果想要干点什么的话（除了单纯 clone 外）最好注册个账号先。
 
 当然，我假设你知道 [Git](https://git-scm.com/) 是什么以及关于它的一些基本用法。当然，如果不知道的话，可以看一下 [Git 教程 - 廖雪峰的官方网站](https://liaoxuefeng.com/books/git/introduction/index.html) 。
 
@@ -33,17 +32,34 @@
 
 TODO: introduct elixir
 
-其在性能以及实时性的优良表现也是我选择这门语言的原因之一（要不然 Vue + Python 它不香？）。
+其在并发性以及实时性的优良表现也是我选择这门语言的原因之一（要不然 Vue + Python 它不香？）。
+
+下面将简单的介绍 Noctilucent 的构建方法。
 
 ### 依赖项
 
-Noctilucent 基于 Phoenix 进行开发。所以其所依赖的 Erlang/OTP 、 Elixir 以及 esbuild/tailwind 是必需的。
+Noctilucent 基于 [Phoenix](https://phoenixframework.org) 进行开发。除此之外其需要 C 语言编译工具以及网络条件进行静态资源的下载。
 
-同时， Noctilucent 的数据库采用的是 sqlite 。其 Elixir 接口需要 C 语言编译器。在 Windows 下需要 MSVC 的编译工具，并且每次执行 `mix deps.compile` 都需要调用 MSVC 的环境，因此建议使用 Linux 环境进行开发工作。
+- Erlang/OTP
+- Elixir
+- Mix Archive
+- C 语言工具链
+  - MSVC（Windows） *mingw 试过，不行*
+  - gcc（Linux）
 
 管理依赖项的网站的服务器在境外，由于众所周知的原因，在国内如果没有特殊网络信道的话可能比较困难。但国内也有网站的镜像可以提供加速服务。
 
 ### 运行测试
+
+略。
+
+## 翻译
+
+因为开发时的设计失误，虽然目前 Noctilucent 仅面向中文用户，我们在开发时的源代码（不是文档）使用英文。
+
+因此需要对英文文档进行翻译以平衡开发者与用户的矛盾。
+
+### 流程
 
 ## 项目设计规范
 
