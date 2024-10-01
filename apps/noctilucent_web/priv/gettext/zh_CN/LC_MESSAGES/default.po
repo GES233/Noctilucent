@@ -11,7 +11,7 @@ msgstr ""
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: lib/noctilucent_web/components/core_components.ex:482
+#: lib/noctilucent_web/components/core_components.ex:481
 #, elixir-autogen, elixir-format
 msgid "Actions"
 msgstr "操作"

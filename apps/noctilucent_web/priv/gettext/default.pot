@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 
-#: lib/noctilucent_web/components/core_components.ex:482
+#: lib/noctilucent_web/components/core_components.ex:481
 #, elixir-autogen, elixir-format
 msgid "Actions"
 msgstr ""
