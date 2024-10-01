@@ -54,6 +54,9 @@ defmodule Noctilucent.Accounts.User do
     ])
   end
 
+  @doc """
+  注册用更改表。
+  """
   def registration_changeset(user, attrs) do
     user
     |> cast(attrs, [:username, :password])
@@ -76,6 +79,9 @@ defmodule Noctilucent.Accounts.User do
     |> delete_change(:password)
   end
 
+  @doc """
+  密码更改表。
+  """
   def password_changeset(user, attrs) do
     user
     |> cast(attrs, [:password])
@@ -83,6 +89,9 @@ defmodule Noctilucent.Accounts.User do
     |> validate_password()
   end
 
+  @doc """
+  用户名更改表。
+  """
   def username_changeset(user, attrs) do
     user
     |> cast(attrs, [:username])
@@ -92,17 +101,39 @@ defmodule Noctilucent.Accounts.User do
     # |> validate_format(:username, ~r//, message: "only ascii characters without space allowed")
   end
 
+  @doc """
+  昵称更改表。
+  """
   def nickname_changeset(user, attrs) do
     user
     |> cast(attrs, [:nickname])
   end
 
+  @doc """
+  「当下」更改表。
+  """
   def current_changeset(user, attrs) do
     user
     |> cast(attrs, [:current])
 
     # TODO: Validate scope
     # Emoji or empty string
+  end
+
+  @doc """
+  性别相关数据更改表。
+  """
+  def gender_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:gender, :gender_visible])
+  end
+
+  @doc """
+  状态更改表。
+  """
+  def status_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:status])
   end
 
   def valid_password?(%Noctilucent.Accounts.User{hashed_password: hashed_password}, password)
