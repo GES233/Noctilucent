@@ -61,6 +61,23 @@ Noctilucent 基于 [Phoenix](https://phoenixframework.org) 进行开发。除此
 
 ### 流程
 
+执行以下脚本。
+
+```sh
+# gettext 只在 noctilucent_web 下安装，所以先把目录切换到这里
+cd apps/noctilucent_web
+# 提取文件
+mix gettext.extract
+# 生成目标语言的 PO 文件
+mix gettext.merge priv/gettext --locale zh_CN
+```
+
+在 `apps/noctilucent_web/priv/gettext/zh_CN/LC_MESSAGES` 目录内，就可以翻译文件啦。
+
+### 领域
+
+略。
+
 ## 项目设计规范
 
 略。

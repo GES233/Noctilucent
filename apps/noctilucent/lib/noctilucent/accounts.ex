@@ -104,22 +104,22 @@ defmodule Noctilucent.Accounts do
 
   # change_current/2
   def change_user_current(_user, _current) do
-    raise Helpers.NotImplenent
+    raise Helpers.NotImplement
   end
 
   # change_nickname/2
   def change_user_nickname(_user, _nickname) do
-    raise Helpers.NotImplenent
+    raise Helpers.NotImplement
   end
 
   # change_info/2
   def change_user_info(_user, _info_content) do
-    raise Helpers.NotImplenent
+    raise Helpers.NotImplement
   end
 
   # change_gender/2
   def change_user_gender(_user, _gender) do
-    raise Helpers.NotImplenent
+    raise Helpers.NotImplement
   end
 
   # change_user_gender_visibility/2
