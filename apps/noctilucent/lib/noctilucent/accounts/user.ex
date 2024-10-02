@@ -5,7 +5,7 @@ defmodule Noctilucent.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @derive {Inspect, except: [:password]}
+  # @derive {Inspect, except: [:password]}
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "users" do
@@ -61,6 +61,7 @@ defmodule Noctilucent.Accounts.User do
     user
     |> cast(attrs, [:username, :password])
     |> validate_password()
+    |> unique_constraint(:username)
   end
 
   def validate_password(changeset) do
@@ -134,6 +135,14 @@ defmodule Noctilucent.Accounts.User do
   def status_changeset(user, attrs) do
     user
     |> cast(attrs, [:status])
+  end
+
+  @doc """
+  信息更改表。
+  """
+  def info_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:info])
   end
 
   def valid_password?(%Noctilucent.Accounts.User{hashed_password: hashed_password}, password)

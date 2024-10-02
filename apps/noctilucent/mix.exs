@@ -73,6 +73,7 @@ defmodule Noctilucent.MixProject do
       "用户": ~r/guides\/user\/.?/,
       "动态": ~r/guides\/feed\/.?/,
       "房间": ~r/guides\/room\/.?/,
+      "记录": ["guides/audit_log.md"],
     ]
   end
 

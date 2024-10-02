@@ -107,7 +107,7 @@ defmodule Noctilucent.Accounts do
   这个可能需要改，我的期望是用户名的更改需要重新
   确认用户身份（也就是重新输入密码）以及时间限制。
   """
-  def do_change_username(audit_log, user, username) do
+  def do_change_username(%{user: user} = audit_log, username) do
     changeset = user
     |> User.username_changeset(%{username: username})
 
@@ -132,15 +132,39 @@ defmodule Noctilucent.Accounts do
   end
 
   # change_nickname/2
-  def change_user_nickname(_user, _nickname) do
-    raise Helpers.NotImplement
-    # [TODO) 上 AuditLog
+  def change_user_nickname(%{user: user} = audit_log, nickname) do
+    changeset = user
+    |> User.nickname_changeset(%{nickname: nickname})
+
+    Ecto.Multi.new()
+    |> Ecto.Multi.update(:user, changeset)
+    |> AuditLog.multi(
+      audit_log, :account, "user.update_info.nickname",
+      %{user_id: user.id, nickname: nickname}
+    )
+    |> Repo.transaction()
+    |> case do
+      {:ok, %{user: user}} -> {:ok, user}
+      {:error, :user, changeset, _} -> {:error, changeset}
+    end
   end
 
   # change_info/2
-  def change_user_info(_user, _info_content) do
-    raise Helpers.NotImplement
-    # [TODO) 上 AuditLog
+  def change_user_info(%{user: user} = audit_log, info_content) do
+    changeset = user
+    |> User.info_changeset(%{info: info_content})
+
+    Ecto.Multi.new()
+    |> Ecto.Multi.update(:user, changeset)
+    |> AuditLog.multi(
+      audit_log, :account, "user.update_info.info",
+      %{user_id: user.id, info: info_content}
+    )
+    |> Repo.transaction()
+    |> case do
+      {:ok, %{user: user}} -> {:ok, user}
+      {:error, :user, changeset, _} -> {:error, changeset}
+    end
   end
 
   # change_gender/2
