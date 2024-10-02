@@ -599,7 +599,7 @@ defmodule NoctilucentWeb.CoreComponents do
 
   ## JS 命令
 
-  # TODO 解释一些这个东西的基本用法以及机制
+  # [[TODO)) 解释一些这个东西的基本用法以及机制
 
   def show(js \\ %JS{}, selector) do
     JS.show(js,

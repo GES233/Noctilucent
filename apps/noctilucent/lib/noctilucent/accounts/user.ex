@@ -116,7 +116,7 @@ defmodule Noctilucent.Accounts.User do
     user
     |> cast(attrs, [:current])
 
-    # TODO: Validate scope
+    # [TODO): Validate scope
     # Emoji or empty string
   end
 

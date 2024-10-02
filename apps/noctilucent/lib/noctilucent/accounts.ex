@@ -108,38 +108,38 @@ defmodule Noctilucent.Accounts do
   def do_change_username(user, username) do
     User.username_changeset(user, %{username: username})
     |> Repo.update()
-    # TODO 上 AuditLog
+    # [TODO) 上 AuditLog
   end
 
   # change_current/2
   def change_user_current(user, current) do
     User.current_changeset(user, %{current: current})
     |> Repo.update()
-    # TODO 上 AuditLog
+    # [TODO) 上 AuditLog
   end
 
   # change_nickname/2
   def change_user_nickname(_user, _nickname) do
     raise Helpers.NotImplement
-    # TODO 上 AuditLog
+    # [TODO) 上 AuditLog
   end
 
   # change_info/2
   def change_user_info(_user, _info_content) do
     raise Helpers.NotImplement
-    # TODO 上 AuditLog
+    # [TODO) 上 AuditLog
   end
 
   # change_gender/2
   def change_user_gender(_user, _gender) do
     raise Helpers.NotImplement
-    # TODO 上 AuditLog
+    # [TODO) 上 AuditLog
   end
 
   # change_user_gender_visibility/2
   def change_user_gender_visibility(_user, _visible) do
     raise Helpers.NotImplement
-    # TODO 上 AuditLog
+    # [TODO) 上 AuditLog
   end
 
   # 这个需要 attrs 吗？
@@ -157,7 +157,7 @@ defmodule Noctilucent.Accounts do
       {:ok, %{user: user}} -> {:ok, user}
       {:error, :user, changeset, _} -> {:error, changeset}
     end
-    # TODO 上 AuditLog
+    # [TODO) 上 AuditLog
   end
 
   ## 会话
@@ -190,12 +190,12 @@ defmodule Noctilucent.Accounts do
   end
 
   ## 重置密码
-  # TODO 上 AuditLog
+  # [TODO) 上 AuditLog
 
   ## 用户状态的修改
   # 和 current 不一样的是，
   # status 的变化比较大（因为涉及到了更严重的操作 e.g. 封禁；注销）
-  # TODO 上 AuditLog
+  # [TODO) 上 AuditLog
 
   ## Misc
 

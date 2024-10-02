@@ -22,7 +22,7 @@ defmodule Noctilucent.AuditLog do
   # alias Noctilucent.AuditLog.{Context, Params}
 
   # 说实话，这块我没抄明白
-  # TODO: IP <-> Ecto custome Type
+  # [TODO): IP <-> Ecto custome Type
   schema "audit_logs" do
     field :scope, :string
     field :context, :map, default: %{}
@@ -51,7 +51,7 @@ defmodule Noctilucent.AuditLog do
     )
   end
 
-  ## TODO
+  ## [TODO)
   # 把 Bytepack.AuditLog.multi/4 抄过来
 
   # 还有 build!

@@ -46,7 +46,7 @@ defmodule Noctilucent.Accounts.UserToken do
     timestamps()
   end
 
-  ## TODO
+  ## [TODO)
   # 加一个 changeset 以便检查约束 bla bla
   # 也可能不需要
 
@@ -67,7 +67,7 @@ defmodule Noctilucent.Accounts.UserToken do
     {:ok, query}
   end
 
-  # TODO
+  # [TODO)
   # 加一个 verify_refresh_token/2 还有 build_refresh_token/1
 
   def build_hashed_token(user, scene) do
