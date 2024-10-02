@@ -6,9 +6,9 @@
 
 (Phoenix -> RoR => MVC)
 
-(-LiveView 并不是)
-
 (Model - Controller - View)
+
+(-LiveView 并不是)
 
 ## Phoenix Context 与 DDD
 
