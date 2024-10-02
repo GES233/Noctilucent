@@ -73,6 +73,9 @@ defmodule Noctilucent.AuditLog do
     timestamps(updated_at: false)
   end
 
+  def blank(), do:
+    %__MODULE__{}
+
   @doc false
   def changeset(audit_log, attrs) do
     audit_log
