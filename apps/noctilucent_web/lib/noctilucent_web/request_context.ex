@@ -3,14 +3,15 @@ defmodule NoctilucentWeb.RequestContext do
 
   @log_context_name :audit_context
 
-  def put_audit_log(conn_or_socket, opts \\ [])
+  def put_audit_context(conn_or_socket, opts \\ [])
 
   def put_audit_context(%Plug.Conn{} = conn, _) do
-    Plug.assign(conn, @audit_context, %AuditLog{})
+    Plug.Conn.assign(conn, @log_context_name, %AuditLog{})
   end
 
   def put_audit_context(%Phoenix.LiveView.Socket{} = socket, _) do
-    Phoenix.LiveView.assign(socket, @audit_context, %AuditLog{})
+    socket
+    # Phoenix.LiveView.assign(socket, @log_context_name, %AuditLog{})
   end
 
   # get_ip/1

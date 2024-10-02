@@ -8,11 +8,11 @@ defmodule Noctilucent.Repo.Migrations.CreateAuditLogs do
       add :ip_addr, :string
       add :user_agent, :string
       add :context, :map
-      add :user, references(:users, on_delete: :nothing), type: :binary_id
+      add :user_id, references(:users, on_delete: :nothing, type: :binary_id)
 
-      timestamps()
+      timestamps(updated_at: false)
     end
 
-    create index(:audit_logs, [:user])
+    create index(:audit_logs, [:user_id])
   end
 end

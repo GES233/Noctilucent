@@ -4,7 +4,7 @@ defmodule Noctilucent.Accounts do
   """
 
   import Ecto.Query, warn: false
-  alias Noctilucent.Repo
+  alias Noctilucent.{Repo, AuditLog}
 
   alias Noctilucent.Accounts.{User, UserToken} # UserNotifire
 
@@ -84,12 +84,14 @@ defmodule Noctilucent.Accounts do
       {:error, %Ecto.Changeset{}}
 
   """
-  def register_user(attrs) do
+  def register_user(audit_context, attrs) do
     user_changeset = User.registration_changeset(%User{}, attrs)
 
     Ecto.Multi.new()
     |> Ecto.Multi.insert(:user, user_changeset)
-    # Add AuditLog here.
+    |> AuditLog.multi(audit_context, :account, "user.sign_up", fn audit_context, %{user: user} ->
+      %{audit_context | user: user, context: %{username: user.username, user_id: user.id}}
+    end)
     |> Repo.transaction()
     |> case do
       {:ok, %{user: user}} -> {:ok, user}
@@ -105,10 +107,21 @@ defmodule Noctilucent.Accounts do
   这个可能需要改，我的期望是用户名的更改需要重新
   确认用户身份（也就是重新输入密码）以及时间限制。
   """
-  def do_change_username(user, username) do
-    User.username_changeset(user, %{username: username})
-    |> Repo.update()
-    # [TODO) 上 AuditLog
+  def do_change_username(audit_log, user, username) do
+    changeset = user
+    |> User.username_changeset(%{username: username})
+
+    Ecto.Multi.new()
+    |> Ecto.Multi.update(:user, changeset)
+    |> AuditLog.multi(
+      audit_log, :account, "user.update_username",
+      %{user_id: user.id, username: username, old_username: user.username}
+    )
+    |> Repo.transaction()
+    |> case do
+      {:ok, %{user: user}} -> {:ok, user}
+      {:error, :user, changeset, _} -> {:error, changeset}
+    end
   end
 
   # change_current/2
