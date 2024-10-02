@@ -9,7 +9,7 @@ defmodule Noctilucent.Repo.Migrations.CreateAuditLogs do
       add :user_agent, :string
       add :context, :map
       add :params, :map
-      add :user, references(:users, on_delete: :nothing)
+      add :user, references(:users, on_delete: :nothing), type: :binary_id
 
       timestamps()
     end
