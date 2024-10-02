@@ -63,7 +63,8 @@ defmodule Noctilucent.MixProject do
       "guides/feed/format.md",
       "guides/feed/orgnise.md",
       "guides/room/overview.md",
-      "guides/room/host_and_guest.md"
+      "guides/room/host_and_guest.md",
+      "guides/audit_log.md"
     ]
   end
 
