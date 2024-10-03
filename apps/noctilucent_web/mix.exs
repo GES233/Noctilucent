@@ -83,16 +83,20 @@ defmodule NoctilucentWeb.MixProject do
       "guides/take_a_glance/phoenix_dictionary_structure.md",
       "guides/take_a_glance/plug_life_cycle.md",
       "guides/take_a_glance/next_step.md",
+      "guides/appearance/noctilucent.md",
+      "guides/appearance/color_theme.md",
+      "guides/appearance/index.md",
     ]
   end
 
   defp groups_for_extras() do
     [
       "一瞥": ~r/guides\/take_a_glance\/.?/,
-      # "用户": ~r//,
+      "外观": ~r/guides\/appearance\/.?/,
       # Web 端主要讨论鉴权、消息推送以及密码加密之类的 infra
-      # "内容": ~r//,
-      # "实时": ~r//,
+      # "用户": ~r/guides\/user\/.?/,
+      # "内容": ~r/guides\/content\/.?/,
+      # "实时": ~r/guides\/live\/.?/,
       # Phoenix.Channel 与 Phoenix.LiveView
     ]
   end
