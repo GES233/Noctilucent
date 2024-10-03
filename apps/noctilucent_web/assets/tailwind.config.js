@@ -14,8 +14,21 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // 等到时候都改成业务相关的
+        // 这是 Phoenix 自带的
         brand: "#FD4F00",
+
+        // 以下是业务相关的，其格式为 `ncl_bla_bla`
+        // （几乎是）黑色的天空
+        ncl_bg: "#19193D",
+        // 暮辉光
+        ncl_twi: "#F1C376",
+        ncl_twi_light: "#E2DAB5",
+        // 云的本身
+        ncl_cl: "#7F8AA6",
+        ncl_cl_light: "#A0A1A5",
+        ncl_twi_cl: "#F1EFDA",
+        // 彩云
+        ncl_cl_pr: "#C4ABE2",
       }
     },
   },
