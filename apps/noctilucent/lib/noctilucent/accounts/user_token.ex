@@ -89,7 +89,7 @@ defmodule Noctilucent.Accounts.UserToken do
         days = validity_in_days(scene)
 
         query =
-          from token in by_user_and_scene_query(hashed_token, scene),
+          from token in by_token_and_scene_query(hashed_token, scene),
             join: user in assoc(token, :user),
             where: token.inserted_at > ago(^days, "day"),
             select: user

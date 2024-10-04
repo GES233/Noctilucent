@@ -14,6 +14,7 @@ defmodule Noctilucent.MixProject do
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
+      docs: docs(),
       # https://elixirforum.com/t/the-inspect-protocol-has-already-been-consolidated-for-ecto-schema-with-redacted-field/34992/8
       consolidate_protocols: Mix.env() != :dev
     ]
