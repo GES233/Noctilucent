@@ -12,10 +12,7 @@ defmodule NoctilucentWeb.CoreComponents do
 
   图标由 [heroicons](https://heroicons.com) 提供。请通过 `icon/1` 查看用法。
   """
-  use Phoenix.Component
-
-  alias Phoenix.LiveView.JS
-  use Gettext, backend: NoctilucentWeb.Gettext
+  use NoctilucentWeb.Components, :common
 
   @doc """
   显示一个模态框。
