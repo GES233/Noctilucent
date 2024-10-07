@@ -88,5 +88,4 @@ defmodule NoctilucentWeb.FlashComponents do
     </div>
     """
   end
-
 end

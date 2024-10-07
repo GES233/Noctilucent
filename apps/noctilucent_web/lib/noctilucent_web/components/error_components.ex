@@ -16,7 +16,6 @@ defmodule NoctilucentWeb.ErrorComponents do
     """
   end
 
-
   @doc """
   通过 gettext 翻译某条错误。
   """

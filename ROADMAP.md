@@ -5,8 +5,16 @@
 - [ ] 用自己的代码取代掉 Phoenix 脚手架
   - [x] 翻译文档
   - [ ] 首页
-  - [ ] 颜色主题
-  - [x] 「打倒 `CoreComponent`」 *彻底替换掉原来的 CoreComponents*
+- [ ] 使用颜色主题更替原来的脚手架的代码
+  - [ ] `NoctilucentWeb.ErrorComponents.error/1`
+  - [ ] `NoctilucentWeb.FlashComponents.flash/1`
+  - [ ] `NoctilucentWeb.FlashComponents.flash_group/1`
+  - [x] `NoctilucentWeb.FormComponents.button/1`
+  - [ ] `NoctilucentWeb.FormComponents.simple_form/1`
+  - [ ] `NoctilucentWeb.FormComponents.input/1`
+  - [ ] `NoctilucentWeb.FormComponents.label/1`
+  - [x] `NoctilucentWeb.ShowComponents.header/1`
+  - [ ] ...
 
 ## 业务
 

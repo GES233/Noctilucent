@@ -1,7 +1,6 @@
 defmodule NoctilucentWeb.ShowComponents do
   use NoctilucentWeb.Components, :common
 
-
   @doc """
   展示具有标题的标头。
   """
@@ -15,10 +14,10 @@ defmodule NoctilucentWeb.ShowComponents do
     ~H"""
     <header class={[@actions != [] && "flex items-center justify-between gap-6", @class]}>
       <div>
-        <h1 class="text-lg font-semibold leading-8 text-zinc-800">
+        <h1 class="text-lg font-semibold leading-8 text-ncl_bg">
           <%= render_slot(@inner_block) %>
         </h1>
-        <p :if={@subtitle != []} class="mt-2 text-sm leading-6 text-zinc-600">
+        <p :if={@subtitle != []} class="mt-2 text-sm leading-6 text-ncl_cl">
           <%= render_slot(@subtitle) %>
         </p>
       </div>
@@ -186,7 +185,7 @@ defmodule NoctilucentWeb.ShowComponents do
 
   ## JS 命令
 
-  # [[TODO)) 解释一些这个东西的基本用法以及机制
+  # [TODO) 解释一些这个东西的基本用法以及机制
 
   def show(js \\ %JS{}, selector) do
     JS.show(js,
