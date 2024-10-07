@@ -6,7 +6,7 @@
   - [x] 翻译文档
   - [ ] 首页
   - [ ] 颜色主题
-  - [ ] 「打倒 `CoreComponent`」 *彻底替换掉原来的 CoreComponents*
+  - [x] 「打倒 `CoreComponent`」 *彻底替换掉原来的 CoreComponents*
 
 ## 业务
 

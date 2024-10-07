@@ -43,7 +43,7 @@ module.exports = {
     plugin(({addVariant}) => addVariant("phx-change-loading", [".phx-change-loading&", ".phx-change-loading &"])),
 
     // 将 Heroicons (https://heroicons.com) 嵌入到你应用的 app.css 的一堆里
-    // 欲获得更多信息，请查看 `CoreComponents.icon/1` 的文档。
+    // 欲获得更多信息，请查看 `NoctilucentWeb.ShowComponents.icon/1` 的文档。
     //
     plugin(function({matchComponents, theme}) {
       let iconsDir = path.join(__dirname, "../../../deps/heroicons/optimized")
