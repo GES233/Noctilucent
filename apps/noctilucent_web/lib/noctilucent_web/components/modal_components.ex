@@ -1,6 +1,6 @@
 defmodule NoctilucentWeb.ModalComponents do
   use NoctilucentWeb.Components, :common
-  import NoctilucentWeb.ShowComponents, only: [show: 2, hide: 2, icon: 1]
+  alias NoctilucentWeb.ShowComponents
 
   @doc """
   显示一个模态框。
@@ -60,7 +60,7 @@ defmodule NoctilucentWeb.ModalComponents do
                   class="-m-3 flex-none p-3 opacity-20 hover:opacity-40"
                   aria-label={gettext("close")}
                 >
-                  <.icon name="hero-x-mark-solid" class="h-5 w-5" />
+                  <ShowComponents.icon name="hero-x-mark-solid" class="h-5 w-5" />
                 </button>
               </div>
               <div id={"#{@id}-content"}>
@@ -82,7 +82,7 @@ defmodule NoctilucentWeb.ModalComponents do
       time: 300,
       transition: {"transition-all transform ease-out duration-300", "opacity-0", "opacity-100"}
     )
-    |> show("##{id}-container")
+    |> ShowComponents.show("##{id}-container")
     |> JS.add_class("overflow-hidden", to: "body")
     |> JS.focus_first(to: "##{id}-content")
   end
@@ -93,7 +93,7 @@ defmodule NoctilucentWeb.ModalComponents do
       to: "##{id}-bg",
       transition: {"transition-all transform ease-in duration-200", "opacity-100", "opacity-0"}
     )
-    |> hide("##{id}-container")
+    |> ShowComponents.hide("##{id}-container")
     |> JS.hide(to: "##{id}", transition: {"block", "block", "hidden"})
     |> JS.remove_class("overflow-hidden", to: "body")
     |> JS.pop_focus()

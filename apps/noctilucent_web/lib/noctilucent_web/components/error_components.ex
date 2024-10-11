@@ -1,6 +1,6 @@
 defmodule NoctilucentWeb.ErrorComponents do
   use NoctilucentWeb.Components, :common
-  import NoctilucentWeb.ShowComponents, only: [icon: 1]
+  alias NoctilucentWeb.ShowComponents
 
   @doc """
   生成通用错误信息。
@@ -10,7 +10,7 @@ defmodule NoctilucentWeb.ErrorComponents do
   def error(assigns) do
     ~H"""
     <p class="mt-3 flex gap-3 text-sm leading-6 text-rose-600">
-      <.icon name="hero-exclamation-circle-mini" class="mt-0.5 h-5 w-5 flex-none" />
+      <ShowComponents.icon name="hero-exclamation-circle-mini" class="mt-0.5 h-5 w-5 flex-none" />
       <%= render_slot(@inner_block) %>
     </p>
     """

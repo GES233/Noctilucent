@@ -38,6 +38,8 @@ defmodule NoctilucentWeb.FormComponents do
     """
   end
 
+  # [TODO) `bg-` 与 `hover:bg-`
+  # 以及 `text-` 与 `activate:text-` 颜色落差太大，需要优化一下配色。
   @doc """
   显示按钮。
 

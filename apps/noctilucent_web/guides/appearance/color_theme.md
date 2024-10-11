@@ -19,3 +19,5 @@ colors: {
     ncl_cl_pr: "#C4ABE2",
 }
 ```
+
+TODO: 细化配色方案。
