@@ -18,6 +18,7 @@ defmodule NoctilucentWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    get "/components", PageController, :components
   end
 
   # 其他的范围也可以使用自定义的 plug 栈。
