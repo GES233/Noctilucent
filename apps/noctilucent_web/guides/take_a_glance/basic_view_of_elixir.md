@@ -29,7 +29,7 @@ scoop install elixir
 
 #### 编辑器
 
-小白无脑 [VSCode](https://code.visualstudio.com/) ，也可以用 [Neovim](https://neovim.io/) 或 [Helix](https://helix-editor.com/) （如果你选择后面两者，请确保知道自己在干什么）。
+小白无脑 [VSCode](https://code.visualstudio.com/) ，也可以用 [Neovim](https://neovim.io/) 或 [Helix](https://helix-editor.com/) （如果你选择后面两者，请确保自己知道自己在干什么）。
 
 语言服务器推荐 [ElixirLS](https://github.com/elixir-lsp/elixir-ls) 。
 
@@ -38,6 +38,8 @@ scoop install elixir
 (-.ex, .exs)
 
 (-.eex, .heex)
+
+#### Elixir 项目的样子
 
 ## 推荐资料
 
