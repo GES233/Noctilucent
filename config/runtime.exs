@@ -18,7 +18,6 @@ if config_env() == :prod do
 
   import Config
 
-
   # 密钥库用于签署/加密 cookie 和其他秘密。 config/dev.exs 和 config/test.exs
   # 中使用的是默认值，但你想在生产环境中使用不同的值，而且你很可能不想在版本控制中出现
   # 该值，因此我们使用环境变量来代替。

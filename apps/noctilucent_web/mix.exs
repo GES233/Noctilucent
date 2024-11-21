@@ -71,7 +71,7 @@ defmodule NoctilucentWeb.MixProject do
   defp docs() do
     [
       extras: docs_extras(),
-      groups_for_extras: groups_for_extras(),
+      groups_for_extras: groups_for_extras()
     ]
   end
 
@@ -85,14 +85,14 @@ defmodule NoctilucentWeb.MixProject do
       "guides/take_a_glance/next_step.md",
       "guides/appearance/noctilucent.md",
       "guides/appearance/color_theme.md",
-      "guides/appearance/index.md",
+      "guides/appearance/index.md"
     ]
   end
 
   defp groups_for_extras() do
     [
-      "一瞥": ~r/guides\/take_a_glance\/.?/,
-      "外观": ~r/guides\/appearance\/.?/,
+      一瞥: ~r/guides\/take_a_glance\/.?/,
+      外观: ~r/guides\/appearance\/.?/
       # Web 端主要讨论鉴权、消息推送以及密码加密之类的 infra
       # "用户": ~r/guides\/user\/.?/,
       # "内容": ~r/guides\/content\/.?/,

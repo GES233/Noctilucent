@@ -209,5 +209,4 @@ defmodule NoctilucentWeb.ShowComponents do
          "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"}
     )
   end
-
 end
