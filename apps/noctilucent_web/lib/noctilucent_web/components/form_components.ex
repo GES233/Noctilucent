@@ -147,9 +147,9 @@ defmodule NoctilucentWeb.FormComponents do
           checked={@checked}
           class="rounded border-zinc-300 text-zinc-900 focus:ring-0"
           {@rest}
-        />
-        <%= @label %>
+        /> <%= @label %>
       </label>
+      
       <.error :for={msg <- @errors}><%= msg %></.error>
     </div>
     """
@@ -159,6 +159,7 @@ defmodule NoctilucentWeb.FormComponents do
     ~H"""
     <div>
       <.label for={@id}><%= @label %></.label>
+      
       <select
         id={@id}
         name={@name}
@@ -167,8 +168,9 @@ defmodule NoctilucentWeb.FormComponents do
         {@rest}
       >
         <option :if={@prompt} value=""><%= @prompt %></option>
-        <%= Phoenix.HTML.Form.options_for_select(@options, @value) %>
+         <%= Phoenix.HTML.Form.options_for_select(@options, @value) %>
       </select>
+      
       <.error :for={msg <- @errors}><%= msg %></.error>
     </div>
     """
@@ -178,7 +180,7 @@ defmodule NoctilucentWeb.FormComponents do
     ~H"""
     <div>
       <.label for={@id}><%= @label %></.label>
-      <textarea
+       <textarea
         id={@id}
         name={@name}
         class={[
@@ -198,6 +200,7 @@ defmodule NoctilucentWeb.FormComponents do
     ~H"""
     <div>
       <.label for={@id}><%= @label %></.label>
+      
       <input
         type={@type}
         name={@name}

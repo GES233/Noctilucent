@@ -48,7 +48,7 @@ defmodule Noctilucent.Accounts.User do
       :gender,
       :gender_visible,
       :avater,
-      :status,
+      :status
       # :current,
       # :info
     ])
@@ -98,6 +98,7 @@ defmodule Noctilucent.Accounts.User do
     |> cast(attrs, [:username])
     |> unsafe_validate_unique(:username, Noctilucent.Repo)
     |> unique_constraint(:username)
+
     # 纯粹的 ASCII 不能包含空格
     # |> validate_format(:username, ~r//, message: "only ascii characters without space allowed")
   end

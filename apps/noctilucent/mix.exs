@@ -53,7 +53,7 @@ defmodule Noctilucent.MixProject do
   defp docs() do
     [
       extras: docs_extras(),
-      groups_for_extras: groups_for_extras(),
+      groups_for_extras: groups_for_extras()
     ]
   end
 
@@ -72,10 +72,10 @@ defmodule Noctilucent.MixProject do
 
   defp groups_for_extras() do
     [
-      "用户": ~r/guides\/user\/.?/,
-      "动态": ~r/guides\/feed\/.?/,
-      "房间": ~r/guides\/room\/.?/,
-      "记录": ["guides/audit_log.md"],
+      用户: ~r/guides\/user\/.?/,
+      动态: ~r/guides\/feed\/.?/,
+      房间: ~r/guides\/room\/.?/,
+      记录: ["guides/audit_log.md"]
     ]
   end
 

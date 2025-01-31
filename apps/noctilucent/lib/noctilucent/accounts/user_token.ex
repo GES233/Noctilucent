@@ -74,12 +74,14 @@ defmodule Noctilucent.Accounts.UserToken do
     token = :crypto.strong_rand_bytes(@rand_size)
     hashed_token = :crypto.hash(@hash_algorithm, token)
 
-    {Base.url_encode64(token, padding: false),
-     %UserToken{
-       token: hashed_token,
-       scene: scene,
-       user_id: user.id
-     }}
+    {
+      Base.url_encode64(token, padding: false),
+      %UserToken{
+        token: hashed_token,
+        scene: scene,
+        user_id: user.id
+      }
+    }
   end
 
   def hashed_token_query(token, scene) do

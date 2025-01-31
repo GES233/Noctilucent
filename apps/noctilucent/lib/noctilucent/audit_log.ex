@@ -15,7 +15,7 @@ defmodule Noctilucent.AuditLog.Context do
       "user.update_info.gender" => ~w(user_id gender),
       "user.update_info.info" => ~w(user_id info),
       "user.freeze" => ~w(user_id),
-      "user.delete_account" => ~w(user_id),
+      "user.delete_account" => ~w(user_id)
       # 管理员对用户的管理
     }
   }
@@ -30,12 +30,11 @@ defmodule Noctilucent.AuditLog.Context do
   @doc """
   返回领域下所有的动作及其对应的上下文。
   """
-  def by_scope(scope) do
-    cond do
-      scope in get_params() -> {:ok, get_params()[scope]}
-      true -> {:error, :not_found}
-    end
+  for scope <- Map.keys(@params) do
+    def by_scope(unquote(scope)), do: {:ok, @params[unquote(scope)]}
   end
+
+  def by_scope(_), do: {:error, :not_found}
 
   defp get_params(), do: @params
 end
@@ -73,8 +72,7 @@ defmodule Noctilucent.AuditLog do
     timestamps(updated_at: false)
   end
 
-  def blank(), do:
-    %__MODULE__{}
+  def blank(), do: %__MODULE__{}
 
   @doc false
   def changeset(audit_log, attrs) do
@@ -88,7 +86,7 @@ defmodule Noctilucent.AuditLog do
   """
   def list_by_user(%Noctilucent.Accounts.User{} = user, clauses \\ []) do
     Noctilucent.Repo.all(
-      from(__MODULE__,where: [user_id: ^user.id], where: ^clauses, order_by: [asc: :id])
+      from(__MODULE__, where: [user_id: ^user.id], where: ^clauses, order_by: [asc: :id])
     )
   end
 
@@ -131,9 +129,10 @@ defmodule Noctilucent.AuditLog do
   # 构造
 
   defp build!(%__MODULE__{} = audit_context, scope, verb, context)
-      when is_atom(scope) and is_binary(verb) and is_map(context) do
+       when is_atom(scope) and is_binary(verb) and is_map(context) do
     # 一般地讲，audit_context 已经包括了用户相关的信息
-    %{audit_context
+    %{
+      audit_context
       | scope: scope,
         verb: verb,
         context: Map.merge(audit_context.context, context)

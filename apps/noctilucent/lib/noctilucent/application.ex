@@ -9,8 +9,7 @@ defmodule Noctilucent.Application do
     children = [
       Noctilucent.Repo,
       {Ecto.Migrator,
-        repos: Application.fetch_env!(:noctilucent, :ecto_repos),
-        skip: skip_migrations?()},
+       repos: Application.fetch_env!(:noctilucent, :ecto_repos), skip: skip_migrations?()},
       {DNSCluster, query: Application.get_env(:noctilucent, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Noctilucent.PubSub}
       # 输入 {Noctilucent.Worker, arg}，

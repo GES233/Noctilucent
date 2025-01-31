@@ -6,7 +6,8 @@ defmodule Noctilucent.Accounts do
   import Ecto.Query, warn: false
   alias Noctilucent.{Repo, AuditLog}
 
-  alias Noctilucent.Accounts.{User, UserToken} # UserNotifire
+  # UserNotifire
+  alias Noctilucent.Accounts.{User, UserToken}
 
   ## 从数据库中获得信息
 
@@ -77,10 +78,10 @@ defmodule Noctilucent.Accounts do
 
   ## Examples
 
-      iex> register_user(%{field: value})
+      iex> register_user(%AuditLog{}, %{field: value})
       {:ok, %User{}}
 
-      iex> register_user(%{field: bad_value})
+      iex> register_user(%AuditLog{}, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
@@ -108,13 +109,16 @@ defmodule Noctilucent.Accounts do
   确认用户身份（也就是重新输入密码）以及时间限制。
   """
   def do_change_username(%{user: user} = audit_log, username) do
-    changeset = user
-    |> User.username_changeset(%{username: username})
+    changeset =
+      user
+      |> User.username_changeset(%{username: username})
 
     Ecto.Multi.new()
     |> Ecto.Multi.update(:user, changeset)
     |> AuditLog.multi(
-      audit_log, :account, "user.update_username",
+      audit_log,
+      :account,
+      "user.update_username",
       %{user_id: user.id, username: username, old_username: user.username}
     )
     |> Repo.transaction()
@@ -128,18 +132,22 @@ defmodule Noctilucent.Accounts do
   def change_user_current(user, current) do
     User.current_changeset(user, %{current: current})
     |> Repo.update()
+
     # [TODO) 上 AuditLog
   end
 
   # change_nickname/2
   def change_user_nickname(%{user: user} = audit_log, nickname) do
-    changeset = user
-    |> User.nickname_changeset(%{nickname: nickname})
+    changeset =
+      user
+      |> User.nickname_changeset(%{nickname: nickname})
 
     Ecto.Multi.new()
     |> Ecto.Multi.update(:user, changeset)
     |> AuditLog.multi(
-      audit_log, :account, "user.update_info.nickname",
+      audit_log,
+      :account,
+      "user.update_info.nickname",
       %{user_id: user.id, nickname: nickname}
     )
     |> Repo.transaction()
@@ -151,13 +159,16 @@ defmodule Noctilucent.Accounts do
 
   # change_info/2
   def change_user_info(%{user: user} = audit_log, info_content) do
-    changeset = user
-    |> User.info_changeset(%{info: info_content})
+    changeset =
+      user
+      |> User.info_changeset(%{info: info_content})
 
     Ecto.Multi.new()
     |> Ecto.Multi.update(:user, changeset)
     |> AuditLog.multi(
-      audit_log, :account, "user.update_info.info",
+      audit_log,
+      :account,
+      "user.update_info.info",
       %{user_id: user.id, info: info_content}
     )
     |> Repo.transaction()
@@ -194,6 +205,7 @@ defmodule Noctilucent.Accounts do
       {:ok, %{user: user}} -> {:ok, user}
       {:error, :user, changeset, _} -> {:error, changeset}
     end
+
     # [TODO) 上 AuditLog
   end
 
@@ -204,6 +216,7 @@ defmodule Noctilucent.Accounts do
   """
   def generate_user_session_token(user) do
     {token, user_token} = UserToken.build_session_token(user, :storage_user)
+
     user_token
     |> Repo.insert()
 
@@ -251,5 +264,4 @@ defmodule Noctilucent.Accounts do
   def change_user(%User{} = user, attrs \\ %{}) do
     User.changeset(user, attrs)
   end
-
 end
