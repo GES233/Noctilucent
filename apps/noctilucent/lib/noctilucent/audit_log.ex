@@ -5,8 +5,8 @@ defmodule Noctilucent.AuditLog.Context do
 
   # 保存的键，对于值的读取需要对应的函数来操作
   @params %{
+    # 用户自发和账号相关的动作
     account: %{
-      # 用户自发的动作
       "user.login" => ~w(user_id),
       "user.logout" => ~w(user_id),
       "user.sign_up" => ~w(user_id username),
@@ -16,16 +16,34 @@ defmodule Noctilucent.AuditLog.Context do
       "user.update_info.info" => ~w(user_id info),
       "user.freeze" => ~w(user_id),
       "user.delete_account" => ~w(user_id)
-      # 管理员对用户的管理
-    }
+    },
+    # 管理员的动作
+    moderator: %{},
+    # 内容相关
+    content: %{
+      # 内容的增删改查
+      "content.create" => ~w(author_id content_type content_id),
+      "content.update" => ~w(author_id content_type content_id),
+      "content.delete" => ~w(author_id content_type content_id),
+      "content.lock" => ~w(author_id content_type content_id),
+      "content.unlock" => ~w(author_id content_type content_id),
+      # 点赞点踩
+      "content.like" => ~w(user_id content_type content_id)
+    },
+    # 房间相关
+    room: %{},
+    # 系统自动执行的动作
   }
 
   @doc """
   通过领域以及动作返回所需的上下文。
   """
-  def by_scope_and_verb(_scope, _verb) do
-    {:error, :not_implement}
+  for scope <- @params do
+    for verb <- Map.keys(scope) do
+      def by_scope_and_verb(unquote(scope), unquote(verb)), do: {:ok, scope[unquote(verb)]}
+    end
   end
+  def by_scope_and_verb(_scope, _verb), do: {:error, :not_implement}
 
   @doc """
   返回领域下所有的动作及其对应的上下文。
@@ -62,7 +80,7 @@ defmodule Noctilucent.AuditLog do
   # 说实话，这块我没抄明白
   # [TODO): IP <-> Ecto custome Type
   schema "audit_logs" do
-    field :scope, Ecto.Enum, values: [:account]
+    field :scope, Ecto.Enum, values: [:account, :content, :room]
     field :context, :map, default: %{}
     field :verb, :string
     field :ip_addr, :string
