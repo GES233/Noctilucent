@@ -7,40 +7,52 @@ defmodule Noctilucent.AuditLog.Context do
   @params %{
     # 用户自发和账号相关的动作
     account: %{
+      # 登录
       "user.login" => ~w(user_id),
+      # 登出
       "user.logout" => ~w(user_id),
+      # 注册
       "user.sign_up" => ~w(user_id username),
+      # 修改用户信息
       "user.update_username" => ~w(user_id username old_username),
       "user.update_info.nickname" => ~w(user_id nickname),
       "user.update_info.gender" => ~w(user_id gender),
       "user.update_info.info" => ~w(user_id info),
-      "user.freeze" => ~w(user_id),
+      # 用户冻结
+      "user.freeze" => ~w(user_id exp_expire_time),
+      # 删除账号
       "user.delete_account" => ~w(user_id)
     },
     # 管理员的动作
-    moderator: %{},
+    # moderator: %{},
     # 内容相关
     content: %{
       # 内容的增删改查
       "content.create" => ~w(author_id content_type content_id),
       "content.update" => ~w(author_id content_type content_id),
       "content.delete" => ~w(author_id content_type content_id),
+      # 锁定以及接触锁定
       "content.lock" => ~w(author_id content_type content_id),
       "content.unlock" => ~w(author_id content_type content_id),
       # 点赞点踩
-      "content.like" => ~w(user_id content_type content_id)
+      "responce.like" => ~w(user_id content_type content_id),
+      "responce.dislike" => ~w(user_id content_type content_id),
+      "responce.natural" => ~w(user_id content_type content_id),
+      # 评论相关
     },
     # 房间相关
-    room: %{},
+    streaming: %{
+      "room.create" => ~w(host_id room_id)
+    },
     # 系统自动执行的动作
   }
 
   @doc """
   通过领域以及动作返回所需的上下文。
   """
-  for scope <- @params do
-    for verb <- Map.keys(scope) do
-      def by_scope_and_verb(unquote(scope), unquote(verb)), do: {:ok, scope[unquote(verb)]}
+  for {scope, actions_map} <- @params do
+    for {verb, action} <- actions_map do
+      def by_scope_and_verb(unquote(scope), unquote(verb)), do: {:ok, unquote(action)}
     end
   end
   def by_scope_and_verb(_scope, _verb), do: {:error, :not_implement}
@@ -48,13 +60,10 @@ defmodule Noctilucent.AuditLog.Context do
   @doc """
   返回领域下所有的动作及其对应的上下文。
   """
-  for scope <- Map.keys(@params) do
-    def by_scope(unquote(scope)), do: {:ok, @params[unquote(scope)]}
+  for {scope, actions_map} <- @params do
+    def by_scope(unquote(scope)), do: {:ok, unquote(actions_map)}
   end
-
   def by_scope(_), do: {:error, :not_found}
-
-  defp get_params(), do: @params
 end
 
 defmodule Noctilucent.AuditLog do
@@ -147,7 +156,7 @@ defmodule Noctilucent.AuditLog do
   # 构造
 
   defp build!(%__MODULE__{} = audit_context, scope, verb, context)
-       when is_atom(scope) and is_binary(verb) and is_map(context) do
+      when is_atom(scope) and is_binary(verb) and is_map(context) do
     # 一般地讲，audit_context 已经包括了用户相关的信息
     %{
       audit_context
