@@ -1,6 +1,8 @@
 defmodule NoctilucentWeb.Router do
   use NoctilucentWeb, :router
 
+  import NoctilucentWeb.RequestContext
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -8,6 +10,8 @@ defmodule NoctilucentWeb.Router do
     plug :put_root_layout, html: {NoctilucentWeb.Layouts, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    # TODO: get_user
+    plug :put_audit_context
   end
 
   pipeline :api do

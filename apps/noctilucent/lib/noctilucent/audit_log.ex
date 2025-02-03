@@ -50,10 +50,8 @@ defmodule Noctilucent.AuditLog.Context do
   @doc """
   通过领域以及动作返回所需的上下文。
   """
-  for {scope, actions_map} <- @params do
-    for {verb, action} <- actions_map do
-      def by_scope_and_verb(unquote(scope), unquote(verb)), do: {:ok, unquote(action)}
-    end
+  for {scope, actions_map} <- @params, {verb, action} <- actions_map do
+    def by_scope_and_verb(unquote(scope), unquote(verb)), do: {:ok, unquote(action)}
   end
   def by_scope_and_verb(_scope, _verb), do: {:error, :not_implement}
 
@@ -61,7 +59,7 @@ defmodule Noctilucent.AuditLog.Context do
   返回领域下所有的动作及其对应的上下文。
   """
   for {scope, actions_map} <- @params do
-    def by_scope(unquote(scope)), do: {:ok, unquote(actions_map)}
+    def by_scope(unquote(scope)), do: {:ok, unquote(Macro.escape(actions_map))}
   end
   def by_scope(_), do: {:error, :not_found}
 end

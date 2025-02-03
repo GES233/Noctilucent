@@ -21,14 +21,11 @@ defmodule NoctilucentWeb.PageController do
       %{name: "ccb", origin: "otto"}
     ]
 
-    form = []
-
     render(
       conn,
       :components,
       subtitle: "Subtitle",
-      memes: memes,
-      form: form
+      memes: memes
     )
   end
 end
