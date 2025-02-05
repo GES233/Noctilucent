@@ -71,7 +71,8 @@ defmodule NoctilucentWeb.MixProject do
   defp docs() do
     [
       extras: docs_extras(),
-      groups_for_extras: groups_for_extras()
+      groups_for_extras: groups_for_extras(),
+      assets: %{"guides/assets" => "assets"}
     ]
   end
 
@@ -85,7 +86,7 @@ defmodule NoctilucentWeb.MixProject do
       "guides/take_a_glance/next_step.md",
       "guides/appearance/noctilucent.md",
       "guides/appearance/color_theme.md",
-      "guides/appearance/index.md"
+      "guides/appearance/page_index.md"
     ]
   end
 

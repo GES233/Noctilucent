@@ -26,10 +26,10 @@ defmodule NoctilucentWeb.RequestContext do
         }
 
       %Phoenix.LiveView.Socket{} ->
-        if info = Phoenix.LiveView.get_connect_info(conn_or_socket) do
-          ip = get_ip(info[:x_headers] || [])
+        if ua = Phoenix.LiveView.get_connect_info(conn_or_socket, :user_agent) do
+          ip = get_ip(Phoenix.LiveView.get_connect_info(conn_or_socket, :x_headers) || [])
 
-          %{ip_addr: ip, user_agent: info[:user_agent]}
+          %{ip_addr: ip, user_agent: ua}
         else
           %{}
         end

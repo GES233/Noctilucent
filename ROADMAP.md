@@ -4,7 +4,9 @@
 
 - [ ] 用自己的代码取代掉 Phoenix 脚手架
   - [x] 翻译文档
-  - [ ] 首页
+  - [x] 首页
+  - [ ] 页面规范
+  - [ ] 用户相关网页
 - [ ] 使用颜色主题更替原来的脚手架的代码
   - [ ] `NoctilucentWeb.ErrorComponents.error/1`
   - [ ] `NoctilucentWeb.FlashComponents.flash/1`
