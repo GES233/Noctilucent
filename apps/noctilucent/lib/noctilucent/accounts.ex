@@ -139,14 +139,17 @@ defmodule Noctilucent.Accounts do
   end
 
   # change_gender/2
-  def change_user_gender(_user, _gender) do
-    raise Helpers.NotImplement
-    # [TODO) 写完 changeset
+  def change_user_gender(audit_log, user, gender) do
+    user
+    |> User.gender_changeset(%{gender: gender, gender_visible: user.gender_visible})
+    |> update_when_userinfo(audit_log, user, "user.update_info.gender", gender)
   end
 
   # change_user_gender_visibility/2
-  def change_user_gender_visibility(_user, _visible) do
+  def change_user_gender_visibility(user, visible) do
     # 这个不用上 AuditLog
+    user
+    |> User.gender_changeset(%{gender: user.gender, gender_visible: visible})
     raise Helpers.NotImplement
     # [TODO) 写完 changeset
   end
@@ -171,12 +174,15 @@ defmodule Noctilucent.Accounts do
           info: new_item
         }
       # current
-      # gender
-      # gender_visibility
+      "user.update_info.gender" ->
+        %{
+          user_id: old_user.id,
+          gender: new_item
+        }
     end
 
     Ecto.Multi.new()
-    |> Ecto.Multi.update(:user, changeset)
+    |> Ecto.Multi.update(:user, user_changeset)
     |> AuditLog.multi(audit_log, :account, verb, new_context)
     |> Repo.transaction()
     |> case do

@@ -128,6 +128,8 @@ defmodule Noctilucent.Accounts.User do
   def gender_changeset(user, attrs) do
     user
     |> cast(attrs, [:gender, :gender_visible])
+    # TODO: 检查 gender 以及 gender_visible 是否在范围内
+    # 原则上不允许性别重新变成 blank
   end
 
   @doc """
