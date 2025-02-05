@@ -59,7 +59,7 @@ defmodule Noctilucent.Accounts do
   ## Examples
 
       iex> get_user_by_username_and_password("iKUNforever", "cxkjntm")
-      %Member{}
+      %User{}
 
       iex> get_user_by_username_and_password("iKUNforever", "cxknmjj")
       nil
