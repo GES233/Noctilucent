@@ -3,7 +3,7 @@ defmodule NoctilucentWeb.UserAuth do
   alias Noctilucent.Accounts.UserToken
 
   def login_user(conn, user) do
-    token = UserToken.build_session_token(user, :storage_user)
+    {:ok, token} = UserToken.build_session_token(user, :storage_user)
 
     conn
     |> renew_session(:all)
@@ -26,10 +26,12 @@ defmodule NoctilucentWeb.UserAuth do
     |> put_session(key, value)
   end
 
-  # TODO: logout
+  def logout_user(conn, _user) do
+    conn
+  end
 
   def fetch_current_user(conn, _opts) do
-    with user_token <- get_session(conn, :user_token),
+    with user_token when is_binary(user_token) <- get_session(conn, :user_token),
     {:ok, user} <- UserToken.verify_session_token_query(user_token, :storage_user) do
       assign(conn, :current_user, user)
     else

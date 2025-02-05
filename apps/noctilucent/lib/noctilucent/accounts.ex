@@ -218,10 +218,14 @@ defmodule Noctilucent.Accounts do
   def generate_user_session_token(user) do
     {token, user_token} = UserToken.build_session_token(user, :storage_user)
 
-    user_token
-    |> Repo.insert()
-
-    token
+    Ecto.Multi.new()
+    |> Ecto.Multi.insert(:token, user_token)
+    |> AuditLog.multi()
+    |> Repo.transaction()
+    |> case do
+      {:ok, _} -> {:ok, token}
+      {:error, changeset} -> {:error, changeset}
+    end
   end
 
   @doc """
