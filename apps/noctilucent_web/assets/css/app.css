@@ -3,3 +3,15 @@
 @import "tailwindcss/utilities";
 
 /* 此文件会生成用于你的应用的 CSS */
+
+@font-face {
+    font-family: 'Lumiere Polis';
+    font-weight: bold;
+    src: url('/fonts/LumierepolisBoldItalic-MA70x.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Lumiere Polis';
+    font-weight: italic;
+    src: url('/fonts/LumierepolisLightItalic-8OxnB.ttf') format('truetype');
+}

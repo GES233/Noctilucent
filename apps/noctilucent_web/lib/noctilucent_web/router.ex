@@ -1,7 +1,7 @@
 defmodule NoctilucentWeb.Router do
   use NoctilucentWeb, :router
 
-  import NoctilucentWeb.RequestContext, only: [put_audit_context: 1]
+  import NoctilucentWeb.RequestContext, only: [put_audit_context: 2]
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -49,7 +49,8 @@ defmodule NoctilucentWeb.Router do
 
     # 用户相关
     live "/users", UserLive.Index, :index
-    live "/users/new", UserLive.Index, :new
+    # 检查完后端逻辑解除注释
+    # live "/users/new", UserLive.Index, :new
     # TODO: 改成 username
     # live "/users/:id/edit", UserLive.Index, :edit
 

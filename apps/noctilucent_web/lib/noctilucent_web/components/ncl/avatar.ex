@@ -1,5 +1,5 @@
 defmodule NoctilucentWeb.NclComponents.AvatarComponents do
-  use NoctilucentWeb, :pico
+  use NoctilucentWeb.Components, :pico
   # 头像组件
 
   attr :avatar_id, :string

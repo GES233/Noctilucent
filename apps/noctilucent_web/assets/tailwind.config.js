@@ -27,7 +27,10 @@ module.exports = {
         ncl_twi_cl: "#F1EFDA",
         // 彩云
         ncl_cl_pr: "#C4ABE2",
-      }
+      },
+      fontFamily: {
+        'lumiere-polis': 'Lumiere Polis'
+      },
     },
   },
   plugins: [
