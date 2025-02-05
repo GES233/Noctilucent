@@ -10,6 +10,8 @@ defmodule NoctilucentWeb.Components do
     end
   end
 
+  def pico, do: quote(do: use Phoenix.Component)
+
   def all do
     quote do
       import NoctilucentWeb.{
