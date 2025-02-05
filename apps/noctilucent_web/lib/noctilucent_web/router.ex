@@ -23,6 +23,14 @@ defmodule NoctilucentWeb.Router do
 
     get "/", PageController, :home
     get "/components", PageController, :components
+
+    # 用户相关
+    live "/users", UserLive.Index, :index
+    # live "/users/new", UserLive.Index, :new
+    # live "/users/:id/edit", UserLive.Index, :edit
+
+    # live "/users/:id", UserLive.Show, :show
+    # live "/users/:id/show/edit", UserLive.Show, :edit
   end
 
   # 其他的范围也可以使用自定义的 plug 栈。
