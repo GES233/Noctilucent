@@ -146,12 +146,12 @@ defmodule Noctilucent.Accounts do
   end
 
   # change_user_gender_visibility/2
+  # 还未经测试
   def change_user_gender_visibility(user, visible) do
     # 这个不用上 AuditLog
     user
     |> User.gender_changeset(%{gender: user.gender, gender_visible: visible})
-    raise Helpers.NotImplement
-    # [TODO) 写完 changeset
+    |> Repo.update()
   end
 
   # 【用户】主动修改个人信息的通用操作

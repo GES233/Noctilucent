@@ -77,7 +77,7 @@ defmodule Noctilucent.AuditLog.Context do
   for {scope, actions_map} <- @params, {verb, action} <- actions_map do
     def by_scope_and_verb(unquote(scope), unquote(verb)), do: {:ok, unquote(action)}
   end
-  def by_scope_and_verb(_scope, _verb), do: {:error, :not_implement}
+  def by_scope_and_verb(_scope, _verb), do: {:error, :not_found}
 
   @doc """
   返回领域下所有的动作及其对应的上下文。
@@ -109,12 +109,11 @@ defmodule Noctilucent.AuditLog do
   import Ecto.Changeset
 
   # 说实话，这块我没抄明白
-  # [TODO): IP <-> Ecto custome Type
   schema "audit_logs" do
     field :scope, Ecto.Enum, values: [:account, :content, :room]
     field :context, :map, default: %{}
     field :verb, :string
-    field :ip_addr, :string
+    field :ip_addr, EctoIP
     field :user_agent, :string
     belongs_to :user, Noctilucent.Accounts.User, type: :binary_id
 
@@ -197,11 +196,15 @@ defmodule Noctilucent.AuditLog do
     # 这边一旦出了问题，一般是开发者设计的锅
     # 直接 raise 就好
     struct
-
-    # 记得确定键的类别是 atom 还是 string
-    # 数据端是 string ，但是业务端用 atom 比较适合
-    # （因为原子类型写起来比较方便）
   end
 
-  # defp has_correct_context_with_scope_and_verb
+  # defp has_correct_context_with_scope_and_verb(context, scope, verb) do
+  #   with
+  #       {:ok, action} <- Noctilucent.AuditLog.Context.by_scope_and_verb(scope, verb),
+  #       Enum.same?(Map.keys(context), action) do
+  #     {:ok, context}
+  #   else
+  #     {:error, reason} -> {:error, reason}
+  #   end
+  # end
 end

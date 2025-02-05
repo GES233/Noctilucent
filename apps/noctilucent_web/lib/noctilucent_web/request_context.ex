@@ -22,7 +22,7 @@ defmodule NoctilucentWeb.RequestContext do
       %Plug.Conn{} ->
         %{
           user_agent: get_ua(conn_or_socket.req_headers),
-          ip_addr: get_ip(conn_or_socket.req_headers)
+          ip_addr: get_ip(conn_or_socket)
         }
 
       %Phoenix.LiveView.Socket{} ->
@@ -36,7 +36,8 @@ defmodule NoctilucentWeb.RequestContext do
     end
 
     %AuditLog{user: get_user(conn_or_socket)}
-    |> struct!(extra) |> IO.inspect()
+    |> struct!(extra)
+    |> IO.inspect(label: :audit_log)
   end
 
   defp get_ua(headers) do
@@ -46,17 +47,19 @@ defmodule NoctilucentWeb.RequestContext do
     end
   end
 
-  defp get_ip(headers) do
-    # [TODO) Edge has not this header.
-    IO.inspect(List.keyfind(headers, "x-forwarded-for", 0), label: :ip)
+  # TODO: 以下情况将考虑依照配置进行选择
 
-    with {_, ip} <- List.keyfind(headers, "x-forwarded-for", 0),
-        [ip | _] = String.split(ip, ",") do
-      ip
-    else
-      _ ->
-        nil
-    end
+  defp get_ip(%Plug.Conn{} = conn) do
+    # 只在配置了 ngnix 的情况才有用
+    # 如果有 Client-IP => Client-IP
+    # List.keyfind(conn.req_headers, "x-forwarded-for", 0)
+    # 如果有 X-Forwarded-For => X-Forwarded-For
+
+    conn.remote_ip
+  end
+
+  defp get_ip(_socket) do
+    raise Helpers.NotImplement
   end
 
   defp get_user(%Plug.Conn{assigns: %{current_user: user}}), do: user

@@ -10,7 +10,7 @@
 <.table
   id="users"
   rows={@streams.users}
-  row_click={fn {_id, user} -> JS.navigate(~p"/users/#{user}") end}
+  row_click={fn {_id, _user} -> JS.navigate(~p"/users") end}
 >
   <:col :let={{_id, user}} label="Name"><%= user.username %></:col>
   <:col :let={{_id, user}} label="Nickname"><%= user.nickname %></:col>

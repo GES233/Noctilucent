@@ -2,6 +2,7 @@ defmodule NoctilucentWeb.Router do
   use NoctilucentWeb, :router
 
   import NoctilucentWeb.RequestContext, only: [put_audit_context: 2]
+  import NoctilucentWeb.UserAuth, only: [fetch_current_user: 2]
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -10,7 +11,7 @@ defmodule NoctilucentWeb.Router do
     plug :put_root_layout, html: {NoctilucentWeb.Layouts, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    # TODO: get_user
+    plug :fetch_current_user
     plug :put_audit_context
   end
 

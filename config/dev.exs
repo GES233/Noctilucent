@@ -13,7 +13,7 @@ config :noctilucent, Noctilucent.Repo,
 config :noctilucent_web, NoctilucentWeb.Endpoint,
   # 绑定到环回 IPv4 地址可防止其他机器访问。
   # 如果想要从其他机器访问请改成 `ip: {0, 0, 0, 0}` 。
-  http: [ip: {127, 0, 0, 1}, port: 4000],
+  http: [ip: {0, 0, 0, 0}, port: 4000],
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
