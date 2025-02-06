@@ -211,7 +211,7 @@ defmodule Noctilucent.Accounts do
   @doc """
   生成用于保存用户的 Token ，一般在登录时使用。
   """
-  def generate_user_session_token(user) do
+  def generate_user_session_token(%{user: user} = audit_log) do
     {token, user_token} = UserToken.build_session_token(user, :storage_user)
 
     Ecto.Multi.new()
