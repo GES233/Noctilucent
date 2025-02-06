@@ -25,6 +25,10 @@ defmodule NoctilucentWeb.Router do
 
     get "/", PageController, :home
     get "/components", PageController, :components
+
+    live "/sign_up", SignUpLive
+    # live "/me", UserPageLive, :me
+    # live "/u/:username", UserPageLive, :other
   end
 
   # 其他的范围也可以使用自定义的 plug 栈。
