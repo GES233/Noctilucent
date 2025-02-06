@@ -109,7 +109,7 @@ defmodule Noctilucent.Accounts do
   确认用户身份（也就是重新输入密码）以及时间限制。
   但还是先这样吧。
   """
-  def do_change_username(%{user: user} = audit_log, username) do
+  def change_username(%{user: user} = audit_log, username) do
     user
     |> User.username_changeset(%{username: username})
     |> update_when_userinfo(audit_log, user, "user.update_username", username)
@@ -139,7 +139,7 @@ defmodule Noctilucent.Accounts do
   end
 
   # change_gender/2
-  def change_user_gender(audit_log, user, gender) do
+  def change_user_gender(%{user: user} = audit_log, gender) do
     user
     |> User.gender_changeset(%{gender: gender, gender_visible: user.gender_visible})
     |> update_when_userinfo(audit_log, user, "user.update_info.gender", gender)
@@ -159,24 +159,20 @@ defmodule Noctilucent.Accounts do
     new_context = case verb do
       "user.update_username" ->
         %{
-          user_id: old_user.id,
           username: new_item,
           old_username: old_user.username
         }
       "user.update_info.nickname" ->
         %{
-          user_id: old_user.id,
           nickname: new_item
         }
       "user.update_info.info" ->
         %{
-          user_id: old_user.id,
           info: new_item
         }
       # current
       "user.update_info.gender" ->
         %{
-          user_id: old_user.id,
           gender: new_item
         }
     end
@@ -213,14 +209,14 @@ defmodule Noctilucent.Accounts do
   ## 会话
 
   @doc """
-  生成用于保存用户的 Token 。
+  生成用于保存用户的 Token ，一般在登录时使用。
   """
   def generate_user_session_token(user) do
     {token, user_token} = UserToken.build_session_token(user, :storage_user)
 
     Ecto.Multi.new()
     |> Ecto.Multi.insert(:token, user_token)
-    |> AuditLog.multi()
+    |> AuditLog.multi(audit_log, :account, "user.login", %{new_token: token})
     |> Repo.transaction()
     |> case do
       {:ok, _} -> {:ok, token}
@@ -241,6 +237,7 @@ defmodule Noctilucent.Accounts do
   """
   def delete_user_session_token(token) do
     Repo.delete_all(UserToken.by_token_and_scene_query(token, :storage_user))
+
     :ok
   end
 

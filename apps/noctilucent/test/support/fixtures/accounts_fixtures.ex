@@ -1,7 +1,7 @@
 defmodule Noctilucent.AccountsFixtures do
   @moduledoc """
-  This module defines test helpers for creating
-  entities via the `Noctilucent.Accounts` context.
+  这个模块定义了用于通过 `Noctilucent.Accounts`
+  上下文创建实体的测试辅助函数。
   """
 
   alias Noctilucent.{Accounts, AuditLog}
@@ -20,13 +20,14 @@ defmodule Noctilucent.AccountsFixtures do
   创建一个用户。
   """
   def user_fixture(attrs \\ %{}) do
-    {complete, attrs} = attrs |> Map.new() |> Map.pop(:complete, true)
-
-    user_param =
+    {complete, attrs} =
       attrs
-      |> valid_user_attribute()
+      |> Map.new()
+      |> Map.pop(:complete, true)
 
-    {:ok, user} = Accounts.register_user(AuditLog.blank(), user_param)
+    user_param = valid_user_attribute(attrs)
+
+    {:ok, user} = Accounts.register_user(gen_audit(), user_param)
 
     if complete do
       complete(user)
@@ -35,9 +36,25 @@ defmodule Noctilucent.AccountsFixtures do
     end
   end
 
+  defp gen_audit() do
+    %AuditLog{
+      ip_addr: {127, 0, 0, 1},
+      user_agent: "Elixir Test"
+    }
+  end
+
   def complete(user) do
-    # [TODO) 完成填充
-    # 包括昵称、性别、简介以及头像
+    audit_log = gen_audit()
+
+    {:ok, user} = Accounts.change_user_nickname(%{audit_log | user: user}, "只因美")
+
+    {:ok, user} = Accounts.change_user_gender(%{audit_log | user: user}, :non_bisexual)
+
+    {:ok, user} = Accounts.change_user_info(%{audit_log | user: user}, "这是一段简介")
+
+    # [TODO) 完成头像填充
+    # {:ok, user} = Accounts.change_user_avater(%{audit_log | user: user}, "https://example.com/avater.jpg")
+
     user
   end
 end

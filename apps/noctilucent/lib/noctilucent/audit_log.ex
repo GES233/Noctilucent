@@ -9,21 +9,21 @@ defmodule Noctilucent.AuditLog.Context do
     account: %{
       ## 基本功能
       # 登录
-      "user.login" => ~w(user_id),
+      "user.login" => ~w(new_token),
       # 登出
-      "user.logout" => ~w(user_id),
+      "user.logout" => ~w(invalid_token),
       # 注册
-      "user.sign_up" => ~w(user_id username),
+      "user.sign_up" => ~w(username),
       # 修改用户信息
-      "user.update_username" => ~w(user_id username old_username),
-      "user.update_info.nickname" => ~w(user_id nickname),
-      "user.update_info.gender" => ~w(user_id gender),
-      "user.update_info.info" => ~w(user_id info),
+      "user.update_username" => ~w(username old_username),
+      "user.update_info.nickname" => ~w(nickname),
+      "user.update_info.gender" => ~w(gender),
+      "user.update_info.info" => ~w(info),
       # 状态变化
       # 用户冻结
-      "user.freeze" => ~w(user_id exp_expire_time),
+      "user.freeze" => ~w(exp_expire_time),
       # 删除账号
-      "user.delete_account" => ~w(user_id),
+      "user.delete_account" => ~w(),
     },
     # 社交相关
     social: %{
@@ -32,6 +32,8 @@ defmodule Noctilucent.AuditLog.Context do
       "user.unfollow" => ~w(origin_follower_id origin_followee_id),
       # 添加好友/删除好友
       "user.contact.add" => ~w(user_id contact_id),
+      "user.contact.add.accept" => ~w(acceptor_id contact_id),
+      "user.contact.add.reject" => ~w(rejector_id contact_id),
       "user.contact.remove" => ~w(user_id contact_id),
       # 拉黑/解除拉黑
       "user.block" => ~w(user_id block_id),
