@@ -57,6 +57,7 @@ defmodule NoctilucentWeb.MixProject do
        app: false,
        compile: false,
        depth: 1},
+      {:salad_ui, "~> 0.14"},
       {:telemetry_metrics, "~> 1.0"},
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.20"},

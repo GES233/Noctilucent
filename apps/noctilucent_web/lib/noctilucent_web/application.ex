@@ -6,6 +6,8 @@ defmodule NoctilucentWeb.Application do
   @impl true
   def start(_type, _args) do
     children = [
+      # 启动 TwMerge 缓存
+      TwMerge.Cache,
       NoctilucentWeb.Telemetry,
       # 通常把开始处理请求的进程放在最后一个条目
       NoctilucentWeb.Endpoint
