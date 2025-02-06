@@ -12,7 +12,7 @@ module.exports = {
     "./js/**/*.js",
     "../lib/noctilucent_web.ex",
     "../lib/noctilucent_web/**/*.*ex",
-    "..../deps/salad_ui/lib/**/*.ex",
+    // "..../deps/salad_ui/lib/**/*.ex",
   ],
   theme: {
     extend: {

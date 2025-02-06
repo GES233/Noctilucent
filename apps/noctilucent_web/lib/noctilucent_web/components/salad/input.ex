@@ -5,6 +5,10 @@ defmodule NoctilucentWeb.Components.Input do
   @doc """
   Displays a form input field or a component that looks like an input field.
 
+  请查看 https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/input
+  以获得更多信息。对于不支持的类型，像是 hidden 以及 audio ，
+  最好直接写进你的模板里。
+
   ## Examples
 
       <.input type="text" placeholder="Enter your name" />

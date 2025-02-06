@@ -95,10 +95,10 @@ defmodule NoctilucentWeb do
       use NoctilucentWeb.Components, :phx
       use NoctilucentWeb.Components, :salad
 
+      use Gettext, backend: NoctilucentWeb.Gettext
+
       # 暂时性的用一下
       import NoctilucentWeb.NclComponents.LayoutComponent
-
-      use Gettext, backend: NoctilucentWeb.Gettext
 
       # Shortcut for generating JS commands
       # 生成 JS 命令的快捷方式（？）

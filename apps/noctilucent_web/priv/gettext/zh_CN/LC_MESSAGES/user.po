@@ -1,0 +1,37 @@
+## "msgid"s in this file come from POT (.pot) files.
+###
+### Do not add, change, or remove "msgid"s manually here as
+### they're tied to the ones in the corresponding POT file
+### (with the same domain).
+###
+### Use "mix gettext.extract --merge" or "mix gettext.merge"
+### to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: lib/noctilucent_web/components/ncl/layout.ex:42
+#, elixir-autogen, elixir-format
+msgid "Account"
+msgstr "账号"
+
+#: lib/noctilucent_web/components/ncl/layout.ex:73
+#, elixir-autogen, elixir-format
+msgid "Log out"
+msgstr "登出"
+
+#: lib/noctilucent_web/components/ncl/layout.ex:52
+#, elixir-autogen, elixir-format
+msgid "Message"
+msgstr "信息"
+
+#: lib/noctilucent_web/components/ncl/layout.ex:47
+#, elixir-autogen, elixir-format
+msgid "Profile"
+msgstr "简介"
+
+#: lib/noctilucent_web/components/ncl/layout.ex:57
+#, elixir-autogen, elixir-format
+msgid "Settings"
+msgstr "设置"

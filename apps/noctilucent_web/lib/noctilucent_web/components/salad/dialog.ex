@@ -1,13 +1,17 @@
 defmodule NoctilucentWeb.Components.Dialog do
   @moduledoc """
-  Implement of Dialog components from https://ui.shadcn.com/docs/components/dialog
+  从 https://ui.shadcn.com/docs/components/dialog 实现对话框组件。
+
+  Phoenix 自行生成的脚手架中，实现相关逻辑的是 `modal/1` 。
   """
   use NoctilucentWeb.Components.Salad
 
   @doc """
-  Dialog component
+  对话框组件。
 
-  ## Examples:
+  JS 命令可通过 `:on_cancel` 传送以配置关闭/取消事件。
+
+  ## Examples
 
         <.dialog :if={@live_action in [:new, :edit]} id="pro-dialog" show on_cancel={JS.navigate(~p"/p")}>
           <.dialog_content class="sm:max-w-[425px]">

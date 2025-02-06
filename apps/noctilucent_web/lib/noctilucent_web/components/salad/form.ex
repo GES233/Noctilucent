@@ -70,6 +70,7 @@ defmodule NoctilucentWeb.Components.Form do
         assigns
       end
 
+    # TODO: 可否用 NoctilucentWeb.Components.Label 取代？
     ~H"""
     <SaladUI.Label.label
       class={
