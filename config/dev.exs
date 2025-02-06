@@ -70,5 +70,5 @@ config :phoenix_live_view,
 # 在开发环境设置更高的栈跟踪。但是在生产中不要这么设置，因为性能开销太大。
 config :phoenix, :stacktrace_depth, 20
 
-# Path to install SaladUI components
-config :salad_ui, components_path: Path.join(File.cwd!(), "apps/noctilucent_web/lib/noctilucent_web/components")
+# 安装 SaladUI 组件的位置
+config :salad_ui, components_path: Path.join(File.cwd!(), "apps/noctilucent_web/lib/noctilucent_web/components/salad")

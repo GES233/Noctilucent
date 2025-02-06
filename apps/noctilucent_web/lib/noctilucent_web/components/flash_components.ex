@@ -42,9 +42,9 @@ defmodule NoctilucentWeb.FlashComponents do
           class="h-4 w-4"
         /> <%= @title %>
       </p>
-      
+
       <p class="mt-2 text-sm leading-5"><%= msg %></p>
-      
+
       <button type="button" class="group absolute top-1 right-1 p-2" aria-label={gettext("close")}>
         <ShowComponents.icon
           name="hero-x-mark-solid"
@@ -81,7 +81,7 @@ defmodule NoctilucentWeb.FlashComponents do
         <%= gettext("Attempting to reconnect") %>
         <ShowComponents.icon name="hero-arrow-path" class="ml-1 h-3 w-3 animate-spin" />
       </.flash>
-      
+
       <.flash
         id="server-error"
         kind={:error}

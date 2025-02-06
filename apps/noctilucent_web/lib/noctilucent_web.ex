@@ -90,8 +90,10 @@ defmodule NoctilucentWeb do
     quote do
       # 规避 HTML 转义的功能
       import Phoenix.HTML
+
       # UI 组件以及翻译功能
-      use NoctilucentWeb.Components, :all
+      use NoctilucentWeb.Components, :phx
+      use NoctilucentWeb.Components, :salad
       use Gettext, backend: NoctilucentWeb.Gettext
 
       # Shortcut for generating JS commands

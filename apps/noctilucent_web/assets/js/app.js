@@ -1,6 +1,7 @@
 // 如果你想要使用 Phoenix channcels ，请运行 `mix help phx.gen.channel`
 // 并且取消下面这一行代码的注释。
 // import "./user_socket.js"
+import "./ChartHook.js"
 
 // 你可以通过两种方式来导入依赖项。
 //
