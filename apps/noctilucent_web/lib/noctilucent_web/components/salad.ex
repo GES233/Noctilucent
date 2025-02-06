@@ -363,6 +363,8 @@ defmodule NoctilucentWeb.Components.Salad do
 
       alias Phoenix.LiveView.JS
 
+      use Gettext, backend: NoctilucentWeb.Gettext
+
       defp classes(input) do
         TwMerge.merge(input)
       end

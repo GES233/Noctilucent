@@ -67,3 +67,8 @@ config :bcrypt_elixir, rounds: 14
 # 依据环境导入不同的配置。这一行必须在文件的最后
 # 因此其可以覆写上面的配置。
 import_config "#{config_env()}.exs"
+
+# 关于 SaladUI
+config :salad_ui,
+  :error_translator_function,
+  {NoctilucentWeb.ErrorComponents, :translate_error}

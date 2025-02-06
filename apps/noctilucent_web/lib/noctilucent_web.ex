@@ -94,6 +94,10 @@ defmodule NoctilucentWeb do
       # UI 组件以及翻译功能
       use NoctilucentWeb.Components, :phx
       use NoctilucentWeb.Components, :salad
+
+      # 暂时性的用一下
+      import NoctilucentWeb.NclComponents.LayoutComponent
+
       use Gettext, backend: NoctilucentWeb.Gettext
 
       # Shortcut for generating JS commands

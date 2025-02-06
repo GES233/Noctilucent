@@ -6,6 +6,7 @@ defmodule NoctilucentWeb.Components do
       use Phoenix.Component
 
       alias Phoenix.LiveView.JS
+
       use Gettext, backend: NoctilucentWeb.Gettext
     end
   end

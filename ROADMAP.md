@@ -7,16 +7,9 @@
   - [x] 首页
   - [ ] 页面规范
   - [ ] 用户相关网页
-- [ ] 使用颜色主题更替原来的脚手架的代码
-  - [ ] `NoctilucentWeb.ErrorComponents.error/1`
-  - [ ] `NoctilucentWeb.FlashComponents.flash/1`
-  - [ ] `NoctilucentWeb.FlashComponents.flash_group/1`
-  - [x] `NoctilucentWeb.FormComponents.button/1`
-  - [ ] `NoctilucentWeb.FormComponents.simple_form/1`
-  - [ ] `NoctilucentWeb.FormComponents.input/1`
-  - [ ] `NoctilucentWeb.FormComponents.label/1`
-  - [x] `NoctilucentWeb.ShowComponents.header/1`
-  - [ ] ...
+- [ ] 重新梳理前端相关内容
+  - [ ] 移除无用组件并且尽量精简
+  - [ ] 与 Gettext 进行耦合
 
 ## 业务
 

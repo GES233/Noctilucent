@@ -7,8 +7,7 @@ defmodule NoctilucentWeb.Components.DropdownMenu do
   @doc """
   Render dropdown menu
 
-
-  ## Examples:
+  ## Examples
 
       <.dropdown_menu>
         <.dropdown_menu_trigger>
