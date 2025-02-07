@@ -1,8 +1,8 @@
 defmodule NoctilucentWeb.MountHelpers do
-  import Phoenix.{Component, LiveView}
+  import Phoenix.Component
 
   alias Noctilucent.Accounts
-  alias NoctilucentWeb.{RequestContext}
+  alias NoctilucentWeb.RequestContext
 
   def assign_default(socket, session) do
     socket

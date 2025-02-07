@@ -19,7 +19,7 @@ msgstr "操作"
 #: lib/noctilucent_web/components/phx/flash_components.ex:81
 #, elixir-autogen, elixir-format
 msgid "Attempting to reconnect"
-msgstr "试图重连"
+msgstr "嗯，我们开始尝试重新连接…"
 
 #: lib/noctilucent_web/components/phx/flash_components.ex:72
 #, elixir-autogen, elixir-format
@@ -44,7 +44,7 @@ msgstr "成功！"
 #: lib/noctilucent_web/components/phx/flash_components.ex:76
 #, elixir-autogen, elixir-format
 msgid "We can't find the internet"
-msgstr "找不到网"
+msgstr "我们连不上蓝牙了！"
 
 #: lib/noctilucent_web/components/phx/flash_components.ex:48
 #: lib/noctilucent_web/components/phx/modal_components.ex:61

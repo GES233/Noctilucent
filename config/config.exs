@@ -64,11 +64,16 @@ config :gettext,
 # 密码混淆的相关配置
 config :bcrypt_elixir, rounds: 14
 
-# 依据环境导入不同的配置。这一行必须在文件的最后
-# 因此其可以覆写上面的配置。
-import_config "#{config_env()}.exs"
-
 # 关于 SaladUI
 config :salad_ui,
   :error_translator_function,
   {NoctilucentWeb.ErrorComponents, :translate_error}
+
+# AuditLog 中 IP 地址的获取
+# 包括了从 Plug.Conn/Phoenix.LiveView.get_connect_info 中获取 IP 地址
+# 以及 X-Forwarded-For 和 X-Real-IP 的 Header 的方法
+# 具体选择什么要取决于部署的环境
+
+# 依据环境导入不同的配置。这一行必须在文件的最后
+# 因此其可以覆写上面的配置。
+import_config "#{config_env()}.exs"
