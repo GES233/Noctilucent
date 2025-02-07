@@ -232,6 +232,12 @@ defmodule Noctilucent.Accounts do
     Repo.one(query)
   end
 
+  def get_user_by_session_token!(token) do
+    {:ok, query} = UserToken.verify_session_token_query(token, :storage_user)
+
+    Repo.one!(query)
+  end
+
   @doc """
   删除用户的 Token 。
   """

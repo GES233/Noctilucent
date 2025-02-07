@@ -17,6 +17,7 @@ defmodule NoctilucentWeb.UserAuth do
     |> configure_session(renew: true)
     |> clear_session()
   end
+
   defp renew_session(conn, key) do
     value = get_session(conn, key)
 
@@ -27,6 +28,8 @@ defmodule NoctilucentWeb.UserAuth do
   end
 
   def logout_user(conn, _user) do
+    # 删除或无效化 token
+
     conn
   end
 

@@ -13,8 +13,13 @@ defmodule NoctilucentWeb.RequestContext do
     Plug.Conn.assign(conn, @log_context_name, get_audit_log(conn))
   end
 
+  # Recalled by MountHelpers
   def put_audit_context(%Phoenix.LiveView.Socket{} = socket, _) do
-    Phoenix.Component.assign(socket, @log_context_name, get_audit_log(socket))
+    Phoenix.Component.assign(socket, %{@log_context_name => get_audit_log(socket)})
+  end
+
+  def add_ip_addr_without_socket(_socket, _conn_info) do
+    # Phoenix.Component.assign(socket, %{@log_context_name => %{ | ip_addr: conn_info.remote_ip}})
   end
 
   defp get_audit_log(conn_or_socket) do
@@ -26,18 +31,15 @@ defmodule NoctilucentWeb.RequestContext do
         }
 
       %Phoenix.LiveView.Socket{} ->
-        if ua = Phoenix.LiveView.get_connect_info(conn_or_socket, :user_agent) do
-          ip = get_ip(Phoenix.LiveView.get_connect_info(conn_or_socket, :x_headers) || [])
-
-          %{ip_addr: ip, user_agent: ua}
-        else
-          %{}
-        end
+        %{
+          user_agent: Phoenix.LiveView.get_connect_info(conn_or_socket, :user_agent),
+          ip_addr: get_ip(conn_or_socket)
+        }
     end
 
     %AuditLog{user: get_user(conn_or_socket)}
     |> struct!(extra)
-    |> IO.inspect(label: :audit_log)
+    # |> IO.inspect(label: :audit_log)
   end
 
   defp get_ua(headers) do
@@ -58,8 +60,12 @@ defmodule NoctilucentWeb.RequestContext do
     conn.remote_ip
   end
 
-  defp get_ip(_socket) do
-    raise Helpers.NotImplement
+  defp get_ip(socket) do
+    # https://github.com/phoenixframework/phoenix/issues/2758#issuecomment-412293586
+    # jose 并不打算支持显式的 IP 查找
+    %{address: ip} = Phoenix.LiveView.get_connect_info(socket, :peer_data)
+
+    ip
   end
 
   defp get_user(%Plug.Conn{assigns: %{current_user: user}}), do: user

@@ -52,6 +52,8 @@ defmodule NoctilucentWeb do
       use Phoenix.LiveView,
         layout: {NoctilucentWeb.Layouts, :app}
 
+      alias NoctilucentWeb.MountHelpers
+
       unquote(html_helpers())
     end
   end
@@ -59,6 +61,8 @@ defmodule NoctilucentWeb do
   def live_component do
     quote do
       use Phoenix.LiveComponent
+
+      alias NoctilucentWeb.MountHelpers
 
       unquote(html_helpers())
     end

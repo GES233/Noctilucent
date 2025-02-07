@@ -1,0 +1,46 @@
+<div class="grid h-screen w-full">
+  <div class="flex flex-col">
+    <main class="grid flex-1 gap-4 overflow-auto p-4 grid-cols-1 md:grid-cols-2">
+      <div class="relative">
+        <.form for={@form} phx-submit="send-sign-form" class="grid w-full items-start gap-6">
+          <.form_item>
+            <.form_label class="font-bold" error={not Enum.empty?(@form[:username].errors)}>
+              <%= dgettext("user", "Username") %>
+            </.form_label>
+            <.input
+              field={@form[:username]}
+              type="text"
+              class={error_class(@form[:username])}
+              placeholder={dgettext("user", "only A-Za-z0-9 allowed")}
+            />
+            <.form_description>
+              <%= dgettext("user", "This will be the username that can find you.") %>
+            </.form_description>
+            <.form_message field={@form[:name]} />
+          </.form_item>
+          <.form_item>
+            <.form_label class="font-bold" error={not Enum.empty?(@form[:password].errors)}>
+              <%= dgettext("user", "Password") %>
+            </.form_label>
+            <.input
+              field={@form[:password]}
+              type="password"
+              class={error_class(@form[:password])}
+              placeholder={dgettext("user", "enter your password")}
+            />
+            <.form_description>
+              <%= dgettext("user", "Password only .") %>
+            </.form_description>
+          </.form_item>
+          <.button type="submit" class="font-bold">
+            <%= dgettext("user", "Sign Up") %>
+          </.button>
+        </.form>
+      </div>
+      <div class="hidden p-8 flex-col items-start gap-8 md:flex">
+        <.label>Submitted data</.label>
+        <pre class="p-4 bg-gray-50 mt-4 rounded w-full">bla bla</pre>
+      </div>
+    </main>
+  </div>
+</div>
