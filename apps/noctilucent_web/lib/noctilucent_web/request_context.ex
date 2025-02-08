@@ -4,6 +4,7 @@ defmodule NoctilucentWeb.RequestContext do
   """
 
   alias Noctilucent.AuditLog
+  alias NoctilucentWeb.UserAuth
 
   @log_context_name :audit_context
 
@@ -68,7 +69,5 @@ defmodule NoctilucentWeb.RequestContext do
     ip
   end
 
-  defp get_user(%Plug.Conn{assigns: %{current_user: user}}), do: user
-  # Add live view support
-  defp get_user(_), do: nil
+  defp get_user(conn), do: UserAuth.fetch_current_user(conn, [])
 end
