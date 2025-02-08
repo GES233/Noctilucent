@@ -2,6 +2,9 @@ defmodule NoctilucentWeb.UserAuth do
   import Plug.Conn
   alias Noctilucent.Accounts.UserToken
 
+  @doc """
+  登录已经注册的用户。
+  """
   def login_user(conn, user) do
     {:ok, token} = UserToken.build_session_token(user, :storage_user)
 
@@ -27,12 +30,17 @@ defmodule NoctilucentWeb.UserAuth do
     |> put_session(key, value)
   end
 
+  @doc """
+  登出用户。
+  """
+  # 删除或无效化 token
   def logout_user(conn, _user) do
-    # 删除或无效化 token
-
     conn
   end
 
+  @doc """
+  从会话中获得当前用户。
+  """
   def fetch_current_user(conn, _opts) do
     with user_token when is_binary(user_token) <- get_session(conn, :user_token),
     {:ok, user} <- UserToken.verify_session_token_query(user_token, :storage_user) do

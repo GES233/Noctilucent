@@ -1,5 +1,6 @@
 defmodule NoctilucentWeb.SignUpLive do
   use NoctilucentWeb, :live_view
+  # TODO: 实现注册功能
 
   require Logger
   alias Noctilucent.Accounts
@@ -8,15 +9,20 @@ defmodule NoctilucentWeb.SignUpLive do
     if Enum.empty?(field.errors), do: "", else: "border-destructive text-destructive"
   end
 
-  def mount(_params, _session, %{current_usr: _} = socket) do
-    {:ok, push_navigate(socket, to: ~p"/")}
+  def mount(params, session, socket) do
+    do_mount(params, session, MountHelpers.assign_default(socket, session))
   end
 
-  def mount(_params, session, socket) do
-    # TODO: 获得 audit_log
+  def do_mount(_params, _session, %{current_user: %Accounts.User{}} = socket) do
+    {
+      :ok,
+      socket
+      |> put_flash(:info, dgettext("user", "You are already signed in."))
+      |> push_navigate(to: ~p"/")
+    }
+  end
 
-    socket
-    |> MountHelpers.assign_default(session)
+  def do_mount(_params, _session, socket) do
 
     {
       :ok,
@@ -32,13 +38,25 @@ defmodule NoctilucentWeb.SignUpLive do
     |> to_form()
   end
 
-  def handle_event(event, params, socket) do
-    Logger.warning(unhandled_event: {__MODULE__, event, params})
+  def handle_event("send-sign-form", %{"user" => attrs} = params, socket) do
+    case %Accounts.User{} |> Accounts.register_user(attrs) do
+      {:ok, _user} -> {
+        :ok,
+        socket
+        # 自动登录（remember_me: true）
+      }
 
-    {
-      :noreply,
-      socket
-      |> put_flash(:info, event)
-    }
+      {:error, changeset} ->
+        IO.inspect to_form(changeset)
+
+        {
+          :noreply,
+          socket
+          |> assign(
+            form: to_form(changeset),
+            output: inspect(params, pretty: true, width: 0)
+          )
+        }
+    end
   end
 end

@@ -45,8 +45,8 @@ liveSocket.connect()
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
 
-
-// Allows to execute JS commands from the server
+// SaladUI 相关
+// 允许从服务器执行 JS 命令
 window.addEventListener("phx:js-exec", ({detail}) => {
   document.querySelectorAll(detail.to).forEach(el => {
     liveSocket.execJS(el, el.getAttribute(detail.attr))
