@@ -48,7 +48,7 @@ defmodule Noctilucent.Accounts.User do
       :gender,
       :gender_visible,
       :avater,
-      :status,
+      :status
       # :current,
       # :info
     ])
@@ -60,8 +60,8 @@ defmodule Noctilucent.Accounts.User do
   def registration_changeset(user, attrs) do
     user
     |> cast(attrs, [:username, :password])
+    |> validate_username()
     |> validate_password()
-    |> unique_constraint(:username)
   end
 
   def validate_password(changeset) do
@@ -90,6 +90,14 @@ defmodule Noctilucent.Accounts.User do
     |> validate_password()
   end
 
+  defp validate_username(changeset) do
+    changeset
+    |> validate_length(:username, min: 2, max: 20)
+    # 纯粹的 ASCII 不能包含空格
+    # |> validate_format(:username, ~r//, message: "only ascii characters without space allowed")
+    |> unique_constraint(:username)
+  end
+
   @doc """
   用户名更改表。
   """
@@ -97,9 +105,7 @@ defmodule Noctilucent.Accounts.User do
     user
     |> cast(attrs, [:username])
     |> unsafe_validate_unique(:username, Noctilucent.Repo)
-    |> unique_constraint(:username)
-    # 纯粹的 ASCII 不能包含空格
-    # |> validate_format(:username, ~r//, message: "only ascii characters without space allowed")
+    |> validate_username()
   end
 
   @doc """
@@ -127,6 +133,8 @@ defmodule Noctilucent.Accounts.User do
   def gender_changeset(user, attrs) do
     user
     |> cast(attrs, [:gender, :gender_visible])
+    # TODO: 检查 gender 以及 gender_visible 是否在范围内
+    # 原则上不允许性别重新变成 blank
   end
 
   @doc """

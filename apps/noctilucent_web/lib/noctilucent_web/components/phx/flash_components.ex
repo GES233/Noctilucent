@@ -40,10 +40,11 @@ defmodule NoctilucentWeb.FlashComponents do
           :if={@kind == :error}
           name="hero-exclamation-circle-mini"
           class="h-4 w-4"
-        />
-        <%= @title %>
+        /> <%= @title %>
       </p>
+
       <p class="mt-2 text-sm leading-5"><%= msg %></p>
+
       <button type="button" class="group absolute top-1 right-1 p-2" aria-label={gettext("close")}>
         <ShowComponents.icon
           name="hero-x-mark-solid"

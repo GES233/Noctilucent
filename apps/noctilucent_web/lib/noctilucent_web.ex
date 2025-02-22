@@ -52,6 +52,8 @@ defmodule NoctilucentWeb do
       use Phoenix.LiveView,
         layout: {NoctilucentWeb.Layouts, :app}
 
+      alias NoctilucentWeb.MountHelpers
+
       unquote(html_helpers())
     end
   end
@@ -59,6 +61,8 @@ defmodule NoctilucentWeb do
   def live_component do
     quote do
       use Phoenix.LiveComponent
+
+      alias NoctilucentWeb.MountHelpers
 
       unquote(html_helpers())
     end
@@ -90,9 +94,15 @@ defmodule NoctilucentWeb do
     quote do
       # 规避 HTML 转义的功能
       import Phoenix.HTML
+
       # UI 组件以及翻译功能
-      use NoctilucentWeb.Components, :all
+      use NoctilucentWeb.Components, :phx
+      use NoctilucentWeb.Components, :salad
+
       use Gettext, backend: NoctilucentWeb.Gettext
+
+      # 暂时性的用一下
+      import NoctilucentWeb.NclComponents.LayoutComponent
 
       # Shortcut for generating JS commands
       # 生成 JS 命令的快捷方式（？）

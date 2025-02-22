@@ -11,43 +11,43 @@ msgstr ""
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: lib/noctilucent_web/components/core_components.ex:481
+#: lib/noctilucent_web/components/phx/show_components.ex:70
 #, elixir-autogen, elixir-format
 msgid "Actions"
 msgstr "操作"
 
-#: lib/noctilucent_web/components/core_components.ex:160
+#: lib/noctilucent_web/components/phx/flash_components.ex:81
 #, elixir-autogen, elixir-format
 msgid "Attempting to reconnect"
-msgstr "试图重连"
+msgstr "嗯，我们开始尝试重新连接…"
 
-#: lib/noctilucent_web/components/core_components.ex:151
+#: lib/noctilucent_web/components/phx/flash_components.ex:72
 #, elixir-autogen, elixir-format
 msgid "Error!"
 msgstr "错误！"
 
-#: lib/noctilucent_web/components/core_components.ex:172
+#: lib/noctilucent_web/components/phx/flash_components.ex:93
 #, elixir-autogen, elixir-format
 msgid "Hang in there while we get back on track"
 msgstr "撑住！让我们重回正轨"
 
-#: lib/noctilucent_web/components/core_components.ex:167
+#: lib/noctilucent_web/components/phx/flash_components.ex:88
 #, elixir-autogen, elixir-format
 msgid "Something went wrong!"
 msgstr "这里有一些问题…"
 
-#: lib/noctilucent_web/components/core_components.ex:150
+#: lib/noctilucent_web/components/phx/flash_components.ex:71
 #, elixir-autogen, elixir-format
 msgid "Success!"
 msgstr "成功！"
 
-#: lib/noctilucent_web/components/core_components.ex:155
+#: lib/noctilucent_web/components/phx/flash_components.ex:76
 #, elixir-autogen, elixir-format
 msgid "We can't find the internet"
-msgstr "找不到网"
+msgstr "我们连不上蓝牙了！"
 
-#: lib/noctilucent_web/components/core_components.ex:76
-#: lib/noctilucent_web/components/core_components.ex:130
+#: lib/noctilucent_web/components/phx/flash_components.ex:48
+#: lib/noctilucent_web/components/phx/modal_components.ex:61
 #, elixir-autogen, elixir-format
 msgid "close"
 msgstr "关闭"

@@ -1,0 +1,72 @@
+## This file is a PO Template file.
+##
+## "msgid"s here are often extracted from source code.
+## Add new messages manually only if they're dynamic
+## messages that can't be statically extracted.
+##
+## Run "mix gettext.extract" to bring this file up to
+## date. Leave "msgstr"s empty as changing them here has no
+## effect: edit them in PO (.po) files instead.
+#
+msgid ""
+msgstr ""
+
+#: lib/noctilucent_web/components/ncl/layout.ex:52
+#, elixir-autogen, elixir-format
+msgid "Account"
+msgstr ""
+
+#: lib/noctilucent_web/components/ncl/layout.ex:84
+#, elixir-autogen, elixir-format
+msgid "Log out"
+msgstr ""
+
+#: lib/noctilucent_web/components/ncl/layout.ex:62
+#, elixir-autogen, elixir-format
+msgid "Message"
+msgstr ""
+
+#: lib/noctilucent_web/components/ncl/layout.ex:57
+#, elixir-autogen, elixir-format
+msgid "Profile"
+msgstr ""
+
+#: lib/noctilucent_web/components/ncl/layout.ex:67
+#, elixir-autogen, elixir-format
+msgid "Settings"
+msgstr ""
+
+#: lib/noctilucent_web/live/user_auth/sign_up_live.html.heex:17
+#, elixir-autogen, elixir-format
+msgid "Create a unique username that will be the identifier of your homepage!"
+msgstr ""
+
+#: lib/noctilucent_web/live/user_auth/sign_up_live.html.heex:23
+#, elixir-autogen, elixir-format
+msgid "Password"
+msgstr ""
+
+#: lib/noctilucent_web/live/user_auth/sign_up_live.html.heex:32
+#, elixir-autogen, elixir-format
+msgid "Password only ."
+msgstr ""
+
+#: lib/noctilucent_web/live/user_auth/sign_up_live.html.heex:36
+#, elixir-autogen, elixir-format
+msgid "Sign Up"
+msgstr ""
+
+#: lib/noctilucent_web/live/user_auth/sign_up_live.html.heex:8
+#, elixir-autogen, elixir-format
+msgid "Username"
+msgstr ""
+
+#: lib/noctilucent_web/live/user_auth/sign_up_live.html.heex:14
+#, elixir-autogen, elixir-format
+msgid "Currently only letters, numbers, bars and underscores are allowed."
+msgstr ""
+
+#: lib/noctilucent_web/live/user_auth/sign_up_live.html.heex:29
+#, elixir-autogen, elixir-format
+msgid "Passwords should include numbers and digits and be between 4-20 in length."
+msgstr ""

@@ -13,7 +13,7 @@ config :noctilucent, Noctilucent.Repo,
 config :noctilucent_web, NoctilucentWeb.Endpoint,
   # 绑定到环回 IPv4 地址可防止其他机器访问。
   # 如果想要从其他机器访问请改成 `ip: {0, 0, 0, 0}` 。
-  http: [ip: {127, 0, 0, 1}, port: 4000],
+  http: [ip: {0, 0, 0, 0}, port: 4000],
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
@@ -69,3 +69,6 @@ config :phoenix_live_view,
 
 # 在开发环境设置更高的栈跟踪。但是在生产中不要这么设置，因为性能开销太大。
 config :phoenix, :stacktrace_depth, 20
+
+# 安装 SaladUI 组件的位置
+config :salad_ui, components_path: Path.join(File.cwd!(), "apps/noctilucent_web/lib/noctilucent_web/components/salad")

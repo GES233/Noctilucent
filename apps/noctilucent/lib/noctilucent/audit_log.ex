@@ -5,39 +5,89 @@ defmodule Noctilucent.AuditLog.Context do
 
   # 保存的键，对于值的读取需要对应的函数来操作
   @params %{
+    # 用户自发和账号相关的动作
     account: %{
-      # 用户自发的动作
-      "user.login" => ~w(user_id),
-      "user.logout" => ~w(user_id),
-      "user.sign_up" => ~w(user_id username),
-      "user.update_username" => ~w(user_id username old_username),
-      "user.update_info.nickname" => ~w(user_id nickname),
-      "user.update_info.gender" => ~w(user_id gender),
-      "user.update_info.info" => ~w(user_id info),
-      "user.freeze" => ~w(user_id),
-      "user.delete_account" => ~w(user_id)
-      # 管理员对用户的管理
-    }
+      ## 基本功能
+      # 登录
+      "user.login" => ~w(new_token),
+      # 登出
+      "user.logout" => ~w(invalid_token),
+      # 注册
+      "user.sign_up" => ~w(username),
+      # 修改用户信息
+      "user.update_username" => ~w(username old_username),
+      "user.update_info.nickname" => ~w(nickname),
+      "user.update_info.gender" => ~w(gender),
+      "user.update_info.info" => ~w(info),
+      # 状态变化
+      # 用户冻结
+      "user.freeze" => ~w(exp_expire_time),
+      # 删除账号
+      "user.delete_account" => ~w(),
+    },
+    # 社交相关
+    social: %{
+      # 关注/取关
+      "user.follow" => ~w(follower_id followee_id),
+      "user.unfollow" => ~w(origin_follower_id origin_followee_id),
+      # 添加好友/删除好友
+      "user.contact.add" => ~w(user_id contact_id),
+      "user.contact.add.accept" => ~w(acceptor_id contact_id),
+      "user.contact.add.reject" => ~w(rejector_id contact_id),
+      "user.contact.remove" => ~w(user_id contact_id),
+      # 拉黑/解除拉黑
+      "user.block" => ~w(user_id block_id),
+      "user.unblock" => ~w(user_id block_id),
+    },
+    # 管理员的动作
+    moderator: %{
+      ## 对用户的管理
+      # 封禁/解封
+      "user.ban" => ~w()
+      ## 对内容的管理
+    },
+    # 内容相关
+    content: %{
+      # 内容的增删改查
+      "content.create" => ~w(author_id content_type content_id),
+      "content.update" => ~w(author_id content_type content_id),
+      "content.delete" => ~w(author_id content_type content_id),
+      # 锁定以及解除锁定
+      "content.lock" => ~w(author_id content_type content_id),
+      "content.unlock" => ~w(author_id content_type content_id),
+      # 点赞点踩
+      "responce.like" => ~w(user_id content_type content_id),
+      "responce.dislike" => ~w(user_id content_type content_id),
+      "responce.natural" => ~w(user_id content_type content_id),
+      # 评论相关
+    },
+    # 房间相关
+    streaming: %{
+      # 创建
+      "room.create" => ~w(host_id room_id)
+      # 预定/开启/关闭
+      # 邀请/同意/拒绝
+      # 踢出/加入房间黑名单
+    },
+    # 系统自动执行的动作
+    # noctilucent: %{}
   }
 
   @doc """
   通过领域以及动作返回所需的上下文。
   """
-  def by_scope_and_verb(_scope, _verb) do
-    {:error, :not_implement}
+  for {scope, actions_map} <- @params, {verb, action} <- actions_map do
+    def by_scope_and_verb(unquote(scope), unquote(verb)), do: {:ok, unquote(action)}
   end
+  def by_scope_and_verb(_scope, _verb), do: {:error, :not_found}
 
   @doc """
   返回领域下所有的动作及其对应的上下文。
   """
-  def by_scope(scope) do
-    cond do
-      scope in get_params() -> {:ok, get_params()[scope]}
-      true -> {:error, :not_found}
-    end
+  for {scope, actions_map} <- @params do
+    def by_scope(unquote(scope)), do: {:ok, unquote(Macro.escape(actions_map))}
   end
-
-  defp get_params(), do: @params
+  def by_scope(_), do: {:error, :not_found}
 end
 
 defmodule Noctilucent.AuditLog do
@@ -61,12 +111,11 @@ defmodule Noctilucent.AuditLog do
   import Ecto.Changeset
 
   # 说实话，这块我没抄明白
-  # [TODO): IP <-> Ecto custome Type
   schema "audit_logs" do
-    field :scope, Ecto.Enum, values: [:account]
+    field :scope, Ecto.Enum, values: [:account, :content, :room]
     field :context, :map, default: %{}
     field :verb, :string
-    field :ip_addr, :string
+    field :ip_addr, EctoIP
     field :user_agent, :string
     belongs_to :user, Noctilucent.Accounts.User, type: :binary_id
 
@@ -97,7 +146,8 @@ defmodule Noctilucent.AuditLog do
   def list_all_from_system(clauses \\ []) do
     Noctilucent.Repo.all(
       from(a in __MODULE__,
-        where: is_nil(a.user_id),
+        # where: is_nil(a.user_id),
+        where: [context: :noctilucent],
         where: ^clauses,
         order_by: [asc: :id]
       )
@@ -113,7 +163,7 @@ defmodule Noctilucent.AuditLog do
   """
   def multi(multi, audit_context, scope, verb, callback_or_context)
 
-  # 需要 Ecto 的结果
+  # 需要来自 Ecto 的查询结果
   def multi(multi, audit_context, scope, verb, function) when is_function(function, 2) do
     Ecto.Multi.run(multi, :audit, fn repo, res ->
       log = build!(function.(audit_context, res), scope, verb, %{})
@@ -148,9 +198,15 @@ defmodule Noctilucent.AuditLog do
     # 这边一旦出了问题，一般是开发者设计的锅
     # 直接 raise 就好
     struct
-
-    # 记得确定键的类别是 atom 还是 string
-    # 数据端是 string ，但是业务端用 atom 比较适合
-    # （因为原子类型写起来比较方便）
   end
+
+  # defp has_correct_context_with_scope_and_verb(context, scope, verb) do
+  #   with
+  #       {:ok, action} <- Noctilucent.AuditLog.Context.by_scope_and_verb(scope, verb),
+  #       Enum.same?(Map.keys(context), action) do
+  #     {:ok, context}
+  #   else
+  #     {:error, reason} -> {:error, reason}
+  #   end
+  # end
 end

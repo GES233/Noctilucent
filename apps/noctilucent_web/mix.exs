@@ -45,8 +45,7 @@ defmodule NoctilucentWeb.MixProject do
       {:phoenix_ecto, "~> 4.5"},
       {:phoenix_html, "~> 4.1"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      # [TODO) 升级到 {:phoenix_live_view, "~> 1.0.0"}, （前提是更新到了）
-      {:phoenix_live_view, "~> 1.0.0-rc.1", override: true},
+      {:phoenix_live_view, "~> 1.0.0"},
       {:floki, ">= 0.30.0", only: :test},
       {:phoenix_live_dashboard, "~> 0.8.3"},
       {:esbuild, "~> 0.8", runtime: Mix.env() == :dev},
@@ -58,6 +57,7 @@ defmodule NoctilucentWeb.MixProject do
        app: false,
        compile: false,
        depth: 1},
+      {:salad_ui, "~> 0.14"},
       {:telemetry_metrics, "~> 1.0"},
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.20"},
@@ -71,7 +71,8 @@ defmodule NoctilucentWeb.MixProject do
   defp docs() do
     [
       extras: docs_extras(),
-      groups_for_extras: groups_for_extras()
+      groups_for_extras: groups_for_extras(),
+      assets: %{"guides/assets" => "assets"}
     ]
   end
 
@@ -85,7 +86,7 @@ defmodule NoctilucentWeb.MixProject do
       "guides/take_a_glance/next_step.md",
       "guides/appearance/noctilucent.md",
       "guides/appearance/color_theme.md",
-      "guides/appearance/index.md"
+      "guides/appearance/page_index.md"
     ]
   end
 

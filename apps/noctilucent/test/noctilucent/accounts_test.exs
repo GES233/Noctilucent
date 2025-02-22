@@ -1,32 +1,52 @@
 defmodule Noctilucent.AccountsTest do
   use Noctilucent.DataCase
 
-  # complete <= false, plz.
-  describe "register raw user" do
-    # register_with_valid_username
+  alias Noctilucent.{Accounts, AuditLog}
+  import Noctilucent.AccountsFixtures
 
-    # register_with_invalid_username
+  describe "Accounts.register_user/2" do
+    test "register with valid username and password" do
+      {:ok, user} =
+        Accounts.register_user(gen_audit(), %{username: "jntm", password: "cxk0802"})
 
-    # register_with_collide_users
+      assert user.username == "jntm"
+      assert is_binary(user.hashed_password)
+      assert is_nil(user.password)
+
+      [audit_log] = AuditLog.list_by_user(user.id)
+
+      assert audit_log.scope == :accounts
+      assert audit_log.verb == "user.sign_up"
+    end
+
+    test "register with invalid username and password" do
+      # TODO
+    end
+
+    test "register with collide users" do
+      # TODO
+    end
   end
 
-  describe "update username" do
-    # update_username_with_valid_format
+  describe "update user's info" do
+    test "update username" do
+      # update_username_with_valid_format
 
-    # update_username_with_invalid_format
+      # update_username_with_invalid_format
 
-    # update_username_cause_collide
-  end
+      # update_username_cause_collide
+    end
 
-  describe "update nickname" do
-    #
-  end
+    test "update nickname" do
+      #
+    end
 
-  describe "update gender" do
-    #
-  end
+    test "update gender" do
+      #
+    end
 
-  describe "update info" do
-    #
+    test "update info" do
+      #
+    end
   end
 end

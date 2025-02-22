@@ -1,0 +1,72 @@
+## "msgid"s in this file come from POT (.pot) files.
+###
+### Do not add, change, or remove "msgid"s manually here as
+### they're tied to the ones in the corresponding POT file
+### (with the same domain).
+###
+### Use "mix gettext.extract --merge" or "mix gettext.merge"
+### to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: lib/noctilucent_web/components/ncl/layout.ex:52
+#, elixir-autogen, elixir-format
+msgid "Account"
+msgstr "账号"
+
+#: lib/noctilucent_web/components/ncl/layout.ex:84
+#, elixir-autogen, elixir-format
+msgid "Log out"
+msgstr "登出"
+
+#: lib/noctilucent_web/components/ncl/layout.ex:62
+#, elixir-autogen, elixir-format
+msgid "Message"
+msgstr "信息"
+
+#: lib/noctilucent_web/components/ncl/layout.ex:57
+#, elixir-autogen, elixir-format
+msgid "Profile"
+msgstr "简介"
+
+#: lib/noctilucent_web/components/ncl/layout.ex:67
+#, elixir-autogen, elixir-format
+msgid "Settings"
+msgstr "设置"
+
+#: lib/noctilucent_web/live/user_auth/sign_up_live.html.heex:17
+#, elixir-autogen, elixir-format
+msgid "Create a unique username that will be the identifier of your homepage!"
+msgstr "起一个独一无二的用户名吧，那将是你个人主页的标识符"
+
+#: lib/noctilucent_web/live/user_auth/sign_up_live.html.heex:23
+#, elixir-autogen, elixir-format
+msgid "Password"
+msgstr "密码"
+
+#: lib/noctilucent_web/live/user_auth/sign_up_live.html.heex:32
+#, elixir-autogen, elixir-format
+msgid "Password only ."
+msgstr ""
+
+#: lib/noctilucent_web/live/user_auth/sign_up_live.html.heex:36
+#, elixir-autogen, elixir-format
+msgid "Sign Up"
+msgstr "注册"
+
+#: lib/noctilucent_web/live/user_auth/sign_up_live.html.heex:8
+#, elixir-autogen, elixir-format
+msgid "Username"
+msgstr "用户名"
+
+#: lib/noctilucent_web/live/user_auth/sign_up_live.html.heex:14
+#, elixir-autogen, elixir-format
+msgid "Currently only letters, numbers, bars and underscores are allowed."
+msgstr "目前只允许字母、数字、横杠与下划线"
+
+#: lib/noctilucent_web/live/user_auth/sign_up_live.html.heex:29
+#, elixir-autogen, elixir-format
+msgid "Passwords should include numbers and digits and be between 4-20 in length."
+msgstr "密码应包括数字和位数，长度在 4-20 之间"

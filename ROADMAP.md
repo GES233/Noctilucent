@@ -4,27 +4,24 @@
 
 - [ ] 用自己的代码取代掉 Phoenix 脚手架
   - [x] 翻译文档
-  - [ ] 首页
-- [ ] 使用颜色主题更替原来的脚手架的代码
-  - [ ] `NoctilucentWeb.ErrorComponents.error/1`
-  - [ ] `NoctilucentWeb.FlashComponents.flash/1`
-  - [ ] `NoctilucentWeb.FlashComponents.flash_group/1`
-  - [x] `NoctilucentWeb.FormComponents.button/1`
-  - [ ] `NoctilucentWeb.FormComponents.simple_form/1`
-  - [ ] `NoctilucentWeb.FormComponents.input/1`
-  - [ ] `NoctilucentWeb.FormComponents.label/1`
-  - [x] `NoctilucentWeb.ShowComponents.header/1`
-  - [ ] ...
+  - [x] 首页
+  - [ ] 页面规范
+  - [ ] 用户相关网页
+- [ ] 重新梳理前端相关内容
+  - [ ] 移除无用组件并且尽量精简
+  - [ ] 与 Gettext 进行耦合
 
 ## 业务
 
 - [ ] 用户（*纯粹的业务逻辑层面，不考虑鉴权相关*）
   - [x] 用户的基本信息
     - 包括昵称、性别、简介以及状态
-    - 需要考虑头像的设置
+  - [ ] 头像相关
+    - 默认头像以及上传头像的保存
+    - 图片保存的格式 bla bla
   - [x] 用户的注册与修改密码
     - ~~无邮件服务的内网服务不支持认证邮件~~ 那就先留着函数，等想到办法再改
-  - [ ] 将注册登录与 `AuditLog` 相绑定，使网络请求通过统一的接口来约束这些活动
+  - [x] 将注册登录与 `AuditLog` 相绑定，使网络请求通过统一的接口来约束这些活动
     - 当然不是所有的网络请求都过 `AuditLog`
   - [ ] 用户信息的修改与展示
 - [ ] 最基本的内容载体

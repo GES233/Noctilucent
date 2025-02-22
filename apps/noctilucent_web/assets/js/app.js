@@ -1,6 +1,7 @@
 // 如果你想要使用 Phoenix channcels ，请运行 `mix help phx.gen.channel`
 // 并且取消下面这一行代码的注释。
 // import "./user_socket.js"
+import "./ChartHook.js"
 
 // 你可以通过两种方式来导入依赖项。
 //
@@ -44,3 +45,10 @@ liveSocket.connect()
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
 
+// SaladUI 相关
+// 允许从服务器执行 JS 命令
+window.addEventListener("phx:js-exec", ({detail}) => {
+  document.querySelectorAll(detail.to).forEach(el => {
+    liveSocket.execJS(el, el.getAttribute(detail.attr))
+  })
+})

@@ -1,6 +1,6 @@
 <.flash_group flash={@flash} />
 <article class="" id="show-components">
-
+  <!-- NoctilucentWeb.ShowComponents.header/1
   <.header>
     <code>NoctilucentWeb.ShowComponents</code>
     组件
@@ -8,22 +8,74 @@
       这是 <code>&lt;.header&gt;</code> 中的子标题
     </:subtitle>
   </.header>
+  -->
+
+  <hr />
+
   <p class="leading-8">
     只因你太美。
   </p>
-  <%# [TODO) NoctilucentWeb.ShowComponents.table/1 %>
-  <%# [TODO) NoctilucentWeb.ShowComponents.list/1 %>
-  <%# [TODO) NoctilucentWeb.ShowComponents.back/1 %>
-  <%# [TODO) NoctilucentWeb.ShowComponents.icon/1 %>
+
+  <p class="leading-8">
+    只因你实在是太美。
+  </p>
+
+  <p class="leading-8">
+    不考虑排版，只用作展示组件可用性以及样貌的展示。
+  </p>
+
+  <hr />
+
+  <!-- NoctilucentWeb.ShowComponents.table/1 -->
+  <p class="leading-8">
+    烂梗点将录：
+  </p>
+
+  <.table id="memes" rows={@memes}>
+
+    <:col :let={meme} label="name"><%= meme[:name] %></:col>
+
+    <:col :let={meme} label="origin"><%= meme[:origin] %></:col>
+  </.table>
+
+  <hr />
+
+  <!-- NoctilucentWeb.ShowComponents.list/1 -->
+  <p>
+    依旧是烂梗点将录（但是列表）：
+  </p>
+
+  <.list>
+    <:item title="名字"><%= Enum.at(@memes, 0)[:name] %></:item>
+
+    <:item title="来源"><%= Enum.at(@memes, 0)[:origin] %></:item>
+  </.list>
+
+  <hr />
+
+  <!-- NoctilucentWeb.ShowComponents.back/1 -->
+  <.back navigate={~p"/"}>
+    <p>回家吧好不好</p>
+  </.back>
+
+  <hr />
+
+  <!-- NoctilucentWeb.ShowComponents.icon/1 -->
+
+  <p><.icon name="hero-academic-cap-solid" />就是简单的说一句要毕业了。</p>
 </article>
-<hr />
+
+<hr / />
+
 <article id="form-coponents">
-  <.header>
-    <code>NoctilucentWeb.FormComponents</code>
-    组件
-    <:subtitle>
-      表单、输入、提交巴拉巴拉
-    </:subtitle>
-  </.header>
-  <p>[TODO) implement it.</p>
+
+  <p>这里只负责展示，没有互动效果。</p>
+
+  原神<.button>启动！</.button>
+
+  <p>本想加个事件，但<code>phx-click</code>只在LiveView下才可用。</p>
+
+  <.label for="a">
+    <p>bla bla</p>
+  </.label>
 </article>

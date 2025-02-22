@@ -5,15 +5,22 @@ const plugin = require("tailwindcss/plugin")
 const fs = require("fs")
 const path = require("path")
 
+const color_from_salad_ui = require("./tailwind.colors.json")
+
 module.exports = {
   content: [
     "./js/**/*.js",
     "../lib/noctilucent_web.ex",
-    "../lib/noctilucent_web/**/*.*ex"
+    "../lib/noctilucent_web/**/*.*ex",
+    // "..../deps/salad_ui/lib/**/*.ex",
   ],
   theme: {
     extend: {
       colors: {
+        color_from_salad_ui,
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        border: "hsl(var(--border))",
         // 以下是业务相关的，其格式为 `ncl_bla_bla`
         // （几乎是）黑色的天空
         ncl_bg_dark: "#141121",
@@ -27,10 +34,19 @@ module.exports = {
         ncl_twi_cl: "#F1EFDA",
         // 彩云
         ncl_cl_pr: "#C4ABE2",
-      }
+      },
+      fontFamily: {
+        'lumiere-polis': 'Lumiere Polis'
+      },
+      borderColor: ({ theme }) => ({
+        // 映射到你的 CSS 变量
+        border: "hsl(var(--border))",
+      }), // */
     },
   },
   plugins: [
+    require("@tailwindcss/typography"),
+    require("./vendor/tailwindcss-animate"),
     require("@tailwindcss/forms"),
     // 允许使用 LiveView 类作为 tailwind 类的前缀，以便仅在应用 LiveView 类时添加规则，例如：
     //

@@ -48,8 +48,13 @@ Noctilucent 基于 [Phoenix](https://phoenixframework.org) 进行开发。除此
 - C 语言工具链
   - MSVC（Windows） *mingw 试过，不行*
   - gcc（Linux）
+- 可能需要手动下载的前端资源
+  - Tailwind
+  - Esbuild
 
 管理依赖项的网站的服务器在境外，由于众所周知的原因，在国内如果没有特殊网络信道的话可能比较困难。但国内也有网站的镜像可以提供加速服务。
+
+除此之外，可能需要 Node.js 环境。
 
 ### 运行测试
 

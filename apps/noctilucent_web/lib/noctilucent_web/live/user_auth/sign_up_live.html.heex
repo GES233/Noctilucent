@@ -1,0 +1,59 @@
+<div class="grid h-screen w-full">
+  <div class="flex flex-col">
+    <main class="grid flex-1 gap-4 overflow-auto p-4 grid-cols-1 md:grid-cols-2">
+      <div class="relative">
+        <.form for={@form} phx-submit="send-sign-form" class="grid w-full items-start gap-6">
+          <.form_item>
+            <.form_label class="font-bold" error={not Enum.empty?(@form[:username].errors)}>
+              <%= dgettext("user", "Username") %>
+            </.form_label>
+            <.input
+              field={@form[:username]}
+              type="text"
+              class={error_class(@form[:username])}
+              placeholder={dgettext("user", "Currently only letters, numbers, bars and underscores are allowed.")}
+            />
+            <.form_description>
+              <%= dgettext("user", "Create a unique username that will be the identifier of your homepage!") %>
+            </.form_description>
+            <.form_message field={@form[:name]} />
+          </.form_item>
+          <.form_item>
+            <.form_label class="font-bold" error={not Enum.empty?(@form[:password].errors)}>
+              <%= dgettext("user", "Password") %>
+            </.form_label>
+            <.input
+              field={@form[:password]}
+              type="password"
+              class={error_class(@form[:password])}
+              placeholder={dgettext("user", "Passwords should include numbers and digits and be between 4-20 in length.")}
+            />
+            <.form_description>
+              <%= dgettext("user", "Password only .") %>
+            </.form_description>
+          </.form_item>
+          <.button type="submit" class="font-bold">
+            <%= dgettext("user", "Sign Up") %>
+          </.button>
+        </.form>
+      </div>
+      <div class="hidden p-8 flex-col items-start gap-8 md:flex">
+        <.label class="font-bold">我个人认为意大利面应该拌 42 号混凝土</.label>
+        <pre class="p-4 bg-gray-50 mt-4 rounded w-full">bla bla</pre>
+      </div>
+    </main>
+  </div>
+</div>
+
+<%#
+可能会用到的翻译：
+
+msgid "Passwords should include numbers and digits and be between 4-20 in length."
+msgstr "密码应包括数字和位数，长度在 4-20 之间"
+
+msgid "Create a unique username that will be the identifier of your homepage!"
+msgstr "起一个独一无二的用户名吧，那将是你个人主页的标识符"
+
+msgid "Currently only letters, numbers, bars and underscores are allowed."
+msgstr "目前只允许字母、数字、横杠与下划线"
+%>

@@ -1,7 +1,6 @@
 defmodule NoctilucentWeb.ShowComponents do
   use NoctilucentWeb.Components, :common
 
-  # [TODO) title 和 subtitle 可以隔着近一点
   @doc """
   展示具有标题的标头。
   """
@@ -18,10 +17,12 @@ defmodule NoctilucentWeb.ShowComponents do
         <h1 class="text-lg font-semibold leading-6 text-ncl_bg">
           <%= render_slot(@inner_block) %>
         </h1>
+
         <p :if={@subtitle != []} class="mt-2 text-sm leading-4 text-ncl_cl">
           <%= render_slot(@subtitle) %>
         </p>
       </div>
+
       <div class="flex-none"><%= render_slot(@actions) %></div>
     </header>
     """
@@ -64,11 +65,13 @@ defmodule NoctilucentWeb.ShowComponents do
         <thead class="text-sm text-left leading-6 text-zinc-500">
           <tr>
             <th :for={col <- @col} class="p-0 pb-4 pr-6 font-normal"><%= col[:label] %></th>
+
             <th :if={@action != []} class="relative p-0 pb-4">
               <span class="sr-only"><%= gettext("Actions") %></span>
             </th>
           </tr>
         </thead>
+
         <tbody
           id={@id}
           phx-update={match?(%Phoenix.LiveView.LiveStream{}, @rows) && "stream"}
@@ -87,6 +90,7 @@ defmodule NoctilucentWeb.ShowComponents do
                 </span>
               </div>
             </td>
+
             <td :if={@action != []} class="relative w-14 p-0">
               <div class="relative whitespace-nowrap py-4 text-right text-sm font-medium">
                 <span class="absolute -inset-y-px -right-4 left-0 group-hover:bg-zinc-50 sm:rounded-r-xl" />
@@ -127,6 +131,7 @@ defmodule NoctilucentWeb.ShowComponents do
       <dl class="-my-4 divide-y divide-zinc-100">
         <div :for={item <- @item} class="flex gap-4 py-4 text-sm leading-6 sm:gap-8">
           <dt class="w-1/4 flex-none text-zinc-500"><%= item.title %></dt>
+
           <dd class="text-zinc-700"><%= render_slot(item) %></dd>
         </div>
       </dl>
@@ -151,8 +156,7 @@ defmodule NoctilucentWeb.ShowComponents do
         navigate={@navigate}
         class="text-sm font-semibold leading-6 text-ncl_bg hover:text-ncl_cl"
       >
-        <.icon name="hero-arrow-left-solid" class="h-3 w-3" />
-        <%= render_slot(@inner_block) %>
+        <.icon name="hero-arrow-left-solid" class="h-3 w-3" /> <%= render_slot(@inner_block) %>
       </.link>
     </div>
     """
