@@ -25,16 +25,15 @@ defmodule NoctilucentWeb.Components do
   end
 
   def salad do
+    # 这里有一个不知名的错误，相关模块会无法加载
     useful_modules =
       if Application.ensure_loaded(:noctilucent_web) == :ok do
-        # 执行 `mix gettext.extract` 时可能会出错，所以要确保应用被加载
         {:ok, modules} = :application.get_key(:noctilucent_web, :modules)
 
         modules
         |> Enum.filter(&(&1 |> Module.split() |> length() >= 3))
         |> Enum.filter(&(&1 |> Module.split() |> Enum.take(2) == ["NoctilucentWeb", "Components"]))
       else
-        # 如果这里会出错，可能是因为调用此代码时还没有加载应用，需要手动加载
         __DIR__
         |> Path.join("components/salad")
         |> File.ls!()
