@@ -25,42 +25,36 @@ defmodule NoctilucentWeb.Components do
   end
 
   def salad do
-    # 这里有一个不知名的错误，相关模块会无法加载
-    useful_modules =
-      if Application.ensure_loaded(:noctilucent_web) == :ok do
-        {:ok, modules} = :application.get_key(:noctilucent_web, :modules)
+    # 动态加载 components/salad 目录下的所有模块
+    components_dir = Path.join(__DIR__, "components/salad")
 
-        modules
-        |> Enum.filter(&(&1 |> Module.split() |> length() >= 3))
-        |> Enum.filter(&(&1 |> Module.split() |> Enum.take(2) == ["NoctilucentWeb", "Components"]))
-      else
-        __DIR__
-        |> Path.join("components/salad")
-        |> File.ls!()
-        |> Enum.map(&String.split(&1, ".ex") |> List.first())
-        |> Enum.map(&Macro.camelize("elixir/noctilucent_web/components/#{&1}"))
-        |> Enum.map(&String.to_existing_atom/1)
-      end |> Enum.reject(
-        &(Enum.member?(
-            [
-              # Salad 相关
-              "Salad", "SaladHelpers",
-              # 仅在 Chart 中被用到
-              "LiveChart",
-              # ShowComponents 中有
-              "Icon",
-            ],
-            &1 |> Module.split() |> List.last()
-          )
-        )
-      )
+    components_dir
+    |> File.ls!()
+    |> Enum.filter(&String.ends_with?(&1, ".ex"))
+    |> Enum.map(&Path.rootname(&1, ".ex"))
+    |> Enum.map(fn filename ->
+      # 正确生成模块名：NoctilucentWeb.Components.Salad.<ComponentName>
+      module_name =
+        filename
+        |> String.split("_")
+        |> Enum.map(&String.capitalize/1)
+        |> Enum.join("")
 
-    # import libs here
-    for module <- useful_modules do
+      # 修复模块路径生成逻辑，正确处理文件名到模块名的转换
+      module_name
+      |> Path.basename(".ex")
+      |> Macro.camelize()
+      |> then(&Module.concat(NoctilucentWeb.Components, &1))
+    end)
+    |> Enum.reject(&(&1 in [
+      # 其他地方有定义了，不需要再次导入
+      NoctilucentWeb.Components.Icon
+    ]))
+    |> Enum.map(fn module ->
       quote do
         import unquote(module)
       end
-    end
+    end)
   end
 
   defmacro __using__(which) when is_atom(which) do
