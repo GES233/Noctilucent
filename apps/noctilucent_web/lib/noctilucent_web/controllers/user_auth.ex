@@ -6,7 +6,7 @@ defmodule NoctilucentWeb.UserAuth do
   登录已经注册的用户。
   """
   def login_user(conn, user) do
-    {:ok, token} = UserToken.build_session_token(user, :storage_user)
+    {token, _} = UserToken.build_session_token(user, :storage_user)
 
     conn
     |> renew_session(:all)
@@ -21,14 +21,14 @@ defmodule NoctilucentWeb.UserAuth do
     |> clear_session()
   end
 
-  defp renew_session(conn, key) do
-    value = get_session(conn, key)
+  # defp renew_session(conn, key) do
+  #   value = get_session(conn, key)
 
-    conn
-    |> configure_session(renew: true)
-    |> clear_session()
-    |> put_session(key, value)
-  end
+  #   conn
+  #   |> configure_session(renew: true)
+  #   |> clear_session()
+  #   |> put_session(key, value)
+  # end
 
   @doc """
   登出用户。
@@ -41,12 +41,20 @@ defmodule NoctilucentWeb.UserAuth do
   @doc """
   从会话中获得当前用户。
   """
-  def fetch_current_user(conn, _opts) do
-    with user_token when is_binary(user_token) <- get_session(conn, :user_token),
+  def fetch_current_user(%Plug.Conn{} = conn, _opts) do
+    with user_token when is_binary(user_token) <- get_session(conn, :user_token, ""),
     {:ok, user} <- UserToken.verify_session_token_query(user_token, :storage_user) do
       assign(conn, :current_user, user)
     else
       _ -> conn
     end
+  end
+
+  def fetch_current_user(socket, _opts) do
+    socket
+    |> Phoenix.LiveView.get_connect_params()
+    |> IO.inspect()
+
+    socket
   end
 end

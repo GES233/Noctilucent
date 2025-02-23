@@ -17,7 +17,9 @@ defmodule NoctilucentWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
-    # get user and put audit context
+    plug :fetch_session
+    plug :fetch_current_user
+    plug :put_audit_context
   end
 
   scope "/", NoctilucentWeb do
@@ -47,20 +49,6 @@ defmodule NoctilucentWeb.Router do
       pipe_through :browser
 
       live_dashboard "/dashboard", metrics: NoctilucentWeb.Telemetry
-    end
-
-    scope "/" do
-      pipe_through :browser
-
-    # 用户相关
-    live "/users", UserLive.Index, :index
-    # 检查完后端逻辑解除注释
-    # live "/users/new", UserLive.Index, :new
-    # TODO: 改成 username
-    # live "/users/:id/edit", UserLive.Index, :edit
-
-    # live "/users/:id", UserLive.Show, :show
-    # live "/users/:id/show/edit", UserLive.Show, :edit
     end
   end
 end

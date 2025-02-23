@@ -14,8 +14,9 @@ defmodule NoctilucentWeb.RequestContext do
     Plug.Conn.assign(conn, @log_context_name, get_audit_log(conn))
   end
 
+  # TODO: ensure type
   # Recalled by MountHelpers
-  def put_audit_context(%Phoenix.LiveView.Socket{} = socket, _) do
+  def put_audit_context(socket, _) do
     Phoenix.Component.assign(socket, %{@log_context_name => get_audit_log(socket)})
   end
 
@@ -38,6 +39,7 @@ defmodule NoctilucentWeb.RequestContext do
         }
     end
 
+    # Get user from phoenix session
     %AuditLog{user: get_user(conn_or_socket)}
     |> struct!(extra)
     # |> IO.inspect(label: :audit_log)
