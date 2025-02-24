@@ -7,7 +7,7 @@ defmodule Noctilucent.AccountsTest do
   describe "Accounts.register_user/2" do
     test "register with valid username and password" do
       {:ok, user} =
-        Accounts.register_user(gen_audit(), %{username: "jntm", password: "cxk0802"})
+        user_fixture(%{username: "jntm", password: "cxk0802"})
 
       assert user.username == "jntm"
       assert is_binary(user.hashed_password)
