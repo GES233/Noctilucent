@@ -6,7 +6,7 @@ defmodule Noctilucent.AccountsFixtures do
 
   alias Noctilucent.{Accounts, AuditLog}
 
-  def unique_username, do: "User#{System.unique_integer()}iKUNforwever"
+  def unique_username, do: "User#{Base.encode16(:crypto.strong_rand_bytes(4))}"
   def password, do: "cxkjntm"
 
   def valid_user_attribute(attrs \\ %{}) do

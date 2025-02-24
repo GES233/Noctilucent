@@ -1,12 +1,21 @@
 defmodule NoctilucentWeb.RequestContext do
   @moduledoc """
   在用户请求时注入 `%AuditLog{}` 作为上下文。
+
+  说实话这块儿是真的恶心。
   """
 
   alias Noctilucent.AuditLog
   alias NoctilucentWeb.UserAuth
 
   @log_context_name :audit_context
+
+  def get_audit_context(conn_or_socket) do
+    case conn_or_socket do
+      %Plug.Conn{} -> conn_or_socket.assigns[@log_context_name]
+      %Phoenix.LiveView.Socket{} -> nil
+    end
+  end
 
   def put_audit_context(conn_or_socket, opts \\ [])
 

@@ -6,6 +6,7 @@ defmodule NoctilucentWeb.UserAuth do
   登录已经注册的用户。
   """
   def login_user(conn, user) do
+    # TODO: 用 Accounts.generate_user_session_token/2 重写
     {token, _} = UserToken.build_session_token(user, :storage_user)
 
     conn
