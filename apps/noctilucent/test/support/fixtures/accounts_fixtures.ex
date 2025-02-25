@@ -58,3 +58,22 @@ defmodule Noctilucent.AccountsFixtures do
     user
   end
 end
+
+defmodule Noctilucent.AccountsFixturesTest do
+  use Noctilucent.DataCase
+
+  alias Noctilucent.Accounts
+  import Noctilucent.AccountsFixtures
+
+  describe "user_fixture/1" do
+    test "默认情况" do
+      %Accounts.User{id: user_id} = user_fixture(complete: false)
+
+      assert user_id != nil
+    end
+
+    test "补全" do
+      # ...
+    end
+  end
+end

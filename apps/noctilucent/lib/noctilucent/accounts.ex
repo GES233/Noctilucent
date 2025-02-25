@@ -123,7 +123,9 @@ defmodule Noctilucent.Accounts do
     # [TODO) 上 AuditLog
   end
 
-  # change_nickname/2
+  @doc """
+  更新事物日志中用户的昵称。
+  """
   def change_user_nickname(%{user: user} = audit_log, nickname) do
     user
     |> User.nickname_changeset(%{nickname: nickname})
@@ -222,6 +224,11 @@ defmodule Noctilucent.Accounts do
       {:error, changeset} -> {:error, changeset}
     end
   end
+
+  # 用户主动登出
+  # def invalidate_user_session_token(%{user: user} = audit_log, token) do
+
+  # 用户重新登录
 
   @doc """
   通过 Token 返回用户。

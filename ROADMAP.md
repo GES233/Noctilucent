@@ -34,6 +34,14 @@
   - （*只需要确定网站的用户的操作人是某某人就可以了*）
   - 如果应用有记录用户行为的部分的话，可以考虑用户的操作轨迹
 
+## 测试用例
+
+- [ ] `Noctilucent.AccountsFixturesTest`
+  - 没有补全
+  - 补全
+- [ ] `Noctilucent.AccountsTest`
+- [ ] `Noctilucent.AuditLogTest`
+
 ## infra
 
 ### 鉴权

@@ -6,6 +6,13 @@ defmodule Noctilucent.AuditLog.Context do
   defmodule InvalidError do
     @moduledoc """
     当上下文不符合要求时抛出的异常。
+
+    ### Examples
+
+    iex> raise InvalidError, {:missing, [:foo]}
+    ** (Noctilucent.AuditLog.Context.InvalidError) Missing fields: [:foo]
+    iex> raise InvalidError, {:extra, [:bar]}
+    ** (Noctilucent.AuditLog.Context.InvalidError) Extra fields: [:bar]
     """
 
     defexception [:message]
@@ -36,7 +43,7 @@ defmodule Noctilucent.AuditLog.Context do
       # 登出
       "user.logout" => ~w(invalid_token),
       # 注册
-      "user.sign_up" => ~w(username),
+      "user.sign_up" => ~w(username user_id),
       # 修改用户信息
       "user.update_username" => ~w(username old_username),
       "user.update_info.nickname" => ~w(nickname),
@@ -106,6 +113,11 @@ defmodule Noctilucent.AuditLog.Context do
   end
 
   def by_scope_and_verb(_scope, _verb), do: {:error, :not_found}
+
+  # unless Mix.env() == :prod do
+  #   # 在开发时应用的，和服务本体有差别
+  #   # 在还没有想出来的情况下，暂时先留这儿
+  # end
 
   @doc """
   返回领域下所有的动作及其对应的上下文。
@@ -229,7 +241,7 @@ defmodule Noctilucent.AuditLog do
   defp validate_context!(%__MODULE__{scope: scope, verb: verb, context: context} = struct) do
     with {:ok, valid_context} <- Context.by_scope_and_verb(scope, verb),
          actual_context <- context |> Map.keys() |> Enum.map(&to_string/1),
-         {[], []} <- {actual_context -- valid_context, valid_context -- actual_context} do
+         {[], []} <- {valid_context -- actual_context, actual_context -- valid_context} do
       :ok
     else
       {:error, _} -> raise "Invalid scope and verb"
@@ -237,7 +249,7 @@ defmodule Noctilucent.AuditLog do
       {missing = [_ | _], _} ->
         raise Context.InvalidError, {:missing, missing}
 
-      {_, extra} ->
+      {[], extra} ->
         raise Context.InvalidError, {:extra, extra}
     end
 
