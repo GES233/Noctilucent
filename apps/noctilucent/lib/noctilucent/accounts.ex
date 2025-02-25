@@ -210,15 +210,15 @@ defmodule Noctilucent.Accounts do
 
   ## 会话
 
+  # 不上 AuditLog
   @doc """
   生成用于保存用户的 Token ，一般在登录时使用。
   """
-  def generate_user_session_token(%{user: user} = audit_log) do
+  def generate_user_session_token(user) do
     {token, user_token} = UserToken.build_session_token(user, :storage_user)
 
     Ecto.Multi.new()
     |> Ecto.Multi.insert(:token, user_token)
-    |> AuditLog.multi(audit_log, :account, "user.login", %{new_token: token})
     |> Repo.transaction()
     |> case do
       {:ok, _} -> {:ok, token}
@@ -227,7 +227,7 @@ defmodule Noctilucent.Accounts do
   end
 
   # 用户主动登出
-  # def invalidate_user_session_token(%{user: user} = audit_log, token) do
+  # def invalidate_user_session_token(user, token) do
 
   # 用户重新登录
 

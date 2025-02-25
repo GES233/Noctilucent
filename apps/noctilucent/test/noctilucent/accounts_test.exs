@@ -90,25 +90,23 @@ defmodule Noctilucent.AccountsTest do
     end
 
     test "非法的用户名", %{audit_log: audit_log} do
-      # update_username_with_invalid_format
-      {:error, iv_changeset} =
+      {:error, invalid_changeset} =
         Accounts.change_username(
           audit_log,
           "ItIsAValidUsernameItIsTooLooooong"
         )
 
-      assert iv_changeset.valid? == false
-      # TODO: 对更详细的信息进行断言
+      assert invalid_changeset.valid? == false
+      assert Regex.match?(~r/at most/, Enum.at(errors_on(invalid_changeset)[:username], 0))
     end
 
     test "重复的用户名", %{audit_log: audit_log} do
-      # update_username_cause_collide
       _user = user_fixture(%{username: "1234"})
 
       {:error, collide_changeset} =
         Accounts.change_username(audit_log, "1234")
 
-      assert collide_changeset.valid? == false
+      assert "has already been taken" in errors_on(collide_changeset)[:username]
     end
 
     test "昵称", %{audit_log: audit_log} do
@@ -147,7 +145,7 @@ defmodule Noctilucent.AccountsTest do
     end
   end
 
-  describe "登录与登录（事物日志层面）" do
+  describe "登录与登录（事务日志层面）" do
     # ...
   end
 end

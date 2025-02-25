@@ -44,10 +44,6 @@ defmodule Noctilucent.AuditLog.Context do
     # 用户自发和账号相关的动作
     account: %{
       ## 基本功能
-      # 登录
-      "user.login" => ~w(new_token),
-      # 登出
-      "user.logout" => ~w(invalid_token),
       # 注册
       "user.sign_up" => ~w(username user_id),
       # 修改用户信息
@@ -108,7 +104,8 @@ defmodule Noctilucent.AuditLog.Context do
     },
     # 系统自动执行的动作
     noctilucent: %{
-      "" => []
+      # "user.auth.expire" => ~w(expire_token)
+      "" => ~w()
     }
   }
 
