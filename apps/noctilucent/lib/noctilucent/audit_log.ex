@@ -21,13 +21,14 @@ defmodule Noctilucent.AuditLog.Context do
     # 检查给定的键所对应的上下文与输入有哪些不同
     @impl true
     def exception(term) do
-      msg = case term do
-        {:missing, missing_fields} ->
-          "Missing fields: #{inspect(missing_fields)}"
+      msg =
+        case term do
+          {:missing, missing_fields} ->
+            "Missing fields: #{inspect(missing_fields)}"
 
-        {:extra, extra_fields} ->
-          "Extra fields: #{inspect(extra_fields)}"
-      end
+          {:extra, extra_fields} ->
+            "Extra fields: #{inspect(extra_fields)}"
+        end
 
       %InvalidError{message: msg}
     end
@@ -159,13 +160,33 @@ defmodule Noctilucent.AuditLog do
     timestamps(updated_at: false)
   end
 
-  def blank(), do: %__MODULE__{}
-
   @doc false
   def changeset(audit_log, attrs) do
     audit_log
     |> cast(attrs, [:verb, :scope, :ip_addr, :user_agent, :context])
     |> validate_required([:verb, :scope, :ip_addr, :user_agent])
+  end
+
+  def system(env \\ :default, attrs \\ %{})
+
+  def system(:default, attrs) do
+    Map.merge(
+      %__MODULE__{
+        ip_addr: {127, 0, 0, 1},
+        user_agent: "System"
+      },
+      attrs
+    )
+  end
+
+  def system(:test, attrs) do
+    Map.merge(
+      %__MODULE__{
+        ip_addr: {127, 0, 0, 1},
+        user_agent: "Elixir Test"
+      },
+      attrs
+    )
   end
 
   @doc """
@@ -244,7 +265,8 @@ defmodule Noctilucent.AuditLog do
          {[], []} <- {valid_context -- actual_context, actual_context -- valid_context} do
       :ok
     else
-      {:error, _} -> raise "Invalid scope and verb"
+      {:error, _} ->
+        raise "Invalid scope and verb"
 
       {missing = [_ | _], _} ->
         raise Context.InvalidError, {:missing, missing}

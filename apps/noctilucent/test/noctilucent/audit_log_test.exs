@@ -5,21 +5,27 @@ defmodule Noctilucent.AuditLogTest do
   alias Noctilucent.AuditLog
 
   describe "audit!/3" do
+    setup do: %{log: AuditLog.system(:test)}
+
     # test "简单插入日志" do
     #   # 具体的情景还没想好
     #   # audit_log = AuditLog.audit!(%AuditLog{ip_addr: {127, 0, 0, 1}, user_agent: ""})
     # end
 
-    test "检验参数" do
-      audit_log = %AuditLog{ip_addr: {127, 0, 0, 1}, user_agent: ""}
-
-      # 缺乏参数
+    test "缺乏参数", %{log: audit_log} do
       assert_raise AuditLog.Context.InvalidError, ~r/username/, fn ->
         AuditLog.audit!(audit_log, :account, "user.sign_up", %{})
       end
+    end
 
-      # 多了参数
-      # ...
+    test "多余的上下文", %{log: audit_log} do
+      assert_raise AuditLog.Context.InvalidError, ~r/foo/, fn ->
+        AuditLog.audit!(audit_log, :account, "user.sign_up", %{
+          username: "ABCD",
+          user_id: "a0784b26-b410-498f-914d-0f57ee9618d9",
+          foo: "bar"
+        })
+      end
     end
   end
 

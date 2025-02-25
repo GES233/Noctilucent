@@ -1,7 +1,7 @@
 defmodule NoctilucentWeb.UserAuthTest do
   use NoctilucentWeb.ConnCase
 
-  alias Noctilucent.Accounts
+  # alias Noctilucent.Accounts
   alias NoctilucentWeb.UserAuth
   import Noctilucent.AccountsFixtures
 
@@ -17,7 +17,7 @@ defmodule NoctilucentWeb.UserAuthTest do
     test "将用户信息保存到会话中", %{conn: conn, user: user} do
       conn = UserAuth.login_user(conn, user)
 
-      assert token = get_session(conn, :user_token)
+      assert _token = get_session(conn, :user_token)
       # TODO
       # 可以从 liveview socket 中得到 live_socket_id
       # 将登录与数据库写入绑定

@@ -23,28 +23,23 @@ defmodule Noctilucent.AccountsFixtures do
     {complete, attrs} =
       attrs
       |> Map.new()
-      |> Map.pop(:complete, true)
+      |> Map.pop(:complete, false)
 
     user_param = valid_user_attribute(attrs)
 
-    {:ok, user} = Accounts.register_user(gen_audit(), user_param)
-
-    if complete do
-      complete(user)
+    with {:ok, user} <- Accounts.register_user(AuditLog.system(:test), user_param) do
+      if complete do
+        complete(user)
+      else
+        user
+      end
     else
-      user
+      {:error, _} -> raise "Failed to create user"
     end
   end
 
-  defp gen_audit() do
-    %AuditLog{
-      ip_addr: {127, 0, 0, 1},
-      user_agent: "Elixir Test"
-    }
-  end
-
-  def complete(user) do
-    audit_log = gen_audit()
+  defp complete(user) do
+    audit_log = AuditLog.system(:test)
 
     {:ok, user} = Accounts.change_user_nickname(%{audit_log | user: user}, "只因美")
 
@@ -62,18 +57,24 @@ end
 defmodule Noctilucent.AccountsFixturesTest do
   use Noctilucent.DataCase
 
-  alias Noctilucent.Accounts
+  # alias Noctilucent.Accounts
   import Noctilucent.AccountsFixtures
 
   describe "user_fixture/1" do
     test "默认情况" do
-      %Accounts.User{id: user_id} = user_fixture(complete: false)
+      username = unique_username()
 
-      assert user_id != nil
+      user = user_fixture(username: username, complete: false)
+
+      assert user.id != nil
+      assert user.username == username
     end
 
     test "补全" do
-      # ...
+      user = user_fixture()
+
+      assert user.info == "这是一段简介"
+      assert user.nickname == "只因美"
     end
   end
 end
