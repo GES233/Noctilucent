@@ -10,6 +10,9 @@ defmodule EctoIpTest do
       assert {:ok, "127.0.0.1"} == cast("127.0.0.1")
       assert {:ok, "198.128.1.101"} == cast("198.128.1.101")
       # IPv6
+      assert {:ok, "::1"} == cast("::1")
+
+      assert {:ok, "127.0.0.1"} == EctoIP.cast({127, 0, 0, 1})
     end
 
     test "非法内容" do
@@ -18,6 +21,8 @@ defmodule EctoIpTest do
 
       # 完全不像的
       assert :error == cast("My name's Glenn Quagmire, and I say gigitty.")
+      assert :error == cast({1, 2, 3, 4, 5, 6, 7, :do, :while})
+      assert :error == cast([])
     end
   end
 
@@ -25,11 +30,20 @@ defmodule EctoIpTest do
     test "正常的" do
       assert {:ok, {127, 0, 0, 1}} == load("127.0.0.1")
     end
+
+    test "有问题的" do
+      assert :error == load("127.0.0.256")
+    end
   end
 
   describe "dump/1" do
     test "正常的" do
       assert {:ok, "127.0.0.1"} == dump("127.0.0.1")
+      assert {:ok, "127.0.0.1"} == dump({127, 0, 0, 1})
+    end
+
+    test "有问题的" do
+      assert :error == dump([])
     end
   end
 end

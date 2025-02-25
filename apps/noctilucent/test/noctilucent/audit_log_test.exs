@@ -12,6 +12,12 @@ defmodule Noctilucent.AuditLogTest do
     #   # audit_log = AuditLog.audit!(%AuditLog{ip_addr: {127, 0, 0, 1}, user_agent: ""})
     # end
 
+    test "类别相关", %{log: audit_log} do
+      assert_raise AuditLog.Context.UnmatchQuery, ~r/foo/, fn ->
+        AuditLog.audit!(audit_log, :foo, "bar", %{})
+      end
+    end
+
     test "缺乏参数", %{log: audit_log} do
       assert_raise AuditLog.Context.InvalidError, ~r/username/, fn ->
         AuditLog.audit!(audit_log, :account, "user.sign_up", %{})

@@ -3,6 +3,11 @@ defmodule Noctilucent.AuditLog.Context do
   负责处理日志的上下文。
   """
 
+  defmodule UnmatchQuery do
+    @moduledoc "查无此上下文。"
+    defexception [:message]
+  end
+
   defmodule InvalidError do
     @moduledoc """
     当上下文不符合要求时抛出的异常。
@@ -120,14 +125,14 @@ defmodule Noctilucent.AuditLog.Context do
   #   # 在还没有想出来的情况下，暂时先留这儿
   # end
 
-  @doc """
-  返回领域下所有的动作及其对应的上下文。
-  """
-  for {scope, actions_map} <- @params do
-    def by_scope(unquote(scope)), do: {:ok, unquote(Macro.escape(actions_map))}
-  end
+  # @doc """
+  # 返回领域下所有的动作及其对应的上下文。
+  # """
+  # for {scope, actions_map} <- @params do
+  #   def by_scope(unquote(scope)), do: {:ok, unquote(Macro.escape(actions_map))}
+  # end
 
-  def by_scope(_), do: {:error, :not_found}
+  # def by_scope(_), do: {:error, :not_found}
 end
 
 defmodule Noctilucent.AuditLog do
@@ -266,7 +271,7 @@ defmodule Noctilucent.AuditLog do
       :ok
     else
       {:error, _} ->
-        raise "Invalid scope and verb"
+        raise Context.UnmatchQuery, "Invalid scope `#{inspect(scope)}` or verb `#{inspect(verb)}`."
 
       {missing = [_ | _], _} ->
         raise Context.InvalidError, {:missing, missing}

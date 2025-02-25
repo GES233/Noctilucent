@@ -40,7 +40,9 @@ defmodule Noctilucent.DataCase do
   @doc """
   转换 changeset 错误为消息映射的辅助函数。
 
-      assert {:error, changeset} = Accounts.create_user(%{password: "short"})
+  ### Examples
+
+      {:error, changeset} = Accounts.register_user(Accounts.AuditLog.system(), %{username: "blabla", password: "pico"})
       assert "password is too short" in errors_on(changeset).password
       assert %{password: ["password is too short"]} = errors_on(changeset)
 

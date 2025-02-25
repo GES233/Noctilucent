@@ -22,11 +22,17 @@ defmodule Noctilucent.AccountsTest do
     end
 
     test "get_user_by_username/1" do
-      # ...
+      user = user_fixture()
+
+      assert Accounts.get_user_by_username(user.username) == user
+      assert Accounts.get_user_by_username("nonexistent") == nil
     end
 
     test "get_user_by_username_and_password/2" do
-      # ...
+      user = user_fixture(%{username: "iKUNforever", password: "cxkjntm"})
+
+      assert Accounts.get_user_by_username_and_password("iKUNforever", "cxkjntm") == user
+      assert Accounts.get_user_by_username_and_password("iKUNforever", "cxknmjj") == nil
     end
   end
 
@@ -52,7 +58,7 @@ defmodule Noctilucent.AccountsTest do
       {:error, changeset} =
         Accounts.register_user(AuditLog.system(:test), %{})
 
-      assert changeset.valid? == false
+      assert "can't be blank" in errors_on(changeset)[:password]
     end
 
     test "存在重复用户" do
@@ -68,7 +74,7 @@ defmodule Noctilucent.AccountsTest do
           password: "iKUNloveBasketball"
         })
 
-      assert changeset.valid? == false
+      assert "has already been taken" in errors_on(changeset)[:username]
     end
   end
 
@@ -115,16 +121,26 @@ defmodule Noctilucent.AccountsTest do
       assert user_with_new_nickname.nickname == "迎面走来的baby"
     end
 
-    test "性别的可见性", %{audit_log: _audit_log} do
-      #
+    test "性别的可见性", %{audit_log: audit_log} do
+      {:ok, user_who_show_gender} = Accounts.change_user_gender_visibility(audit_log.user, true)
+
+      assert user_who_show_gender.gender_visible
     end
 
-    test "性别本体", %{audit_log: _audit_log} do
-      #
+    test "性别本体", %{audit_log: audit_log} do
+      {:ok, a_real_man} = Accounts.change_user_gender(audit_log, :male)
+
+      assert a_real_man.gender == :male
     end
 
-    test "个人信息", %{audit_log: _audit_log} do
-      #
+    test "个人信息", %{audit_log: audit_log} do
+      {:ok, user_with_new_info} = Accounts.change_user_info(audit_log, "I am a bad boy.")
+
+      assert user_with_new_info.info == "I am a bad boy."
     end
+  end
+
+  describe "密码" do
+    # ...
   end
 end

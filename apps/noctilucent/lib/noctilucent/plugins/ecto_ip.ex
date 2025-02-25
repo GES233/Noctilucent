@@ -1,4 +1,8 @@
 defmodule EctoIP do
+  @moduledoc """
+  实现 SQLite 的 inet 类型。
+  """
+
   use Ecto.Type
 
   def type, do: :string
