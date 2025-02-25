@@ -115,13 +115,14 @@ defmodule Noctilucent.Accounts do
   end
 
   # change_current/2
-  def change_user_current(user, current) do
-    user
-    |> User.current_changeset(%{current: current})
-    |> Repo.update()
+  # 暂时性放弃了，没啥必要
+  # def change_user_current(user, current) do
+  #   user
+  #   |> User.current_changeset(%{current: current})
+  #   |> Repo.update()
 
-    # [TODO) 上 AuditLog
-  end
+  #   # [TODO) 上 AuditLog
+  # end
 
   @doc """
   更新事物日志中用户的昵称。

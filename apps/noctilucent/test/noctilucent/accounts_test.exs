@@ -78,10 +78,6 @@ defmodule Noctilucent.AccountsTest do
     end
   end
 
-  describe "登录与登录（事物日志层面）" do
-    # ...
-  end
-
   describe "更新用户信息" do
     setup do
       %{audit_log: AuditLog.system(:test, %{user: user_fixture()})}
@@ -141,6 +137,17 @@ defmodule Noctilucent.AccountsTest do
   end
 
   describe "密码" do
+    test "用于混淆通过加密时间的攻击" do
+      # 说白了就是增加 coverage
+      assert false ==
+               Accounts.User.valid_password?(
+                 %{hashed_password: Bcrypt.hash_pwd_salt("cxk0802")},
+                 "cxk0802"
+               )
+    end
+  end
+
+  describe "登录与登录（事物日志层面）" do
     # ...
   end
 end

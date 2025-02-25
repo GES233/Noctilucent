@@ -56,6 +56,7 @@ defmodule Noctilucent.AuditLog.Context do
       "user.update_info.gender" => ~w(gender),
       "user.update_info.info" => ~w(info),
       # 状态变化
+      # "user.update_current" => ~w(),
       # 用户冻结
       "user.freeze" => ~w(exp_expire_time),
       # 删除账号

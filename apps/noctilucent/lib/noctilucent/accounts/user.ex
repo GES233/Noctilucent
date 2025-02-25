@@ -116,16 +116,16 @@ defmodule Noctilucent.Accounts.User do
     |> cast(attrs, [:nickname])
   end
 
-  @doc """
-  「当下」更改表。
-  """
-  def current_changeset(user, attrs) do
-    user
-    |> cast(attrs, [:current])
+  # @doc """
+  # 「当下」更改表。
+  # """
+  # def current_changeset(user, attrs) do
+  #   user
+  #   |> cast(attrs, [:current])
 
-    # [TODO): Validate scope
-    # Emoji or empty string
-  end
+  #   # [TODO): Validate scope
+  #   # Emoji or empty string
+  # end
 
   @doc """
   性别相关数据更改表。
