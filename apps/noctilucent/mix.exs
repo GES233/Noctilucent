@@ -45,7 +45,6 @@ defmodule Noctilucent.MixProject do
       {:ecto_sql, "~> 3.10"},
       {:ecto_sqlite3, ">= 0.0.0"},
       {:jason, "~> 1.2"},
-      {:helpers, in_umbrella: true},
       # 可能在这里需要把 membrane 全家桶给加上
       # {:membrane, "~> 0.5"},
       # {:membrane_file, "~> 0.5"},
