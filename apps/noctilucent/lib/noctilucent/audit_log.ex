@@ -102,10 +102,10 @@ defmodule Noctilucent.AuditLog.Context do
       # 邀请/同意/拒绝
       # 踢出/加入房间黑名单
     },
-    # 系统自动执行的动作
+    # 系统执行的动作
     noctilucent: %{
       # "user.auth.expire" => ~w(expire_token)
-      "" => ~w()
+      "notification.publish" => ~w()
     }
   }
 

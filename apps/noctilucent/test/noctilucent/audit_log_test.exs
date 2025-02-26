@@ -7,9 +7,9 @@ defmodule Noctilucent.AuditLogTest do
   describe "audit!/3" do
     setup do: %{log: AuditLog.system(:test)}
 
-    # test "简单插入日志" do
+    # test "简单插入日志", %{log: audit_log} do
     #   # 具体的情景还没想好
-    #   # audit_log = AuditLog.audit!(%AuditLog{ip_addr: {127, 0, 0, 1}, user_agent: ""})
+    #   # audit_log = AuditLog.audit!(audit_log)
     # end
 
     test "类别相关", %{log: audit_log} do
@@ -46,10 +46,11 @@ defmodule Noctilucent.AuditLogTest do
   end
 
   describe "查询" do
-    setup do
-      _user = user_fixture()
+    test "用户" do
+      user = user_fixture(complete: true)
 
-      # TODO: 插入一系列事务
+      # 因为包括了补完的操作
+      assert length(AuditLog.list_by_user(user)) > 1
     end
 
     # ...

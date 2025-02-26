@@ -144,8 +144,4 @@ defmodule Noctilucent.AccountsTest do
                )
     end
   end
-
-  describe "登录与登录（事务日志层面）" do
-    # ...
-  end
 end

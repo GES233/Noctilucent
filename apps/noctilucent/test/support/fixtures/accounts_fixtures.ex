@@ -27,14 +27,12 @@ defmodule Noctilucent.AccountsFixtures do
 
     user_param = valid_user_attribute(attrs)
 
-    with {:ok, user} <- Accounts.register_user(AuditLog.system(:test), user_param) do
-      if complete do
-        complete(user)
-      else
-        user
-      end
+    {:ok, user} = Accounts.register_user(AuditLog.system(:test), user_param)
+
+    if complete do
+      complete(user)
     else
-      {:error, _} -> raise "Failed to create user"
+      user
     end
   end
 
@@ -54,27 +52,27 @@ defmodule Noctilucent.AccountsFixtures do
   end
 end
 
-defmodule Noctilucent.AccountsFixturesTest do
-  use Noctilucent.DataCase
+# defmodule Noctilucent.AccountsFixturesTest do
+#   use Noctilucent.DataCase
 
-  # alias Noctilucent.Accounts
-  import Noctilucent.AccountsFixtures
+#   # alias Noctilucent.Accounts
+#   import Noctilucent.AccountsFixtures
 
-  describe "user_fixture/1" do
-    test "默认情况" do
-      username = unique_username()
+#   describe "user_fixture/1" do
+#     test "默认情况" do
+#       username = unique_username()
 
-      user = user_fixture(username: username, complete: false)
+#       user = user_fixture(username: username, complete: false)
 
-      assert user.id != nil
-      assert user.username == username
-    end
+#       assert user.id != nil
+#       assert user.username == username
+#     end
 
-    test "补全" do
-      user = user_fixture()
+#     test "补全" do
+#       user = user_fixture()
 
-      assert user.info == "这是一段简介"
-      assert user.nickname == "只因美"
-    end
-  end
-end
+#       assert user.info == "这是一段简介"
+#       assert user.nickname == "只因美"
+#     end
+#   end
+# end

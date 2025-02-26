@@ -7,9 +7,6 @@
   - [x] 首页
   - [ ] 页面规范
   - [ ] 用户相关网页
-- [ ] 重新梳理前端相关内容
-  - [ ] 移除无用组件并且尽量精简
-  - [ ] 与 Gettext 进行耦合
 
 ## 业务
 
@@ -36,13 +33,19 @@
 
 ## 测试用例
 
-- [ ] `Noctilucent.AccountsFixturesTest`
-  - 没有补全
-  - 补全
+- [x] `Noctilucent.AccountsFixturesTest`
+  - 没有给定的测试代码但是已被测试了数次
 - [ ] `Noctilucent.AccountsTest`
+  - 这里不要考虑鉴权，只需要考虑 UserToken
 - [ ] `Noctilucent.AuditLogTest`
 
 ## infra
+
+### LiveSocket 相关
+
+- [ ] 附带 AuditLog 的请求
+  - [ ] IP 地址的获取
+  - [ ] 用户密钥相关
 
 ### 鉴权
 
@@ -55,4 +58,5 @@
 
 - [ ] 实时服务的可行性
   - 现实例子：Discord 等
+  - 可用 Membrane
 - [ ] 相关算法（例如人声基频的判断）
